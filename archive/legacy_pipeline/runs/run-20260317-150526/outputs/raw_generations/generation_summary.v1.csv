@@ -1,0 +1,2 @@
+run_id,provider,model,total_prompts,total_generations,api_success_count,api_error_count,json_extract_success_count,json_extract_fail_count,schema_valid_count,schema_invalid_count,avg_latency_ms
+run-20260317-150526,bailian,qwen-plus,1,2,2,0,2,0,2,0,19442.5

@@ -1,0 +1,4 @@
+rating_id,evaluator_id,evaluator_role,blind_exercise_id,exercise_id,topic,difficulty,exercise_type,source_type,instruction_clarity,content_accuracy,structure_completeness,difficulty_appropriateness,pedagogical_effectiveness,code_quality,practical_value,course_suitability,overall_score,rating_time_seconds,rated_at,notes
+ER0001,EXP01,teacher,B001,EXP_CNN_001,CNN,basic,model_implementation,Expert,4,5,4,4,4,4,5,5,4,210,2026-03-15 14:10:00,说明较清晰
+ER0002,EXP01,teacher,B002,AI_RNN_003,RNN,intermediate,debugging,AI,3,3,4,3,3,2,3,3,3,185,2026-03-15 14:18:00,代码部分略模糊
+ER0003,EXP02,ta,B001,EXP_CNN_001,CNN,basic,model_implementation,Expert,5,5,4,4,4,4,4,5,5,160,2026-03-15 15:02:00,适合作业题

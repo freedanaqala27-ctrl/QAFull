@@ -1,0 +1,46 @@
+{
+  "schema_version": "v1",
+  "runs": [
+    {
+      "run_id": "run-20260317-143058",
+      "provider": "bailian",
+      "model_name": "qwen-plus",
+      "temperature": 0.7,
+      "max_tokens": 2200,
+      "totals": {
+        "raw_count": 12,
+        "parse_fail_count": 0,
+        "schema_fail_count": 0,
+        "accepted_count": 9,
+        "rejected_count": 3
+      },
+      "breakdowns": {
+        "raw_by_topic": {
+          "Optimization": 12
+        },
+        "raw_by_difficulty": {
+          "beginner-intermediate": 2,
+          "intermediate": 10
+        },
+        "raw_by_generation_exercise_type": {
+          "model revision": 6,
+          "training-analysis": 6
+        },
+        "accepted_by_topic": {
+          "Optimization": 9
+        },
+        "accepted_by_difficulty": {
+          "beginner-intermediate": 1,
+          "intermediate": 8
+        },
+        "accepted_by_generation_exercise_type": {
+          "model revision": 5,
+          "training-analysis": 4
+        },
+        "rejected_by_reason": {
+          "near_duplicate_current_batch": 3
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+blind_exercise_id,exercise_id,source_type,topic,difficulty,exercise_type
+B0001,AI-OPT-03-01,AI,Optimization,intermediate,model revision
+B0002,AI-OPT-02-01,AI,Optimization,beginner-intermediate,training-analysis
+B0003,DTL-02,Expert,Optimization,intermediate,training-analysis
+B0004,OPT-04,Expert,Optimization,intermediate,model revision
+B0005,AI-OPT-04-01,AI,Optimization,intermediate,model revision
+B0006,OPT-03,Expert,Optimization,intermediate,model revision
+B0007,AI-OPT-05-01,AI,Optimization,intermediate,model revision
+B0008,AI-DTL-02-01,AI,Optimization,intermediate,training-analysis
+B0009,OPT-02,Expert,Optimization,beginner-intermediate,training-analysis
+B0010,DTL-01,Expert,Optimization,intermediate,training-analysis
+B0011,AI-DTL-01-01,AI,Optimization,intermediate,training-analysis
+B0012,OPT-05,Expert,Optimization,intermediate,model revision

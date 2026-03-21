@@ -1,0 +1,3 @@
+exercise_id,source_type,topic,difficulty,exercise_type,rating_count,easy_to_understand_mean,easy_to_understand_std,easy_to_understand_count,helpful_for_learning_mean,helpful_for_learning_std,helpful_for_learning_count,difficulty_fit_mean,difficulty_fit_std,difficulty_fit_count,willing_to_continue_using_mean,willing_to_continue_using_std,willing_to_continue_using_count,overall_satisfaction_mean,overall_satisfaction_std,overall_satisfaction_count
+AI_RNN_003,AI,RNN,intermediate,debugging,1,3.0,,1,3.0,,1,3.0,,1,3.0,,1,3.0,,1
+EXP_CNN_001,Expert,CNN,basic,model_implementation,2,4.5,0.7071067811865476,2,4.5,0.7071067811865476,2,4.0,0.0,2,4.0,0.0,2,4.5,0.7071067811865476,2

@@ -1,0 +1,8 @@
+check_name,status,count
+duplicate_check,pass,23
+field_type,pass,138
+starter_code_parse,fail,1
+starter_code_parse,pass,14
+starter_code_parse,warn,8
+title_instruction_separation,pass,18
+title_instruction_separation,warn,5

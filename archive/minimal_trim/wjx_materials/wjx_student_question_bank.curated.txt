@@ -1,0 +1,1986 @@
+问卷标题：
+深度学习练习题学习体验与可接受度评估问卷（学生版，盲评）
+
+问卷说明：
+您好！本问卷用于了解学生对深度学习练习题的学习体验与评价。
+您将阅读若干道深度学习练习题，并根据自己的真实感受进行评分。
+本问卷匿名填写，仅用于学术研究。请根据题目本身作答，不必猜测题目来源。感谢您的参与。
+
+第一部分：知情同意与背景信息（只需填写一次）
+Q1. 您是否知情同意参与本研究？
+是 / 否
+
+Q2. 您目前所处的学习阶段是？
+本科低年级 / 本科高年级 / 硕士研究生 / 博士研究生 / 其他
+
+Q3. 您的编程学习背景如何？
+几乎没有编程基础 / 学过基础编程 / 学过机器学习或深度学习基础 / 有较多相关课程或项目经验
+
+Q4. 您对 Python 的熟悉程度如何？
+1 非常不熟悉 / 2 不太熟悉 / 3 一般 / 4 比较熟悉 / 5 非常熟悉
+
+Q5. 您对深度学习框架（如 PyTorch、TensorFlow）的熟悉程度如何？
+1 非常不熟悉 / 2 不太熟悉 / 3 一般 / 4 比较熟悉 / 5 非常熟悉
+
+Q6. 您是否学习过深度学习相关课程？
+是 / 否
+
+Q7. 您对以下哪个主题相对更熟悉？（可多选）
+CNN / RNN-LSTM / Transformer / 优化与训练分析 / 都不太熟悉
+
+请先阅读练习题内容，再根据你的真实感受评分。
+第二部分：单道练习题评价（每道题重复一次）
+除特别说明外，以下题目均采用 5 点量表：1 非常不同意 / 2 不同意 / 3 一般 / 4 同意 / 5 非常同意
+
+----------------------------------------
+练习评价块 S01
+----------------------------------------
+【说明题】
+练习编号：B0002
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Build a Character-Level Seq2Seq Model with Teacher Forcing
+
+题目描述：
+Implement a character-level sequence-to-sequence model using LSTM layers in Keras to translate short English words into their Pig Latin equivalents (e.g., 'hello' → 'ellohay', 'apple' → 'appleway'). Your implementation must include: (1) an encoder LSTM that processes the input word and returns its final hidden state; (2) a decoder LSTM initialized with the encoder’s final state, trained with teacher forcing (i.e., feeding the true previous character token as input at each timestep); (3) a dense output layer with softmax over the character vocabulary. Use one-hot encoded inputs/outputs for characters from a fixed vocabulary of 27 symbols (a–z + space). Train for exactly 10 epochs on the provided synthetic dataset (generated inline), and return the compiled Keras Model object.
+
+输入输出要求：
+A compiled Keras Model object (`model`) with input tensors matching encoder_inputs.shape[1:] and decoder_inputs.shape[1:], and output matching decoder_targets.shape[1:], trainable and ready for `model.fit()`.
+
+约束条件：
+- Use exactly one LSTM layer for encoder and one for decoder (no stacked LSTMs)
+- Encoder must return only the final hidden and cell states (return_state=True), not sequences
+- Decoder must be initialized with encoder's final states and consume teacher-forced inputs (decoder_inputs)
+- Output layer must apply Dense(vocab_size) + Softmax *timestep-wise* (use TimeDistributed)
+- Do not modify the provided data generation or preprocessing functions
+
+起始代码（如有）：
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# Vocabulary: 26 lowercase letters + space
+chars = 'abcdefghijklmnopqrstuvwxyz '
+char_indices = {ch: i for i, ch in enumerate(chars)}
+indices_char = {i: ch for i, ch in enumerate(chars)}
+vocab_size = len(chars)
+max_len = 12
+
+# Helper: convert word to one-hot tensor of shape (max_len, vocab_size)
+def word_to_onehot(word):
+    x = np.zeros((max_len, vocab_size))
+    for t, ch in enumerate(word[:max_len]):
+        if ch in char_indices:
+            x[t, char_indices[ch]] = 1.0
+    return x
+
+# Synthetic data generation (50 English→PigLatin pairs)
+def generate_sample_data():
+    pairs = [
+        ('hello', 'ellohay'), ('world', 'orldway'), ('apple', 'appleway'),
+        ('orange', 'angeoray'), ('eat', 'eatway'), ('under', 'underway'),
+        ('ice', 'iceway'), ('object', 'jectobay'), ('python', 'onpythay'),
+        ('train', 'aintray')
+    ] * 5
+    # Pad both sides to max_len
+    encoder_inputs = np.array([word_to_onehot(p[0]) for p in pairs])
+    decoder_inputs = np.array([word_to_onehot(' ' + p[1]) for p in pairs])  # teacher forcing: prepend ' '
+    decoder_targets = np.array([word_to_onehot(p[1] + ' ') for p in pairs])  # shift right
+    return encoder_inputs, decoder_inputs, decoder_targets
+
+encoder_inputs, decoder_inputs, decoder_targets = generate_sample_data()
+
+# TODO: Define your encoder-decoder model below.
+# - Encoder: LSTM returning state (not sequences)
+# - Decoder: LSTM taking initial_state from encoder, with teacher-forced inputs
+# - Output: Dense + softmax over vocab_size, applied timestep-wise
+# Compile with 'categorical_crossentropy' and 'adam'
+# Return the compiled model as `model`.
+
+测试样例（如有）：
+Test 1
+Description: Model is callable and accepts encoder/decoder inputs
+Input: model(encoder_inputs[:1], decoder_inputs[:1])
+Expected: A tensor of shape (1, max_len, vocab_size) with values in [0,1] summing to 1 along last axis
+Notes: Check output shape and softmax constraint
+
+Test 2
+Description: Model has exactly two LSTM layers (one encoder, one decoder)
+Input: len([l for l in model.layers if isinstance(l, tf.keras.layers.LSTM)])
+Expected: 2
+
+Test 3
+Description: Model is compiled with categorical_crossentropy loss
+Input: model.loss
+Expected: 'categorical_crossentropy'
+Notes: String match expected
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S02
+----------------------------------------
+【说明题】
+练习编号：B0005
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Complete the RNN Cell Forward Pass for Music Sequence Generation
+
+题目描述：
+Implement the forward method of a custom PyTorch RNN cell that processes one time step of a music sequence. The cell takes an input note embedding and the previous hidden state, then returns the updated hidden state and output logits over the vocabulary. Assume autoregressive generation: the output logits at time t will be used to sample the next note (t+1). Do not modify any other part of the class.
+
+输入输出要求：
+A correctly implemented forward method that returns two tensors: (1) the updated hidden state h_t of shape (batch_size, hidden_size), and (2) output logits of shape (batch_size, vocab_size), computed using the provided parameters and tanh activation.
+
+约束条件：
+- Use only torch.nn.functional.tanh for nonlinearity — no ReLU or sigmoid.
+- Do not use nn.RNN, nn.LSTM, or any built-in RNN modules.
+- Do not reshape, transpose, or permute tensors beyond what is required for matrix multiplication.
+- All operations must be batched; support arbitrary batch_size > 0.
+
+起始代码（如有）：
+import torch
+import torch.nn as nn
+
+class MusicRNNCell(nn.Module):
+    def __init__(self, input_size, hidden_size, vocab_size):
+        super().__init__()
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.vocab_size = vocab_size
+        
+        # Learnable parameters
+        self.W_ih = nn.Parameter(torch.randn(input_size, hidden_size) * 0.01)
+        self.W_hh = nn.Parameter(torch.randn(hidden_size, hidden_size) * 0.01)
+        self.b_h = nn.Parameter(torch.zeros(hidden_size))
+        self.W_ho = nn.Parameter(torch.randn(hidden_size, vocab_size) * 0.01)
+        self.b_o = nn.Parameter(torch.zeros(vocab_size))
+
+    def forward(self, x_t, h_prev):
+        """
+        Args:
+            x_t (torch.Tensor): Input note embedding at time t, shape (batch_size, input_size)
+            h_prev (torch.Tensor): Previous hidden state, shape (batch_size, hidden_size)
+        Returns:
+            h_t (torch.Tensor): Updated hidden state, shape (batch_size, hidden_size)
+            logits (torch.Tensor): Output logits over vocabulary, shape (batch_size, vocab_size)
+        """
+        # TODO: Compute h_t using tanh( x_t @ W_ih + h_prev @ W_hh + b_h )
+        # TODO: Compute logits using h_t @ W_ho + b_o
+        # Return both h_t and logits
+        pass
+
+测试样例（如有）：
+Test 1
+Description: Verify output tensor shapes match specifications.
+Input: x_t = torch.randn(4, 64); h_prev = torch.randn(4, 128); cell = MusicRNNCell(64, 128, 88)
+Expected: h_t.shape == (4, 128) and logits.shape == (4, 88)
+
+Test 2
+Description: Ensure computation is deterministic given fixed inputs and parameters.
+Input: torch.manual_seed(42); x_t = torch.ones(1, 32); h_prev = torch.zeros(1, 64); cell = MusicRNNCell(32, 64, 40)
+Expected: logits.sum().item() ≈ -1.27 (within ±0.01 tolerance)
+Notes: Due to fixed seed and parameter initialization, output should be reproducible.
+
+Test 3
+Description: Confirm tanh is applied to the hidden pre-activation.
+Input: x_t = torch.zeros(1, 10); h_prev = torch.ones(1, 20); cell = MusicRNNCell(10, 20, 5)
+Expected: All values in h_t lie in (-1.0, 1.0) and are not linearly proportional to inputs.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S03
+----------------------------------------
+【说明题】
+练习编号：B0008
+主题：Optimization
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Revise a Dense Network with Dropout for Generalization
+
+题目描述：
+You are given a baseline tf.keras.Sequential model trained on the IMDB dataset that overfits rapidly. Revise the model by inserting Dropout layers *only* after each Dense layer (except the final output layer), using a dropout rate of 0.5. Preserve all other aspects: architecture depth, neuron counts, activation functions, optimizer (Adam), loss (binary_crossentropy), metrics (accuracy), batch size (512), and training epochs (40). Train both the baseline and revised models on the same train/validation split. Plot and compare their validation accuracy curves over epochs. Your submission must include the revised model definition and a one-sentence interpretation of how dropout affected generalization, based on the relative gap between training and validation accuracy at epoch 40.
+
+输入输出要求：
+A Python code block defining 'revised_model' (with Dropout layers inserted as specified), followed by code that trains it and produces an overlaid matplotlib plot of validation accuracy curves for both models across 40 epochs, plus a one-sentence interpretation of how dropout changed generalization (e.g., 'Dropout reduced the validation accuracy gap from X% to Y%, indicating improved generalization.')
+
+约束条件：
+- Insert Dropout(0.5) only after each Dense layer (not Embedding or GlobalAveragePooling1D); do not add Dropout before the final Dense(1) layer.
+- Do not change optimizer, loss, metrics, batch_size, epochs, or data preprocessing.
+- Use the exact same train/validation split as the baseline training call.
+- Produce exactly two plots: one for baseline validation accuracy vs. epoch, one for revised validation accuracy vs. epoch — overlaid on the same axes for direct comparison.
+
+起始代码（如有）：
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load and preprocess IMDB data
+(x_train, y_train), (x_test, y_test) = keras.datasets.imdb.load_data(num_words=10000)
+x_train = keras.preprocessing.sequence.pad_sequences(x_train, maxlen=200)
+x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=200)
+
+# Baseline model — DO NOT MODIFY THIS DEFINITION
+baseline_model = keras.Sequential([
+    keras.layers.Embedding(10000, 16),
+    keras.layers.GlobalAveragePooling1D(),
+    keras.layers.Dense(16, activation='relu'),
+    keras.layers.Dense(16, activation='relu'),
+    keras.layers.Dense(1, activation='sigmoid')
+])
+
+baseline_model.compile(optimizer='adam',
+                        loss='binary_crossentropy',
+                        metrics=['accuracy'])
+
+# Train baseline
+baseline_history = baseline_model.fit(
+    x_train, y_train,
+    batch_size=512,
+    epochs=40,
+    validation_split=0.2,
+    verbose=0
+)
+
+测试样例（如有）：
+Test 1
+Description: Verify Dropout layers are present and correctly placed
+Input: revised_model.layers
+Expected: The model must contain exactly two Dropout layers, each immediately following a Dense layer (i.e., positions 3 and 5 in a 7-layer model including Embedding, GlobalAveragePooling1D, Dense, Dropout, Dense, Dropout, Dense).
+
+Test 2
+Description: Validate plot includes both curves on same axes
+Input: plt.gca().get_lines()
+Expected: The plot must contain exactly two Line2D objects, labeled 'Baseline' and 'Revised'.
+
+Test 3
+Description: Confirm interpretation references validation accuracy gap
+Input: interpretation_sentence
+Expected: Sentence must explicitly compare training vs. validation accuracy gaps (e.g., 'gap', 'difference', 'overfitting gap') at epoch 40 for both models.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S04
+----------------------------------------
+【说明题】
+练习编号：B0011
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Build a Stack-LSTM Transition Parser for Dependency Parsing
+
+题目描述：
+Implement a transition-based dependency parser using a stack-LSTM architecture in PyTorch. The model must consume token embeddings and a sequence of parser actions (SHIFT, LEFT-ARC, RIGHT-ARC) to predict the next action. Use two LSTMs: one for the stack (with push/pop operations simulated via tensor indexing), and one for the buffer. Concatenate top-of-stack and front-of-buffer hidden states as input to a linear classifier over three action classes. Train for one epoch on a synthetic batch of 8 sequences (each max length 10) using cross-entropy loss and Adam optimizer. Return the trained model instance.
+
+输入输出要求：
+A fully initialized and trained PyTorch nn.Module instance of StackLSTMParser that satisfies the forward pass signature and produces logits of shape (batch_size * seq_len, 3) when called on the synthetic tokens tensor.
+
+约束条件：
+- Use exactly two separate LSTM modules: one for stack state evolution and one for buffer state evolution.
+- Simulate stack push/pop using tensor slicing and indexing—do not use Python lists or external stack libraries.
+- The classifier must take only the final hidden state of the top stack element and the final hidden state of the first buffer token (at current timestep).
+- Train for exactly one epoch with batch gradient descent (no mini-batches within epoch); use learning rate 0.001 and Adam optimizer.
+- Return only the trained model object; do not return loss history, predictions, or auxiliary tensors.
+
+起始代码（如有）：
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class StackLSTMParser(nn.Module):
+    def __init__(self, vocab_size, embed_dim, hidden_dim, num_actions=3):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, embed_dim)
+        # TODO: Define stack LSTM, buffer LSTM, and classifier
+        # Stack LSTM processes elements pushed onto stack (use input_size=embed_dim)
+        # Buffer LSTM processes buffer tokens left-to-right (input_size=embed_dim)
+        # Classifier takes concatenated [stack_top, buffer_front] → logits for 3 actions
+        
+    def forward(self, tokens, actions_mask=None):
+        # tokens: LongTensor of shape (batch_size, seq_len)
+        # actions_mask: optional BoolTensor indicating valid positions for action prediction
+        # Return logits of shape (batch_size * seq_len, num_actions) for each timestep
+        # Only compute logits where actions_mask is True (or all timesteps if None)
+        pass
+
+# Synthetic data setup (do not modify)
+BATCH_SIZE, SEQ_LEN, VOCAB_SIZE = 8, 10, 1000
+embed_dim, hidden_dim = 64, 128
+tokens = torch.randint(0, VOCAB_SIZE, (BATCH_SIZE, SEQ_LEN))
+actions = torch.randint(0, 3, (BATCH_SIZE, SEQ_LEN))
+actions_mask = torch.ones_like(actions, dtype=torch.bool)
+
+# Instantiate and train model here
+model = StackLSTMParser(VOCAB_SIZE, embed_dim, hidden_dim)
+
+测试样例（如有）：
+Test 1
+Description: Model instantiation and forward pass produce correct output shape
+Input: logits = model(tokens)
+Expected: logits.shape == torch.Size([80, 3])
+Notes: Ensure no runtime errors and output matches expected dimensions.
+
+Test 2
+Description: Model contains required submodules
+Input: hasattr(model, 'embedding') and hasattr(model, '_stack_lstm') and hasattr(model, '_buffer_lstm')
+Expected: True
+Notes: Student must define named LSTM modules (e.g., _stack_lstm, _buffer_lstm) — verify existence via hasattr.
+
+Test 3
+Description: Forward pass gradients flow through all parameters
+Input: logits.sum().backward(); all(p.grad is not None for p in model.parameters())
+Expected: True
+Notes: All parameters must receive non-None gradients after backward pass.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S05
+----------------------------------------
+【说明题】
+练习编号：B0013
+主题：Transformer
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Implement Causal Self-Attention for Decoder-Only Transformer
+
+题目描述：
+Complete the `forward` method of the `CausalSelfAttention` class to implement scaled dot-product attention with causal masking. Given query, key, and value tensors of shape (batch_size, seq_len, embed_dim), project them into multi-head format, compute attention scores with causal masking (i.e., future tokens must not attend to past tokens), apply softmax and dropout, then recombine heads. Return the final output tensor of shape (batch_size, seq_len, embed_dim). Do not modify any other part of the class.
+
+输入输出要求：
+A tensor of shape (batch_size, seq_len, embed_dim) representing the causal self-attention output, matching expected numerical behavior under test cases.
+
+约束条件：
+- Use only PyTorch operations; no loops over sequence positions.
+- Apply causal masking such that position i can only attend to positions <= i.
+- Scale attention logits by 1/sqrt(head_dim) before masking and softmax.
+- Apply dropout to attention weights *before* computing weighted sum over values.
+- Reshape and transpose tensors correctly to maintain multi-head semantics.
+
+起始代码（如有）：
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+class CausalSelfAttention(nn.Module):
+    def __init__(self, embed_dim: int, num_heads: int, dropout: float = 0.1):
+        super().__init__()
+        assert embed_dim % num_heads == 0
+        self.embed_dim = embed_dim
+        self.num_heads = num_heads
+        self.head_dim = embed_dim // num_heads
+        
+        self.q_proj = nn.Linear(embed_dim, embed_dim)
+        self.k_proj = nn.Linear(embed_dim, embed_dim)
+        self.v_proj = nn.Linear(embed_dim, embed_dim)
+        self.out_proj = nn.Linear(embed_dim, embed_dim)
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        x: (batch_size, seq_len, embed_dim)
+        Returns: (batch_size, seq_len, embed_dim)
+        """
+        batch_size, seq_len, embed_dim = x.shape
+        
+        # Project and reshape to (batch_size, num_heads, seq_len, head_dim)
+        q = self.q_proj(x).view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        k = self.k_proj(x).view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        v = self.v_proj(x).view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        
+        # Compute scaled dot-product attention scores: (batch_size, num_heads, seq_len, seq_len)
+        # TODO: Compute attention scores (q @ k.transpose(-2, -1)) / sqrt(head_dim),
+        # then apply causal mask (upper triangular part set to -inf),
+        # then apply softmax and dropout, then compute weighted sum with v.
+        # Finally, transpose and reshape back to (batch_size, seq_len, embed_dim)
+        # and apply out_proj.
+        # Return the final output tensor.
+        
+        # Hint: Use torch.tril(torch.ones(seq_len, seq_len)) to build causal mask.
+        # Mask should be broadcastable to (batch_size, num_heads, seq_len, seq_len).
+        
+        # Your code here:
+        # ... 
+        
+        raise NotImplementedError("Fill in the attention computation logic.")
+
+测试样例（如有）：
+Test 1
+Description: Verify output tensor shape matches input shape along batch and sequence dimensions.
+Input: x = torch.randn(2, 5, 128)
+Expected: (2, 5, 128)
+Notes: After calling forward(x), output.shape should equal torch.Size([2, 5, 128]).
+
+Test 2
+Description: Confirm attention weights for position 2 exclude position 4 (future token).
+Input: x = torch.eye(4).unsqueeze(0).repeat(1, 1, 32)
+Expected: Attention weight matrix at head 0 has zeros in row 2, columns 3+
+Notes: Inspect attention_weights[0, 0, 2, 3:] — all values should be near zero after softmax + mask.
+
+Test 3
+Description: Validate scaling factor is applied: logits must be divided by sqrt(head_dim).
+Input: x = torch.ones(1, 3, 64); attn = CausalSelfAttention(64, 2); out = attn(x)
+Expected: Intermediate logits before softmax have max value ~3.0 (since 64/2=32 → sqrt(32)≈5.66, and ones @ ones.T yields 3 → 3/5.66≈0.53, but check scaling is present)
+Notes: Assert that removing the scaling factor changes output norm significantly — scaling must be implemented.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S06
+----------------------------------------
+【说明题】
+练习编号：B0014
+主题：CNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Build a Two-Block CNN for MNIST Classification
+
+题目描述：
+Define a PyTorch `nn.Module` class named `MNIST_CNN` that implements a compact convolutional neural network for digit classification on MNIST. The model must consist of two identical blocks, each containing: (1) a 3×3 convolution with 8 output channels and ReLU activation, (2) 2×2 max pooling, followed by (3) a dropout layer with p=0.1. After the two blocks, flatten the output and apply a single linear layer mapping to 10 logits (one per digit class). Do not add batch normalization or additional layers. Train this model for exactly 5 epochs using SGD (lr=0.01), cross-entropy loss, and a batch size of 128. Return the final test accuracy (as a float between 0.0 and 1.0) after training completes.
+
+输入输出要求：
+A single float value representing the test accuracy (e.g., 0.987) achieved after 5 epochs of training, rounded to three decimal places.
+
+约束条件：
+- Use only `nn.Conv2d`, `nn.MaxPool2d`, `nn.Dropout`, `nn.ReLU`, `nn.Linear`, and `nn.Flatten`; no batch norm, adaptive pooling, or extra layers.
+- Each convolutional block must use kernel_size=3, stride=1, padding=1; max pooling must be 2×2 with stride=2.
+- Do not modify data preprocessing beyond the provided `transforms.Normalize`.
+- Training must run for exactly 5 epochs with no early stopping or learning rate scheduling.
+
+起始代码（如有）：
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
+
+def build_and_train_mnist_cnn():
+    # Define transformations
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,))
+    ])
+    
+    # Load MNIST
+    train_dataset = datasets.MNIST('./data', train=True, download=True, transform=transform)
+    test_dataset = datasets.MNIST('./data', train=False, transform=transform)
+    train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=128, shuffle=False)
+    
+    # TODO: Define MNIST_CNN class here
+    
+    # TODO: Initialize model, optimizer, loss
+    
+    # TODO: Implement 5-epoch training loop
+    
+    # TODO: Evaluate on test set and return final test accuracy as float
+    
+    return 0.0  # placeholder — replace with actual accuracy
+
+测试样例（如有）：
+Test 1
+Description: Verify final test accuracy is ≥ 0.975
+Expected: True if accuracy >= 0.975 else False
+Notes: Acceptable range reflects expected performance of this architecture on MNIST with given hyperparameters.
+
+Test 2
+Description: Confirm model has exactly two conv→relu→pool→dropout blocks before the final linear layer
+Expected: Model.named_children() yields exactly 2 'block' modules (or equivalent sequential structure) followed by Flatten and Linear(?, 10)
+Notes: Use print(list(model.named_children())) to verify layer count and order.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S07
+----------------------------------------
+【说明题】
+练习编号：B0016
+主题：Optimization
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Add dropout
+
+题目描述：
+Add dropout layers to the large baseline network to examine how dropout reduces overfitting. In Keras, introduce dropout through tf.keras.layers.Dropout, applied to the output of the preceding layer. Add dropout layers to the network and train the resulting model using the same compile_and_fit procedure as before.
+
+输入输出要求：
+A trained dropout-regularized model and comparison plots or observations showing improved behavior relative to the unregularized Large model.
+
+约束条件：
+- Use the same training configuration and compile_and_fit procedure as earlier models in the tutorial.
+- Introduce dropout through tf.keras.layers.Dropout.
+- Compare the resulting model against the Tiny baseline and earlier regularization variants.
+
+起始代码（如有）：
+dropout_model = tf.keras.Sequential([
+    layers.Dense(512, activation='elu', input_shape=(FEATURES,)),
+    layers.Dropout(0.5),
+    layers.Dense(512, activation='elu'),
+    layers.Dropout(0.5),
+    layers.Dense(512, activation='elu'),
+    layers.Dropout(0.5),
+    layers.Dense(512, activation='elu'),
+    layers.Dropout(0.5),
+    layers.Dense(1)
+])
+
+regularizer_histories['dropout'] = compile_and_fit(dropout_model, 'regularizers/dropout')
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S08
+----------------------------------------
+【说明题】
+练习编号：B0017
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Implement RNN Hidden State Update Step
+
+题目描述：
+Complete the `forward_step` method of the `RNNScratch` class to compute the next hidden state using the standard RNN recurrence: h_t = tanh(W_xh @ x_t + W_hh @ h_{t-1} + b_h). Assume all weights and biases are already initialized and accessible as instance attributes. The method must accept current input `x_t` (shape: [batch_size, input_size]) and previous hidden state `h_prev` (shape: [batch_size, hidden_size]), and return the updated hidden state `h_t` (shape: [batch_size, hidden_size]). Do not modify any other part of the class.
+
+输入输出要求：
+A tensor `h_t` of shape [batch_size, hidden_size] representing the updated hidden state after applying the RNN recurrence.
+
+约束条件：
+- Use only torch.tanh and matrix multiplication (@); no loops over time steps.
+- Do not reshape or squeeze tensors unless required for broadcasting.
+- Do not introduce new parameters or call external functions beyond torch.tanh and @.
+
+起始代码（如有）：
+import torch
+import torch.nn.functional as F
+
+class RNNScratch:
+    def __init__(self, input_size, hidden_size):
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        # Weight matrices and bias (already initialized)
+        self.W_xh = torch.randn(input_size, hidden_size) * 0.01
+        self.W_hh = torch.randn(hidden_size, hidden_size) * 0.01
+        self.b_h = torch.zeros(hidden_size)
+
+    def forward_step(self, x_t, h_prev):
+        # TODO: Compute and return h_t = tanh(W_xh @ x_t + W_hh @ h_prev + b_h)
+        # Use torch.tanh and standard matrix multiplication (@)
+        # Ensure output has shape [batch_size, hidden_size]
+        pass
+
+测试样例（如有）：
+Test 1
+Description: Verify output shape matches expected dimensions.
+Input: x_t = torch.ones(4, 3); h_prev = torch.zeros(4, 5)
+Expected: h_t.shape == torch.Size([4, 5])
+Notes: With input_size=3, hidden_size=5, batch_size=4
+
+Test 2
+Description: Verify tanh is applied element-wise to the pre-activation sum.
+Input: x_t = torch.zeros(1, 2); h_prev = torch.zeros(1, 2); self.W_xh = torch.zeros(2, 2); self.W_hh = torch.zeros(2, 2); self.b_h = torch.tensor([1.0, 0.0])
+Expected: torch.allclose(h_t, torch.tanh(torch.tensor([[1.0, 0.0]])), atol=1e-6)
+Notes: Pre-activation equals bias; tanh should be applied
+
+Test 3
+Description: Confirm bias is correctly broadcast across batch dimension.
+Input: x_t = torch.ones(8, 4); h_prev = torch.ones(8, 6); self.b_h = torch.arange(6.0)
+Expected: h_t[:, 0] != h_t[:, 1]  # bias elements differ → outputs differ
+Notes: Bias vector of length 6 must broadcast to each row
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S09
+----------------------------------------
+【说明题】
+练习编号：B0019
+主题：Transformer
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Implement Scaled Dot-Product Attention with Causal Masking
+
+题目描述：
+Complete the `scaled_dot_product_attention` function to compute scaled dot-product attention with optional causal (triangular) masking. The function must accept query, key, and value tensors of shape (batch_size, num_heads, seq_len, head_dim), apply scaling by sqrt(head_dim), compute attention scores via softmax over the last dimension of the dot product Q @ K^T, apply the mask (if provided), and return the weighted sum of values. The mask, if given, is a boolean tensor of shape (1, 1, seq_len, seq_len) where True indicates positions to be masked (i.e., set to -inf before softmax).
+
+输入输出要求：
+A tensor of shape (batch_size, num_heads, seq_len, head_dim) containing the result of scaled dot-product attention, correctly scaled, masked (if applicable), and normalized.
+
+约束条件：
+- Do not use torch.nn.MultiheadAttention or any built-in attention modules.
+- Use only torch.bmm, torch.matmul, or @ operator for matrix multiplication — no loops over heads or batch.
+- The scaling factor must be torch.sqrt(torch.tensor(k.size(-1), dtype=torch.float32)).
+- Masking must be applied before softmax using torch.where or equivalent; masked positions must become -inf.
+- All operations must preserve batch and head dimensions; no squeezing or unsqueezing beyond what's necessary for broadcasting.
+
+起始代码（如有）：
+import torch
+import torch.nn.functional as F
+
+def scaled_dot_product_attention(
+    q: torch.Tensor,
+    k: torch.Tensor,
+    v: torch.Tensor,
+    mask: torch.Tensor = None
+) -> torch.Tensor:
+    """
+    Compute scaled dot-product attention.
+    
+    Args:
+        q: Query tensor of shape (batch_size, num_heads, seq_len, head_dim)
+        k: Key tensor of shape (batch_size, num_heads, seq_len, head_dim)
+        v: Value tensor of shape (batch_size, num_heads, seq_len, head_dim)
+        mask: Optional boolean mask of shape (1, 1, seq_len, seq_len)
+              True entries will be masked (set to -inf before softmax).
+    
+    Returns:
+        Output tensor of shape (batch_size, num_heads, seq_len, head_dim)
+    """
+    # TODO: Compute attention scores: (Q @ K^T) / sqrt(head_dim)
+    # Apply mask if provided: replace masked positions with -inf
+    # Apply softmax over the last dimension (seq_len dimension of scores)
+    # Compute weighted sum: softmax_scores @ V
+    # Return output tensor
+    pass
+
+测试样例（如有）：
+Test 1
+Description: Verify output shape matches input query shape.
+Input: q = torch.randn(2, 4, 10, 16); k = torch.randn(2, 4, 10, 16); v = torch.randn(2, 4, 10, 16)
+Expected: output.shape == (2, 4, 10, 16)
+Notes: No mask applied.
+
+Test 2
+Description: Verify causal masking zeros out future positions in attention scores.
+Input: q = torch.randn(1, 1, 4, 8); k = torch.randn(1, 1, 4, 8); v = torch.randn(1, 1, 4, 8); mask = torch.triu(torch.ones(1, 1, 4, 4), diagonal=1).bool()
+Expected: All attention scores at positions (i,j) where j > i are effectively zero after softmax (i.e., < 1e-6).
+Notes: Use torch.allclose on softmax_scores[..., 0, :] to check first row has nonzero only at index 0.
+
+Test 3
+Description: Verify scaling factor is exactly 1/sqrt(head_dim).
+Input: q = torch.randn(1, 1, 5, 64); k = torch.randn(1, 1, 5, 64); v = torch.randn(1, 1, 5, 64)
+Expected: The largest attention score before softmax should be ~64 * (1/sqrt(64)) = 8, assuming unit-norm inputs.
+Notes: Not a strict test; used for sanity — expect max(score_matrix) ≈ 7–9 under random unit-ish norms.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S10
+----------------------------------------
+【说明题】
+练习编号：B0020
+主题：Optimization
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Add weight regularization
+
+题目描述：
+Add L2 weight regularization to the large baseline network and compare its behavior against the earlier unregularized models. In tf.keras, weight regularization is added by passing regularizer instances to layers as keyword arguments. Add L2 weight regularization and train the resulting model using the same compile_and_fit procedure as before.
+
+输入输出要求：
+A trained L2-regularized model and comparison plots or observations showing that the regularized model behaves more competitively with the Tiny baseline and is more resistant to overfitting than the unregularized Large model.
+
+约束条件：
+- Use the same training configuration and compile_and_fit procedure as earlier models in the tutorial.
+- Apply L2 regularization through the kernel_regularizer argument.
+- Compare the resulting learning behavior against the earlier baseline models.
+
+起始代码（如有）：
+l2_model = tf.keras.Sequential([
+    layers.Dense(512, activation='elu',
+                 kernel_regularizer=regularizers.l2(0.001),
+                 input_shape=(FEATURES,)),
+    layers.Dense(512, activation='elu',
+                 kernel_regularizer=regularizers.l2(0.001)),
+    layers.Dense(512, activation='elu',
+                 kernel_regularizer=regularizers.l2(0.001)),
+    layers.Dense(512, activation='elu',
+                 kernel_regularizer=regularizers.l2(0.001)),
+    layers.Dense(1)
+])
+
+regularizer_histories['l2'] = compile_and_fit(l2_model, 'regularizers/l2')
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S11
+----------------------------------------
+【说明题】
+练习编号：B0021
+主题：Optimization
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Add L2 Weight Regularization to a Dense Network
+
+题目描述：
+You are given a baseline tf.keras.Sequential model trained on the IMDB dataset (preprocessed to 10,000-word vocabulary, sequences padded to length 256). The baseline uses two Dense layers without regularization. Revise the model by adding L2 weight regularization with factor 0.001 *only* to the first Dense layer's kernel weights. Keep all other architecture, preprocessing, compilation (Adam optimizer, binary crossentropy), and training settings (epochs=20, batch_size=512, validation_split=0.2) unchanged. Train both the baseline and revised models for 20 epochs and compare their validation loss curves. Report the final validation loss of each model and explain whether the regularized version shows improved generalization.
+
+输入输出要求：
+A Python code block containing: (1) definition and compilation of 'regularized_model', (2) its training via 'fit()', (3) assignment of 'final_baseline_val_loss', 'final_regularized_val_loss', and 'explanation' variables. The explanation must reference validation loss trajectory or final value to justify whether generalization improved.
+
+约束条件：
+- Only add L2(0.001) regularization to the kernel of the first Dense layer (the one after GlobalAveragePooling1D); do not regularize bias or embedding layers.
+- Do not change the number of layers, units, activation functions, optimizer, learning rate, loss, batch size, epochs, or validation split.
+- Use identical data preprocessing and IMDB loading as in starter code.
+- Report both final validation losses (rounded to 4 decimal places) and a concise explanation (1–2 sentences) linking the loss difference to overfitting/generalization.
+
+起始代码（如有）：
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+
+# Load and preprocess data
+(x_train, y_train), (x_test, y_test) = keras.datasets.imdb.load_data(num_words=10000)
+x_train = keras.preprocessing.sequence.pad_sequences(x_train, maxlen=256)
+x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=256)
+
+# Baseline model (do NOT modify this definition)
+baseline_model = keras.Sequential([
+    keras.layers.Embedding(input_dim=10000, output_dim=16),
+    keras.layers.GlobalAveragePooling1D(),
+    keras.layers.Dense(16, activation='relu'),
+    keras.layers.Dense(1, activation='sigmoid')
+])
+
+baseline_model.compile(optimizer='adam',
+                        loss='binary_crossentropy',
+                        metrics=['accuracy'])
+
+# Train baseline
+baseline_history = baseline_model.fit(
+    x_train, y_train,
+    batch_size=512,
+    epochs=20,
+    validation_split=0.2,
+    verbose=0
+)
+
+# === YOUR TASK STARTS HERE ===
+# Define 'regularized_model' by modifying *only* the first Dense layer
+# to include kernel_regularizer=tf.keras.regularizers.L2(0.001)
+# Keep all other layers, parameters, and training setup identical.
+# Then train it for 20 epochs with same settings.
+# Finally, compute and store:
+#   final_baseline_val_loss = baseline_history.history['val_loss'][-1]
+#   final_regularized_val_loss = regularized_history.history['val_loss'][-1]
+#   explanation = "..."  # string explaining generalization behavior
+
+# === YOUR TASK ENDS HERE ===
+
+测试样例（如有）：
+Test 1
+Description: Verifies regularized_model has exactly one L2 kernel_regularizer applied to the correct Dense layer.
+Input: len([l for l in regularized_model.layers if hasattr(l, 'kernel_regularizer') and l.kernel_regularizer is not None]) == 1 and isinstance(regularized_model.layers[2].kernel_regularizer, tf.keras.regularizers.L2)
+Expected: True
+
+Test 2
+Description: Confirms final_regularized_val_loss is within [0.30, 0.45] (typical range for this setup).
+Input: 0.30 <= final_regularized_val_loss <= 0.45
+Expected: True
+
+Test 3
+Description: Validates that explanation mentions validation loss and generalization/overfitting.
+Input: explanation.lower().count('validation') > 0 and ('generalization' in explanation.lower() or 'overfitting' in explanation.lower())
+Expected: True
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S12
+----------------------------------------
+【说明题】
+练习编号：B0022
+主题：Optimization
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Demonstrate overfitting
+
+题目描述：
+The simplest way to prevent overfitting is to start with a small model. To check if you can beat the performance of the small model, progressively train some larger models. Try two hidden layers with 16 units each. Then try three hidden layers with 64 units each. As an exercise, create an even larger model and check how quickly it begins overfitting. Plot the training and validation losses and compare how validation behavior changes with model capacity.
+
+输入输出要求：
+Training and validation loss curves showing that the Tiny model usually avoids overfitting while larger models overfit more quickly.
+
+约束条件：
+- Each model uses the same training configuration.
+- Plot and compare validation metrics to training metrics.
+- Use a log-scale plot for the large model when needed.
+
+起始代码（如有）：
+def compile_and_fit(model, name, optimizer=None, max_epochs=10000):
+    if optimizer is None:
+        optimizer = get_optimizer()
+    model.compile(
+        optimizer=optimizer,
+        loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+        metrics=[
+            tf.keras.metrics.BinaryCrossentropy(from_logits=True, name='binary_crossentropy'),
+            'accuracy'
+        ]
+    )
+    model.summary()
+    history = model.fit(
+        train_ds,
+        steps_per_epoch=STEPS_PER_EPOCH,
+        epochs=max_epochs,
+        validation_data=validate_ds,
+        callbacks=get_callbacks(name),
+        verbose=0
+    )
+    return history
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S13
+----------------------------------------
+【说明题】
+练习编号：B0023
+主题：CNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Define and train a CNN for MNIST digit classification
+
+题目描述：
+In MIT Introduction to Deep Learning Lab 2 Part 1, define the CNN model for handwritten digit classification using the parameters shown in the network architecture, then train and evaluate it on MNIST. Use nn.Conv2d and nn.MaxPool2d layers to build the model, define an optimizer and loss function, run the training loop, and report the test accuracy.
+
+输入输出要求：
+A trained CNN for MNIST digit classification and a reported test accuracy on the MNIST test set.
+
+约束条件：
+- Use the MNIST training and test datasets from the notebook.
+- Use the CNN architecture described in the lab.
+- Define both the model and the training/evaluation procedure in PyTorch.
+- Report test accuracy after training.
+
+起始代码（如有）：
+class CNN(nn.Module):
+    def __init__(self):
+        super(CNN, self).__init__()
+        # TODO: Define the first convolutional layer
+        self.conv1 = # TODO
+        # TODO: Define the first max pooling layer
+        self.pool1 = # TODO
+        # TODO: Define the second convolutional layer
+        self.conv2 = # TODO
+        # TODO: Define the second max pooling layer
+        self.pool2 = # TODO
+        self.flatten = nn.Flatten()
+        self.fc1 = nn.Linear(36 * 5 * 5, 128)
+        self.relu = nn.ReLU()
+        # TODO: Define the output linear layer
+        self.fc2 = # TODO
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.pool1(x)
+        # TODO: Implement the rest of the forward pass
+        return x
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S14
+----------------------------------------
+【说明题】
+练习编号：B0024
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Implement a character-level recurrent seq2seq translator
+
+题目描述：
+Implement a basic character-level recurrent sequence-to-sequence model for translating short English sentences into short French sentences. Build an encoder LSTM that returns its final states, then build a decoder LSTM initialized with the encoder states, followed by a dense softmax layer. Train the model on vectorized character sequences and use the trained model for decoding.
+
+输入输出要求：
+A trained character-level seq2seq model that maps short English sentences to short French sentences and can be used for decoding at inference time.
+
+约束条件：
+- Use a character-level encoder-decoder architecture.
+- Use an encoder LSTM with return_state=True.
+- Initialize the decoder LSTM with the encoder states.
+- Use a dense softmax layer over the decoder outputs.
+
+起始代码（如有）：
+encoder_inputs = keras.Input(shape=(None, num_encoder_tokens))
+encoder = keras.layers.LSTM(latent_dim, return_state=True)
+encoder_outputs, state_h, state_c = encoder(encoder_inputs)
+encoder_states = [state_h, state_c]
+
+decoder_inputs = keras.Input(shape=(None, num_decoder_tokens))
+decoder_lstm = keras.layers.LSTM(latent_dim, return_sequences=True, return_state=True)
+decoder_outputs, _, _ = decoder_lstm(decoder_inputs, initial_state=encoder_states)
+decoder_dense = keras.layers.Dense(num_decoder_tokens, activation="softmax")
+decoder_outputs = decoder_dense(decoder_outputs)
+
+model = keras.Model([encoder_inputs, decoder_inputs], decoder_outputs)
+model.compile(optimizer="rmsprop", loss="categorical_crossentropy", metrics=["accuracy"])
+model.fit(
+    [encoder_input_data, decoder_input_data],
+    decoder_target_data,
+    batch_size=batch_size,
+    epochs=epochs,
+    validation_split=0.2,
+)
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S15
+----------------------------------------
+【说明题】
+练习编号：B0025
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Define the RNN model for music generation
+
+题目描述：
+Let's define our model as an nn.Module. Fill in the TODOs to define the RNN model. Add the LSTM and Linear layers so that the model embeds character indices, processes them with an LSTM of hidden_size, and maps outputs back to the vocabulary size.
+
+输入输出要求：
+A completed LSTMModel class that produces predictions of shape (batch_size, sequence_length, vocab_size) for character-level music generation.
+
+约束条件：
+- Use nn.Module to define the model.
+- Use an embedding layer, an nn.LSTM layer, and a linear output layer.
+- The LSTM hidden size should be hidden_size.
+- The linear layer should map the LSTM output to vocab_size.
+
+起始代码（如有）：
+class LSTMModel(nn.Module):
+    def __init__(self, vocab_size, embedding_dim, hidden_size):
+        super(LSTMModel, self).__init__()
+        self.hidden_size = hidden_size
+
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+
+        # TODO: Layer 2: LSTM with hidden_size `hidden_size`
+        self.lstm = nn.LSTM('''TODO''')  # TODO
+
+        # TODO: Layer 3: Linear layer to project to vocab_size
+        self.fc = nn.Linear('''TODO''')  # TODO
+
+    def init_hidden(self, batch_size, device):
+        return (torch.zeros(1, batch_size, self.hidden_size).to(device),
+                torch.zeros(1, batch_size, self.hidden_size).to(device))
+
+    def forward(self, x, state=None, return_state=False):
+        x = self.embedding(x)
+        if state is None:
+            state = self.init_hidden(x.size(0), x.device)
+        out, state = self.lstm(x, state)
+        out = self.fc(out)
+        return out if not return_state else (out, state)
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S16
+----------------------------------------
+【说明题】
+练习编号：B0028
+主题：CNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Convolution: Naive Forward Pass
+
+题目描述：
+The core of a convolutional network is the convolution operation. In the file cs231n/layers.py, implement the forward pass for the convolution layer in the function conv_forward_naive.
+
+You don't have to worry too much about efficiency at this point; just write the code in whatever way you find most clear.
+
+You can test your implementation by running the following:
+
+输入输出要求：
+Return a tuple (out, cache) where out has shape (N, F, H', W') with H' = 1 + (H + 2 * pad - HH) / stride and W' = 1 + (W + 2 * pad - WW) / stride, and cache = (x, w, b, conv_param).
+
+约束条件：
+- You don't have to worry too much about efficiency at this point; just write the code in whatever way you find most clear.
+- During padding, 'pad' zeros should be placed symmetrically (i.e equally on both sides) along the height and width axes of the input.
+- Be careful not to modify the original input x directly.
+- Hint: you can use the function np.pad for padding.
+
+起始代码（如有）：
+def conv_forward_naive(x, w, b, conv_param):
+    """A naive implementation of the forward pass for a convolutional layer.
+
+    The input consists of N data points, each with C channels, height H and
+    width W. We convolve each input with F different filters, where each filter
+    spans all C channels and has height HH and width WW.
+
+    Input:
+    - x: Input data of shape (N, C, H, W)
+    - w: Filter weights of shape (F, C, HH, WW)
+    - b: Biases, of shape (F,)
+    - conv_param: A dictionary with the following keys:
+      - 'stride': The number of pixels between adjacent receptive fields in the
+        horizontal and vertical directions.
+      - 'pad': The number of pixels that will be used to zero-pad the input.
+
+    During padding, 'pad' zeros should be placed symmetrically (i.e equally on both sides)
+    along the height and width axes of the input. Be careful not to modify the original
+    input x directly.
+
+    Returns a tuple of:
+    - out: Output data, of shape (N, F, H', W') where H' and W' are given by
+      H' = 1 + (H + 2 * pad - HH) / stride
+      W' = 1 + (W + 2 * pad - WW) / stride
+    - cache: (x, w, b, conv_param)
+    """
+    out = None
+    ###########################################################################
+    # TODO: Implement the convolutional forward pass.                         #
+    # Hint: you can use the function np.pad for padding.                      #
+    ###########################################################################
+    #                                                                         #
+    ###########################################################################
+    # END OF YOUR CODE                                                        #
+    ###########################################################################
+    cache = (x, w, b, conv_param)
+    return out, cache
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S17
+----------------------------------------
+【说明题】
+练习编号：B0030
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Build and train a 2-layer bidirectional LSTM on IMDB
+
+题目描述：
+Build a text classification model for the IMDB movie review sentiment dataset. Use an embedding layer followed by two bidirectional LSTM layers and a dense sigmoid classifier, then train and evaluate the model on padded review sequences.
+
+输入输出要求：
+A trained Keras model for IMDB sentiment classification with validation accuracy and loss reported after training.
+
+约束条件：
+- Use the IMDB dataset loaded with num_words=max_features.
+- Pad input sequences to maxlen=200.
+- Use two bidirectional LSTM layers.
+- Use a sigmoid output for binary sentiment classification.
+
+起始代码（如有）：
+max_features = 20000
+maxlen = 200
+
+inputs = keras.Input(shape=(None,), dtype="int32")
+x = layers.Embedding(max_features, 128)(inputs)
+x = layers.Bidirectional(layers.LSTM(64, return_sequences=True))(x)
+x = layers.Bidirectional(layers.LSTM(64))(x)
+outputs = layers.Dense(1, activation="sigmoid")(x)
+model = keras.Model(inputs, outputs)
+
+(x_train, y_train), (x_val, y_val) = keras.datasets.imdb.load_data(num_words=max_features)
+x_train = keras.utils.pad_sequences(x_train, maxlen=maxlen)
+x_val = keras.utils.pad_sequences(x_val, maxlen=maxlen)
+
+model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
+model.fit(x_train, y_train, batch_size=32, epochs=2, validation_data=(x_val, y_val))
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S18
+----------------------------------------
+【说明题】
+练习编号：B0031
+主题：Transformer
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Implement scaled dot-product attention and multi-head attention
+
+题目描述：
+In UvA Deep Learning Tutorial 6: Transformers and Multi-Head Attention, implement the contiguous attention module section covering scaled dot-product attention and multi-head attention. Specifically, complete or reproduce the attention computation from the section beginning with 'Scaled Dot Product Attention' and continuing through the Multi-Head Attention implementation. The task includes computing attention logits from queries and keys, applying scaling and masking, normalizing with softmax, combining values, expanding masks to compatible dimensions, and implementing the MultiheadAttention module that projects Q/K/V, splits heads, applies scaled dot-product attention, concatenates heads, and applies the output projection.
+
+输入输出要求：
+A working implementation of scaled dot-product attention and a MultiheadAttention module that supports masking, multiple heads, and optional return of attention maps.
+
+约束条件：
+- Use the contiguous section from Tutorial 6 covering Scaled Dot Product Attention and Multi-Head Attention only.
+- Do not expand the unit to include Transformer Encoder, positional encoding, or experiment sections.
+- Implement Q/K/V projection, head splitting, masking, softmax attention, head concatenation, and output projection.
+- Keep the task at the module level rather than the full end-to-end Transformer.
+
+起始代码（如有）：
+def scaled_dot_product(q, k, v, mask=None):
+    d_k = q.size()[-1]
+    attn_logits = torch.matmul(q, k.transpose(-2, -1))
+    attn_logits = attn_logits / math.sqrt(d_k)
+    if mask is not None:
+        attn_logits = attn_logits.masked_fill(mask == 0, -9e15)
+    attention = F.softmax(attn_logits, dim=-1)
+    values = torch.matmul(attention, v)
+    return values, attention
+
+
+def expand_mask(mask):
+    assert mask.ndim >= 2, "Mask must be at least 2-dimensional with seq_length x seq_length"
+    if mask.ndim == 3:
+        mask = mask.unsqueeze(1)
+    while mask.ndim < 4:
+        mask = mask.unsqueeze(0)
+    return mask
+
+
+class MultiheadAttention(nn.Module):
+    def __init__(self, input_dim, embed_dim, num_heads):
+        super().__init__()
+        assert embed_dim % num_heads == 0
+        self.embed_dim = embed_dim
+        self.num_heads = num_heads
+        self.head_dim = embed_dim // num_heads
+        self.qkv_proj = nn.Linear(input_dim, 3 * embed_dim)
+        self.o_proj = nn.Linear(embed_dim, input_dim)
+
+    def forward(self, x, mask=None, return_attention=False):
+        # implement multi-head attention
+        pass
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S19
+----------------------------------------
+【说明题】
+练习编号：B0033
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Neural Transition-Based Dependency Parsing — implement parser_model.py and run.py
+
+题目描述：
+In this section, you’ll be implementing a neural-network based dependency parser with the goal of maximizing performance on the UAS (Unlabeled Attachment Score) metric. First, the model extracts a feature vector representing the current state. This feature vector consists of a list of tokens w = [w1, w2, . . . , wm] where each 0 ≤ wi < |V| is the index of a token in the vocabulary. Then our network looks up an embedding for each word and concatenates them into a single input vector: x = [Ew1, ..., Ewm]. We then compute our prediction as: h = ReLU(xW + b1), l = hU + b2, ŷ = softmax(l). In parser_model.py you will find skeleton code to implement this simple neural network using PyTorch. Complete the init, embedding_lookup and forward functions to implement the model. Then complete the train_for_epoch and train functions within the run.py file. Finally execute python run.py to train your model and compute predictions on test data from Penn Treebank (annotated with Universal Dependencies).
+
+输入输出要求：
+A working implementation of the neural dependency parser in parser_model.py and the training functions in run.py; train the model and report the best UAS on the dev set and the UAS on the test set.
+
+约束条件：
+- Do not use torch.nn.Linear or torch.nn.Embedding in your code.
+- Follow naming requirements in the TODOs if any are explicitly specified.
+- Use efficient functions and avoid for loops when implementing embedding lookup.
+
+起始代码（如有）：
+
+
+测试样例（如有）：
+Test 1
+Description: Run sanity check for embedding_lookup.
+
+Test 2
+Description: Run sanity check for forward.
+
+Test 3
+Description: Debug mode; expected dev loss < 0.2 and dev UAS > 65.
+
+Test 4
+Description: Full training; expected train loss < 0.08 and dev UAS > 87.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S20
+----------------------------------------
+【说明题】
+练习编号：B0036
+主题：Optimization
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Analyze Overfitting Across Model Sizes Using Binary Classification Curves
+
+题目描述：
+Using the provided starter code, train four tf.keras.Sequential binary classifiers—Tiny (2 layers, 4 units each), Small (2 layers, 16 units), Medium (3 layers, 32 units), and Large (4 layers, 64 units)—on the same synthetic imbalanced binary dataset (generated in-starter). Plot training and validation binary cross-entropy loss curves for all four models on a single figure. Then, for each model, identify and report: (i) the epoch at which validation loss stops improving (i.e., first epoch where validation loss is >= validation loss at all prior epochs), and (ii) whether validation loss increases for ≥5 consecutive epochs after that point (indicating clear overfitting). Your analysis must be based solely on the plotted curves and computed metrics.
+
+输入输出要求：
+A single matplotlib figure showing training and validation binary cross-entropy loss curves for all four models (labeled clearly), plus a structured text summary listing for each model: (1) the stagnation epoch (as integer), and (2) a boolean 'overfits' flag (True if validation loss rises ≥5 consecutive epochs post-stagnation, else False).
+
+约束条件：
+- Use exactly 50 training epochs for all models.
+- Use binary cross-entropy loss and Adam optimizer with default learning rate.
+- Do not apply regularization (e.g., dropout or L2) or early stopping.
+- Plot all four validation loss curves and all four training loss curves on the same axes, using distinct line styles and a legend.
+- Report epoch numbers and overfitting status only from observed curve behavior — no extrapolation or heuristic smoothing.
+
+起始代码（如有）：
+import numpy as np
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+tf.random.set_seed(42)
+np.random.seed(42)
+
+# Generate synthetic binary classification dataset
+X, y = make_classification(
+    n_samples=2000,
+    n_features=20,
+    n_informative=10,
+    n_redundant=5,
+    n_clusters_per_class=1,
+    weights=[0.85, 0.15],  # imbalanced
+    random_state=42
+)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
+
+# Normalize features
+mean, std = X_train.mean(axis=0), X_train.std(axis=0)
+X_train = (X_train - mean) / std
+X_val = (X_val - mean) / std
+
+# Define model architectures as functions
+def build_tiny_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(4, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(4, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+def build_small_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(16, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(16, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+def build_medium_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(32, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(32, activation='relu'),
+        tf.keras.layers.Dense(32, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+def build_large_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(64, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+# Compile and train each model (you will implement this)
+models = {
+    'Tiny': build_tiny_model(),
+    'Small': build_small_model(),
+    'Medium': build_medium_model(),
+    'Large': build_large_model()
+}
+
+# You will add training logic here — use 50 epochs, batch_size=32, binary_crossentropy, Adam optimizer
+# Store history objects in a dictionary: histories[model_name] = history
+histories = {}
+
+# Plot setup
+plt.figure(figsize=(10, 6))
+
+测试样例（如有）：
+Test 1
+Description: Verify plot contains exactly 8 lines (4 training + 4 validation), labeled in legend with correct model names and curve types.
+Expected: All eight curves are present, distinguishable by style/color, and correctly labeled in legend.
+
+Test 2
+Description: Confirm Tiny model's stagnation epoch is ≥35 and its 'overfits' flag is False.
+Expected: Tiny stagnation epoch ≥35 AND overfits == False
+Notes: Due to low capacity, Tiny typically plateaus late without degradation.
+
+Test 3
+Description: Confirm Large model's stagnation epoch is ≤20 and its 'overfits' flag is True.
+Expected: Large stagnation epoch ≤20 AND overfits == True
+Notes: High-capacity Large model usually overfits early on this dataset.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S21
+----------------------------------------
+【说明题】
+练习编号：B0038
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+RNN Model
+
+题目描述：
+The forward method below defines how to compute the output and hidden state at any time step, given the current input and the state of the model at the previous time step. Note that the RNN model loops through the outermost dimension of inputs, updating the hidden state one time step at a time. The model here uses a tanh activation function.
+
+输入输出要求：
+A completed forward method that correctly computes the hidden state at each time step and returns outputs, state.
+
+约束条件：
+- Loop through the outermost dimension of inputs one time step at a time.
+- Update the hidden state using the current input and previous state.
+- Use a tanh activation function.
+- Return both outputs and the final state.
+
+起始代码（如有）：
+@d2l.add_to_class(RNNScratch)
+def forward(self, inputs, state=None):
+    if state is None:
+        # Initial state with shape: (batch_size, num_hiddens)
+        if tab.selected('mxnet'):
+            state = d2l.zeros((inputs.shape[1], self.num_hiddens), ctx=inputs.ctx)
+        if tab.selected('pytorch'):
+            state = d2l.zeros((inputs.shape[1], self.num_hiddens), device=inputs.device)
+        if tab.selected('tensorflow'):
+            state = d2l.zeros((inputs.shape[1], self.num_hiddens))
+    else:
+        state, = state
+        if tab.selected('tensorflow'):
+            state = d2l.reshape(state, (-1, self.num_hiddens))
+    outputs = []
+    for X in inputs:
+        state = ______________________________
+        outputs.append(state)
+    return outputs, state
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S22
+----------------------------------------
+【说明题】
+练习编号：B0041
+主题：CNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Build, train, and evaluate a simple MNIST convnet
+
+题目描述：
+Build the Keras Sequential convnet for MNIST using two Conv2D layers, two MaxPooling2D layers, Flatten, Dropout, and a Dense softmax classifier. Train the model for 15 epochs with categorical_crossentropy and Adam, then evaluate the trained model on the test set.
+
+输入输出要求：
+A trained MNIST convnet with test accuracy around 99% and reported test loss/test accuracy from model.evaluate.
+
+约束条件：
+- Use the MNIST dataset from keras.datasets.mnist.
+- Use the architecture shown in the example.
+- Train with categorical_crossentropy and Adam.
+- Evaluate on the test set.
+
+起始代码（如有）：
+model = keras.Sequential([
+    keras.Input(shape=input_shape),
+    layers.Conv2D(32, kernel_size=(3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, kernel_size=(3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Flatten(),
+    layers.Dropout(0.5),
+    layers.Dense(num_classes, activation='softmax'),
+])
+
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(x_train, y_train, batch_size=128, epochs=15, validation_split=0.1)
+
+测试样例（如有）：
+
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S23
+----------------------------------------
+【说明题】
+练习编号：B0042
+主题：CNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Build a Minimal MNIST ConvNet with Keras
+
+题目描述：
+Construct a compact convolutional neural network in Keras to classify handwritten digits from the MNIST dataset. Your model must include exactly two Conv2D layers (each followed by ReLU activation and MaxPooling2D), one Flatten layer, one Dense hidden layer with ReLU, and a final Dense output layer with softmax activation for 10 classes. Compile the model using categorical crossentropy loss, Adam optimizer, and track accuracy. Train it for exactly 5 epochs on the standard MNIST training set (preprocessed: normalized pixel values, one-hot encoded labels). Return the trained model object.
+
+输入输出要求：
+A fully defined and compiled Keras Sequential model object that has been trained for 5 epochs on MNIST. The submission must be the variable `model` containing the trained model.
+
+约束条件：
+- Use only the Keras Sequential API
+- Exactly two Conv2D layers (32 and 64 filters, 3×3 kernel, 'same' padding)
+- No Dropout or BatchNormalization layers
+- No data augmentation
+- Train for exactly 5 epochs with batch_size=128
+- Use only the provided preprocessing function
+
+起始代码（如有）：
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# Load and preprocess MNIST
+def load_and_preprocess_mnist():
+    (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+    x_train = x_train.astype('float32') / 255.0
+    x_train = x_train.reshape(-1, 28, 28, 1)
+    y_train = keras.utils.to_categorical(y_train, 10)
+    return x_train, y_train
+
+x_train, y_train = load_and_preprocess_mnist()
+
+# Build your model below — do NOT modify above
+model = None  # Replace this line with your Sequential model
+
+测试样例（如有）：
+Test 1
+Description: Model is an instance of keras.models.Sequential
+Input: isinstance(model, keras.models.Sequential)
+Expected: True
+
+Test 2
+Description: Model has exactly 7 layers (2 Conv2D + 2 MaxPooling2D + 1 Flatten + 1 Dense + 1 Dense)
+Input: len(model.layers)
+Expected: 7
+
+Test 3
+Description: Final Dense layer has 10 units and 'softmax' activation
+Input: model.layers[-1].units == 10 and model.layers[-1].activation.__name__ == 'softmax'
+Expected: True
+
+Test 4
+Description: Model achieves ≥97.5% training accuracy after epoch 5
+Input: model.history.history['accuracy'][-1] >= 0.975
+Expected: True
+Notes: Tolerance accounts for minor stochastic variation; if below threshold, verify architecture and compilation
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S24
+----------------------------------------
+【说明题】
+练习编号：B0043
+主题：RNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Build a Bidirectional LSTM Model for IMDB Sentiment Classification
+
+题目描述：
+Construct a Keras model that classifies movie review sentiment (positive/negative) using the IMDB dataset. Your model must use a bidirectional LSTM layer after embedding, followed by a dense output layer with sigmoid activation. Compile the model using binary crossentropy loss and the Adam optimizer. Train it for exactly 5 epochs with batch size 32, and return the trained model object.
+
+输入输出要求：
+A fully built, compiled, and trained Keras Sequential model object capable of binary sentiment classification on padded IMDB sequences.
+
+约束条件：
+- Use exactly one Embedding layer followed by one Bidirectional(LSTM(...)) layer
+- Do not add additional RNN or dense layers beyond those specified
+- Use binary crossentropy loss and Adam optimizer
+- Train for exactly 5 epochs with batch_size=32
+- Do not preprocess labels or apply custom callbacks
+
+起始代码（如有）：
+import tensorflow as tf
+from tensorflow.keras import layers, models
+from tensorflow.keras.datasets import imdb
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+# Load and preprocess IMDB data (already tokenized)
+max_features = 10000
+maxlen = 200
+(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=max_features)
+x_train = pad_sequences(x_train, maxlen=maxlen)
+x_test = pad_sequences(x_test, maxlen=maxlen)
+
+# Define your model below — do NOT modify above this line
+model = models.Sequential([
+    # Embedding layer (input_dim=max_features, output_dim=128, input_length=maxlen)
+    # Bidirectional LSTM layer (units=64, dropout=0.2, recurrent_dropout=0.2)
+    # Dense layer (units=1, activation='sigmoid')
+])
+
+# Compile the model
+# Train the model for 5 epochs, batch_size=32
+# Return 'model' at the end
+
+测试样例（如有）：
+Test 1
+Description: Model is callable on a batch of test sequences
+Input: model.predict(x_test[:1]).shape
+Expected: (1, 1)
+Notes: Output must be a 2D array with shape (1, 1)
+
+Test 2
+Description: Model has exactly three layers: Embedding, Bidirectional(LSTM), Dense
+Input: len(model.layers)
+Expected: 3
+Notes: No extra or missing layers
+
+Test 3
+Description: Second layer is Bidirectional and wraps an LSTM
+Input: isinstance(model.layers[1], tf.keras.layers.Bidirectional) and isinstance(model.layers[1].layer, tf.keras.layers.LSTM)
+Expected: True
+Notes: Bidirectional wrapper must contain LSTM
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+【注意力检测题】
+为确认您在认真作答，请本题选择“同意”。
+1 非常不同意
+2 不同意
+3 一般
+4 同意
+5 非常同意
+
+----------------------------------------
+练习评价块 S25
+----------------------------------------
+【说明题】
+练习编号：B0044
+主题：CNN
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Convolutional Layer Forward Pass with Explicit Padding and Stride
+
+题目描述：
+Implement the forward pass of a 2D convolutional layer using NumPy. Given an input tensor of shape (N, C, H, W), a filter tensor of shape (F, C, HH, WW), scalar padding (p), and stride (s), compute the output activation tensor. Assume zero-padding is applied uniformly to all four sides of each input channel. The output shape must follow the standard convolution formula: H_out = 1 + (H + 2*p - HH) // s, W_out = 1 + (W + 2*p - WW) // s. You must not use any built-in convolution functions (e.g., scipy.signal.convolve2d or torch.nn.functional.conv2d); implement it manually using nested loops over batches, output channels, and spatial locations.
+
+输入输出要求：
+A NumPy array 'out' of shape (N, F, H_out, W_out) containing the result of the convolution operation, where each element is computed as the sum over C, HH, WW of (padded_x[n, :, h:h+HH, w:w+WW] * w[f]) + b[f], with h = i*stride, w = j*stride.
+
+约束条件：
+- Use only NumPy operations; no external libraries or built-in convolution functions.
+- Apply zero-padding explicitly to x before indexing — do not rely on implicit padding in helper functions.
+- Preserve NCHW tensor layout throughout; do not transpose axes unless necessary for computation.
+- The implementation must correctly handle arbitrary integer values of pad and stride that satisfy shape constraints.
+
+起始代码（如有）：
+import numpy as np
+
+def conv_forward_naive(x, w, b, pad, stride):
+    """
+    A naive implementation of the forward pass for a convolutional layer.
+    
+    Inputs:
+    - x: Input data of shape (N, C, H, W)
+    - w: Filter weights of shape (F, C, HH, WW)
+    - b: Biases of shape (F,)
+    - pad: Integer padding amount
+    - stride: Integer stride
+    
+    Returns:
+    - out: Output data of shape (N, F, H_out, W_out)
+    """
+    N, C, H, W = x.shape
+    F, _, HH, WW = w.shape
+    
+    # Compute output spatial dimensions
+    H_out = 1 + (H + 2 * pad - HH) // stride
+    W_out = 1 + (W + 2 * pad - WW) // stride
+    
+    # Initialize output tensor
+    out = np.zeros((N, F, H_out, W_out))
+    
+    # TODO: Implement the convolution forward pass.
+    # Hint: Loop over N (batch), F (filters), H_out, and W_out.
+    # Apply zero-padding to x before sliding windows.
+    # For each output location (i, j), compute dot product between
+    # the local input region and filter w[f], then add bias b[f].
+    
+    return out
+
+测试样例（如有）：
+Test 1
+Description: Verify output shape matches expected dimensions for given inputs.
+Input: x = np.random.randn(2, 3, 8, 8); w = np.random.randn(4, 3, 3, 3); b = np.zeros(4); pad = 1; stride = 2
+Expected: (2, 4, 4, 4)
+Notes: H_out = 1 + (8 + 2*1 - 3) // 2 = 4; W_out = same.
+
+Test 2
+Description: Confirm center output pixel equals manual dot product for first batch, first filter.
+Input: x = np.ones((1, 1, 4, 4)); w = np.ones((1, 1, 2, 2)); b = np.array([1.0]); pad = 0; stride = 1
+Expected: out[0, 0, 1, 1] == 5.0
+Notes: Center 2x2 region of ones convolved with 2x2 ones yields sum=4, plus bias=1 → 5.
+
+Test 3
+Description: Ensure padded region contributes zeros at boundaries when pad > 0.
+Input: x = np.array([[[[1.0]]]]); w = np.array([[[[1.0]]]]); b = np.array([0.0]); pad = 1; stride = 1
+Expected: out.shape == (1, 1, 3, 3) and out[0, 0, 0, 0] == 0.0
+Notes: Input becomes 3x3 after padding; top-left output is convolution over padded corner (zeros only).
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+----------------------------------------
+练习评价块 S26
+----------------------------------------
+【说明题】
+练习编号：B0046
+主题：Transformer
+请阅读以下练习内容后完成评价。
+
+题目标题：
+Implement CausalAttention.forward
+
+题目描述：
+In this part of the question we will implement a transformer in the model_solution.py file. The file contains a number of different classes that you will implement. In the end, you will have an implementation of the Transformer class with functioning forward and generate methods. Implement CausalAttention.forward and check that you pass the corresponding test.
+
+输入输出要求：
+A working implementation of CausalAttention.forward in model_solution.py.
+
+约束条件：
+- Do not edit the unit test file; tests will be run separately during grading.
+- Check that you pass the corresponding test.
+
+起始代码（如有）：
+class CausalAttention(nn.Module):
+    def __init__(self, config: ModelConfig):
+        super().__init__()
+        assert config.d_model % config.n_heads == 0
+        self.d_attention = int(config.d_model / config.n_heads)
+        self.W_k = nn.Linear(config.d_model, self.d_attention * config.n_heads)
+        self.W_q = nn.Linear(config.d_model, self.d_attention * config.n_heads)
+        self.W_v = nn.Linear(config.d_model, self.d_attention * config.n_heads)
+        self.W_o = nn.Linear(self.d_attention * config.n_heads, config.d_model)
+        self.register_buffer(
+            'causal_mask',
+            torch.tril(torch.ones(config.context_length, config.context_length)).view(1, 1, config.context_length, config.context_length),
+            persistent=False
+        )
+
+    def forward(self, x):
+        # TODO, complete
+        return torch.empty(1)
+
+测试样例（如有）：
+Test 1
+Description: tests/test_student.py::test_attention compares attention(attention_input) against snapshots/attention_output.npy with atol=1e-5.
+
+Q8. 请根据你对这道练习题的阅读体验，对以下说法进行评分。[矩阵量表题]
+这道题清楚说明了我需要完成的任务目标。
+这道题提供了开始作答所需的关键信息与支持。
+这道题与深度学习课程内容或实际编程任务相关。
+这道题对我的学习有明显帮助。
+完成这道题时，我需要同时处理很多信息。
+阅读这道题时，我需要额外花力气去找出最重要的信息。
+完成这道题时，我会主动投入思考和理解。
+总体来说，完成这道题需要我投入较高的心理努力。
+
+以下题目请基于你刚刚完成的这一批练习题整体体验作答。
+Q9. 请根据你对本批练习题的整体感受进行评分。[矩阵量表题]
+这批练习题有助于提高我对深度学习知识的理解。
+整体上，这批练习题比较容易上手。
+如果后续课程继续使用这类练习题，我愿意继续使用。
+总体而言，这批练习题的质量较高。
+
+Q10. 你对本问卷或本批练习题还有什么建议？

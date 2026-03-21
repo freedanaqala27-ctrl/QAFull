@@ -1,0 +1,34 @@
+﻿# Main research environment for the thesis analysis workflow.
+# This is the default environment file for:
+# - automatic metric computation
+# - curated statistics and visualization
+# - student-analysis scripts
+#
+# Student survey deployment dependencies are kept separately in:
+#   survey/requirements.txt
+#
+# Recommended environment
+# Python: 3.11
+# nltk resources: punkt and wordnet may be required for METEOR/tokenization helpers
+# BERTScore / transformers / torch run on CPU by default; GPU is optional but recommended for speed
+# spaCy language models are optional and not required by the current pipeline
+
+numpy>=2.3,<2.4
+pandas>=2.3,<2.4
+scikit-learn>=1.8,<1.9
+scipy>=1.16,<1.17
+statsmodels>=0.14,<0.15
+matplotlib>=3.10,<3.11
+seaborn>=0.13,<0.14
+nltk>=3.9,<4.0
+textstat>=0.7.10,<0.8
+radon>=6.0,<7.0
+ruff>=0.13,<0.14
+pylint>=3.3,<3.4
+rouge-score>=0.1.2,<0.2
+bert-score>=0.3.13,<0.4
+transformers>=4.52,<4.53
+torch>=2.8,<2.9
+pingouin>=0.5.5,<0.6
+streamlit>=1.44,<1.45
+supabase>=2.15,<3.0

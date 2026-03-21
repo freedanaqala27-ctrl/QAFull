@@ -1,0 +1,7 @@
+source_type,metric,mean_value,metric_label
+AI,instruction_metrics.instruction_completeness_ratio,0.9492652173913044,Instruction Completeness
+Expert,instruction_metrics.instruction_completeness_ratio,0.6231913043478261,Instruction Completeness
+AI,structure_metrics.structure_completeness_ratio,0.8804347826086957,Structure Completeness
+Expert,structure_metrics.structure_completeness_ratio,0.8152173913043478,Structure Completeness
+AI,structure_metrics.structure_score_weighted,0.872495652173913,Weighted Structure Score
+Expert,structure_metrics.structure_score_weighted,0.8198130434782608,Weighted Structure Score

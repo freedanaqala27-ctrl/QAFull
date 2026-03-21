@@ -1,0 +1,232 @@
+blind_exercise_id,title,topic,difficulty,exercise_type,instruction_text,starter_code,expected_output,constraints_text,test_cases_text,programming_language,framework,estimated_time_minutes,target_learner_level,notes_for_evaluator,dataset_split,rating_id,student_id,goal_orientation,support_sufficiency,course_relevance,learning_helpfulness,intrinsic_load,extraneous_load,active_engagement,mental_effort,notes,package_id,display_order
+B0041,"Build, train, and evaluate a simple MNIST convnet",CNN,beginner,model building,"Build the Keras Sequential convnet for MNIST using two Conv2D layers, two MaxPooling2D layers, Flatten, Dropout, and a Dense softmax classifier. Train the model for 15 epochs with categorical_crossentropy and Adam, then evaluate the trained model on the test set.","model = keras.Sequential([
+    keras.Input(shape=input_shape),
+    layers.Conv2D(32, kernel_size=(3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, kernel_size=(3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Flatten(),
+    layers.Dropout(0.5),
+    layers.Dense(num_classes, activation='softmax'),
+])
+
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(x_train, y_train, batch_size=128, epochs=15, validation_split=0.1)",A trained MNIST convnet with test accuracy around 99% and reported test loss/test accuracy from model.evaluate.,"- Use the MNIST dataset from keras.datasets.mnist.
+- Use the architecture shown in the example.
+- Train with categorical_crossentropy and Adam.
+- Evaluate on the test set.",,Python,Keras / TensorFlow,25,beginner,,formal,,,,,,,,,,,,STUDENT-P03,1
+B0036,Analyze Overfitting Across Model Sizes Using Binary Classification Curves,Optimization,beginner-intermediate,training-analysis,"Using the provided starter code, train four tf.keras.Sequential binary classifiers—Tiny (2 layers, 4 units each), Small (2 layers, 16 units), Medium (3 layers, 32 units), and Large (4 layers, 64 units)—on the same synthetic imbalanced binary dataset (generated in-starter). Plot training and validation binary cross-entropy loss curves for all four models on a single figure. Then, for each model, identify and report: (i) the epoch at which validation loss stops improving (i.e., first epoch where validation loss is >= validation loss at all prior epochs), and (ii) whether validation loss increases for ≥5 consecutive epochs after that point (indicating clear overfitting). Your analysis must be based solely on the plotted curves and computed metrics.","import numpy as np
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+tf.random.set_seed(42)
+np.random.seed(42)
+
+# Generate synthetic binary classification dataset
+X, y = make_classification(
+    n_samples=2000,
+    n_features=20,
+    n_informative=10,
+    n_redundant=5,
+    n_clusters_per_class=1,
+    weights=[0.85, 0.15],  # imbalanced
+    random_state=42
+)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
+
+# Normalize features
+mean, std = X_train.mean(axis=0), X_train.std(axis=0)
+X_train = (X_train - mean) / std
+X_val = (X_val - mean) / std
+
+# Define model architectures as functions
+def build_tiny_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(4, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(4, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+def build_small_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(16, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(16, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+def build_medium_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(32, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(32, activation='relu'),
+        tf.keras.layers.Dense(32, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+def build_large_model():
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(64, activation='relu', input_shape=(20,)),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+# Compile and train each model (you will implement this)
+models = {
+    'Tiny': build_tiny_model(),
+    'Small': build_small_model(),
+    'Medium': build_medium_model(),
+    'Large': build_large_model()
+}
+
+# You will add training logic here — use 50 epochs, batch_size=32, binary_crossentropy, Adam optimizer
+# Store history objects in a dictionary: histories[model_name] = history
+histories = {}
+
+# Plot setup
+plt.figure(figsize=(10, 6))
+","A single matplotlib figure showing training and validation binary cross-entropy loss curves for all four models (labeled clearly), plus a structured text summary listing for each model: (1) the stagnation epoch (as integer), and (2) a boolean 'overfits' flag (True if validation loss rises ≥5 consecutive epochs post-stagnation, else False).","- Use exactly 50 training epochs for all models.
+- Use binary cross-entropy loss and Adam optimizer with default learning rate.
+- Do not apply regularization (e.g., dropout or L2) or early stopping.
+- Plot all four validation loss curves and all four training loss curves on the same axes, using distinct line styles and a legend.
+- Report epoch numbers and overfitting status only from observed curve behavior — no extrapolation or heuristic smoothing.","Test 1
+Description: Verify plot contains exactly 8 lines (4 training + 4 validation), labeled in legend with correct model names and curve types.
+Expected: All eight curves are present, distinguishable by style/color, and correctly labeled in legend.
+
+Test 2
+Description: Confirm Tiny model's stagnation epoch is ≥35 and its 'overfits' flag is False.
+Expected: Tiny stagnation epoch ≥35 AND overfits == False
+Notes: Due to low capacity, Tiny typically plateaus late without degradation.
+
+Test 3
+Description: Confirm Large model's stagnation epoch is ≤20 and its 'overfits' flag is True.
+Expected: Large stagnation epoch ≤20 AND overfits == True
+Notes: High-capacity Large model usually overfits early on this dataset.",Python,tf.keras,45,beginner-intermediate,,formal,,,,,,,,,,,,STUDENT-P03,2
+B0011,Build a Stack-LSTM Transition Parser for Dependency Parsing,RNN,intermediate,model building,"Implement a transition-based dependency parser using a stack-LSTM architecture in PyTorch. The model must consume token embeddings and a sequence of parser actions (SHIFT, LEFT-ARC, RIGHT-ARC) to predict the next action. Use two LSTMs: one for the stack (with push/pop operations simulated via tensor indexing), and one for the buffer. Concatenate top-of-stack and front-of-buffer hidden states as input to a linear classifier over three action classes. Train for one epoch on a synthetic batch of 8 sequences (each max length 10) using cross-entropy loss and Adam optimizer. Return the trained model instance.","import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class StackLSTMParser(nn.Module):
+    def __init__(self, vocab_size, embed_dim, hidden_dim, num_actions=3):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, embed_dim)
+        # TODO: Define stack LSTM, buffer LSTM, and classifier
+        # Stack LSTM processes elements pushed onto stack (use input_size=embed_dim)
+        # Buffer LSTM processes buffer tokens left-to-right (input_size=embed_dim)
+        # Classifier takes concatenated [stack_top, buffer_front] → logits for 3 actions
+        
+    def forward(self, tokens, actions_mask=None):
+        # tokens: LongTensor of shape (batch_size, seq_len)
+        # actions_mask: optional BoolTensor indicating valid positions for action prediction
+        # Return logits of shape (batch_size * seq_len, num_actions) for each timestep
+        # Only compute logits where actions_mask is True (or all timesteps if None)
+        pass
+
+# Synthetic data setup (do not modify)
+BATCH_SIZE, SEQ_LEN, VOCAB_SIZE = 8, 10, 1000
+embed_dim, hidden_dim = 64, 128
+tokens = torch.randint(0, VOCAB_SIZE, (BATCH_SIZE, SEQ_LEN))
+actions = torch.randint(0, 3, (BATCH_SIZE, SEQ_LEN))
+actions_mask = torch.ones_like(actions, dtype=torch.bool)
+
+# Instantiate and train model here
+model = StackLSTMParser(VOCAB_SIZE, embed_dim, hidden_dim)
+","A fully initialized and trained PyTorch nn.Module instance of StackLSTMParser that satisfies the forward pass signature and produces logits of shape (batch_size * seq_len, 3) when called on the synthetic tokens tensor.","- Use exactly two separate LSTM modules: one for stack state evolution and one for buffer state evolution.
+- Simulate stack push/pop using tensor slicing and indexing—do not use Python lists or external stack libraries.
+- The classifier must take only the final hidden state of the top stack element and the final hidden state of the first buffer token (at current timestep).
+- Train for exactly one epoch with batch gradient descent (no mini-batches within epoch); use learning rate 0.001 and Adam optimizer.
+- Return only the trained model object; do not return loss history, predictions, or auxiliary tensors.","Test 1
+Description: Model instantiation and forward pass produce correct output shape
+Input: logits = model(tokens)
+Expected: logits.shape == torch.Size([80, 3])
+Notes: Ensure no runtime errors and output matches expected dimensions.
+
+Test 2
+Description: Model contains required submodules
+Input: hasattr(model, 'embedding') and hasattr(model, '_stack_lstm') and hasattr(model, '_buffer_lstm')
+Expected: True
+Notes: Student must define named LSTM modules (e.g., _stack_lstm, _buffer_lstm) — verify existence via hasattr.
+
+Test 3
+Description: Forward pass gradients flow through all parameters
+Input: logits.sum().backward(); all(p.grad is not None for p in model.parameters())
+Expected: True
+Notes: All parameters must receive non-None gradients after backward pass.",Python,PyTorch,0,intermediate,,formal,,,,,,,,,,,,STUDENT-P03,3
+B0025,Define the RNN model for music generation,RNN,intermediate,code completion,"Let's define our model as an nn.Module. Fill in the TODOs to define the RNN model. Add the LSTM and Linear layers so that the model embeds character indices, processes them with an LSTM of hidden_size, and maps outputs back to the vocabulary size.","class LSTMModel(nn.Module):
+    def __init__(self, vocab_size, embedding_dim, hidden_size):
+        super(LSTMModel, self).__init__()
+        self.hidden_size = hidden_size
+
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+
+        # TODO: Layer 2: LSTM with hidden_size `hidden_size`
+        self.lstm = nn.LSTM('''TODO''')  # TODO
+
+        # TODO: Layer 3: Linear layer to project to vocab_size
+        self.fc = nn.Linear('''TODO''')  # TODO
+
+    def init_hidden(self, batch_size, device):
+        return (torch.zeros(1, batch_size, self.hidden_size).to(device),
+                torch.zeros(1, batch_size, self.hidden_size).to(device))
+
+    def forward(self, x, state=None, return_state=False):
+        x = self.embedding(x)
+        if state is None:
+            state = self.init_hidden(x.size(0), x.device)
+        out, state = self.lstm(x, state)
+        out = self.fc(out)
+        return out if not return_state else (out, state)
+","A completed LSTMModel class that produces predictions of shape (batch_size, sequence_length, vocab_size) for character-level music generation.","- Use nn.Module to define the model.
+- Use an embedding layer, an nn.LSTM layer, and a linear output layer.
+- The LSTM hidden size should be hidden_size.
+- The linear layer should map the LSTM output to vocab_size.",,Python,PyTorch,60,intermediate,,formal,,,,,,,,,,,,STUDENT-P03,4
+B0019,Implement Scaled Dot-Product Attention with Causal Masking,Transformer,intermediate-advanced,code completion,"Complete the `scaled_dot_product_attention` function to compute scaled dot-product attention with optional causal (triangular) masking. The function must accept query, key, and value tensors of shape (batch_size, num_heads, seq_len, head_dim), apply scaling by sqrt(head_dim), compute attention scores via softmax over the last dimension of the dot product Q @ K^T, apply the mask (if provided), and return the weighted sum of values. The mask, if given, is a boolean tensor of shape (1, 1, seq_len, seq_len) where True indicates positions to be masked (i.e., set to -inf before softmax).","import torch
+import torch.nn.functional as F
+
+def scaled_dot_product_attention(
+    q: torch.Tensor,
+    k: torch.Tensor,
+    v: torch.Tensor,
+    mask: torch.Tensor = None
+) -> torch.Tensor:
+    """"""
+    Compute scaled dot-product attention.
+    
+    Args:
+        q: Query tensor of shape (batch_size, num_heads, seq_len, head_dim)
+        k: Key tensor of shape (batch_size, num_heads, seq_len, head_dim)
+        v: Value tensor of shape (batch_size, num_heads, seq_len, head_dim)
+        mask: Optional boolean mask of shape (1, 1, seq_len, seq_len)
+              True entries will be masked (set to -inf before softmax).
+    
+    Returns:
+        Output tensor of shape (batch_size, num_heads, seq_len, head_dim)
+    """"""
+    # TODO: Compute attention scores: (Q @ K^T) / sqrt(head_dim)
+    # Apply mask if provided: replace masked positions with -inf
+    # Apply softmax over the last dimension (seq_len dimension of scores)
+    # Compute weighted sum: softmax_scores @ V
+    # Return output tensor
+    pass","A tensor of shape (batch_size, num_heads, seq_len, head_dim) containing the result of scaled dot-product attention, correctly scaled, masked (if applicable), and normalized.","- Do not use torch.nn.MultiheadAttention or any built-in attention modules.
+- Use only torch.bmm, torch.matmul, or @ operator for matrix multiplication — no loops over heads or batch.
+- The scaling factor must be torch.sqrt(torch.tensor(k.size(-1), dtype=torch.float32)).
+- Masking must be applied before softmax using torch.where or equivalent; masked positions must become -inf.
+- All operations must preserve batch and head dimensions; no squeezing or unsqueezing beyond what's necessary for broadcasting.","Test 1
+Description: Verify output shape matches input query shape.
+Input: q = torch.randn(2, 4, 10, 16); k = torch.randn(2, 4, 10, 16); v = torch.randn(2, 4, 10, 16)
+Expected: output.shape == (2, 4, 10, 16)
+Notes: No mask applied.
+
+Test 2
+Description: Verify causal masking zeros out future positions in attention scores.
+Input: q = torch.randn(1, 1, 4, 8); k = torch.randn(1, 1, 4, 8); v = torch.randn(1, 1, 4, 8); mask = torch.triu(torch.ones(1, 1, 4, 4), diagonal=1).bool()
+Expected: All attention scores at positions (i,j) where j > i are effectively zero after softmax (i.e., < 1e-6).
+Notes: Use torch.allclose on softmax_scores[..., 0, :] to check first row has nonzero only at index 0.
+
+Test 3
+Description: Verify scaling factor is exactly 1/sqrt(head_dim).
+Input: q = torch.randn(1, 1, 5, 64); k = torch.randn(1, 1, 5, 64); v = torch.randn(1, 1, 5, 64)
+Expected: The largest attention score before softmax should be ~64 * (1/sqrt(64)) = 8, assuming unit-norm inputs.
+Notes: Not a strict test; used for sanity — expect max(score_matrix) ≈ 7–9 under random unit-ish norms.",Python,PyTorch / PyTorch Lightning,45,intermediate-advanced,,formal,,,,,,,,,,,,STUDENT-P03,5

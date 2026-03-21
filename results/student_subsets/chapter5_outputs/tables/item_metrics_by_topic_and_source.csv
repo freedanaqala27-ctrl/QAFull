@@ -1,0 +1,89 @@
+﻿topic,source_type,metric,metric_label,n,mean,std,median,min,max
+CNN,AI,task_goal_clarity,Task Goal Clarity,14,3.5714,0.6462,3.5,3.0,5.0
+CNN,AI,key_support,Key Support,14,3.3571,0.7449,3.0,2.0,5.0
+CNN,AI,course_relevance,Course Relevance,14,3.5,0.7596,3.5,2.0,5.0
+CNN,AI,learning_help,Learning Help,14,3.4286,0.6462,3.0,3.0,5.0
+CNN,AI,info_load,Information Load,14,3.4286,0.5136,3.0,3.0,4.0
+CNN,AI,search_effort,Search Effort,14,3.0714,0.4746,3.0,2.0,4.0
+CNN,AI,active_engagement,Active Engagement,14,3.7857,0.8018,4.0,3.0,5.0
+CNN,AI,mental_effort,Mental Effort,14,3.6429,0.4972,4.0,3.0,4.0
+CNN,AI,item_mean_score,Overall Item Score,14,3.1875,0.3726,3.0625,2.75,4.0
+CNN,AI,usability_mean_score,Usability Mean,14,3.4643,0.5621,3.375,2.5,4.5
+CNN,AI,cognitive_load_mean_score,Cognitive Load Mean,14,3.381,0.4105,3.3333,2.6667,4.0
+CNN,Expert,task_goal_clarity,Task Goal Clarity,13,3.6154,0.6504,4.0,3.0,5.0
+CNN,Expert,key_support,Key Support,13,3.7692,0.4385,4.0,3.0,4.0
+CNN,Expert,course_relevance,Course Relevance,13,3.5385,0.5189,4.0,3.0,4.0
+CNN,Expert,learning_help,Learning Help,13,3.6923,0.6304,4.0,3.0,5.0
+CNN,Expert,info_load,Information Load,13,3.1538,0.5547,3.0,2.0,4.0
+CNN,Expert,search_effort,Search Effort,13,2.9231,0.4935,3.0,2.0,4.0
+CNN,Expert,active_engagement,Active Engagement,13,3.8462,0.5547,4.0,3.0,5.0
+CNN,Expert,mental_effort,Mental Effort,13,3.6154,0.5064,4.0,3.0,4.0
+CNN,Expert,item_mean_score,Overall Item Score,13,3.3462,0.3541,3.25,2.75,4.125
+CNN,Expert,usability_mean_score,Usability Mean,13,3.6538,0.4023,3.5,3.0,4.5
+CNN,Expert,cognitive_load_mean_score,Cognitive Load Mean,13,3.2308,0.4169,3.3333,2.3333,3.6667
+Optimization,AI,task_goal_clarity,Task Goal Clarity,13,3.6154,0.5064,4.0,3.0,4.0
+Optimization,AI,key_support,Key Support,13,3.4615,0.5189,3.0,3.0,4.0
+Optimization,AI,course_relevance,Course Relevance,13,3.3846,0.8697,3.0,2.0,5.0
+Optimization,AI,learning_help,Learning Help,13,3.2308,0.4385,3.0,3.0,4.0
+Optimization,AI,info_load,Information Load,13,3.4615,0.5189,3.0,3.0,4.0
+Optimization,AI,search_effort,Search Effort,13,3.3077,0.4804,3.0,3.0,4.0
+Optimization,AI,active_engagement,Active Engagement,13,3.4615,0.7763,3.0,2.0,5.0
+Optimization,AI,mental_effort,Mental Effort,13,3.6154,0.5064,4.0,3.0,4.0
+Optimization,AI,item_mean_score,Overall Item Score,13,3.0962,0.3391,3.0,2.5,3.625
+Optimization,AI,usability_mean_score,Usability Mean,13,3.4231,0.4829,3.5,2.75,4.0
+Optimization,AI,cognitive_load_mean_score,Cognitive Load Mean,13,3.4615,0.3203,3.3333,3.0,4.0
+Optimization,Expert,task_goal_clarity,Task Goal Clarity,14,3.2143,0.4258,3.0,3.0,4.0
+Optimization,Expert,key_support,Key Support,14,3.2143,0.5789,3.0,2.0,4.0
+Optimization,Expert,course_relevance,Course Relevance,14,3.2143,0.4258,3.0,3.0,4.0
+Optimization,Expert,learning_help,Learning Help,14,3.2143,0.4258,3.0,3.0,4.0
+Optimization,Expert,info_load,Information Load,14,3.6429,0.4972,4.0,3.0,4.0
+Optimization,Expert,search_effort,Search Effort,14,3.2857,0.4688,3.0,3.0,4.0
+Optimization,Expert,active_engagement,Active Engagement,14,3.2857,0.6112,3.0,2.0,4.0
+Optimization,Expert,mental_effort,Mental Effort,14,3.7143,0.4688,4.0,3.0,4.0
+Optimization,Expert,item_mean_score,Overall Item Score,14,2.9375,0.2536,2.9375,2.5,3.375
+Optimization,Expert,usability_mean_score,Usability Mean,14,3.2143,0.3079,3.125,2.75,3.75
+Optimization,Expert,cognitive_load_mean_score,Cognitive Load Mean,14,3.5476,0.3836,3.6667,3.0,4.0
+RNN,AI,task_goal_clarity,Task Goal Clarity,22,3.5455,0.5096,4.0,3.0,4.0
+RNN,AI,key_support,Key Support,22,3.4091,0.5903,3.0,2.0,4.0
+RNN,AI,course_relevance,Course Relevance,22,3.3636,0.658,3.0,2.0,4.0
+RNN,AI,learning_help,Learning Help,22,3.0909,0.4264,3.0,2.0,4.0
+RNN,AI,info_load,Information Load,22,3.5,0.5976,4.0,2.0,4.0
+RNN,AI,search_effort,Search Effort,22,3.4545,0.5958,3.0,3.0,5.0
+RNN,AI,active_engagement,Active Engagement,22,3.2727,0.6311,3.0,2.0,4.0
+RNN,AI,mental_effort,Mental Effort,22,3.7727,0.5284,4.0,3.0,5.0
+RNN,AI,item_mean_score,Overall Item Score,22,2.9943,0.3924,3.125,2.0,3.625
+RNN,AI,usability_mean_score,Usability Mean,22,3.3523,0.4202,3.25,2.5,4.0
+RNN,AI,cognitive_load_mean_score,Cognitive Load Mean,22,3.5758,0.4734,3.6667,3.0,4.6667
+RNN,Expert,task_goal_clarity,Task Goal Clarity,22,3.5455,0.5958,4.0,2.0,4.0
+RNN,Expert,key_support,Key Support,22,3.4091,0.5032,3.0,3.0,4.0
+RNN,Expert,course_relevance,Course Relevance,22,3.4091,0.5032,3.0,3.0,4.0
+RNN,Expert,learning_help,Learning Help,22,3.3636,0.7895,3.0,2.0,5.0
+RNN,Expert,info_load,Information Load,22,3.5455,0.5096,4.0,3.0,4.0
+RNN,Expert,search_effort,Search Effort,22,3.2273,0.4289,3.0,3.0,4.0
+RNN,Expert,active_engagement,Active Engagement,22,3.4545,0.5958,3.5,2.0,4.0
+RNN,Expert,mental_effort,Mental Effort,22,3.6364,0.4924,4.0,3.0,4.0
+RNN,Expert,item_mean_score,Overall Item Score,22,3.0966,0.3179,3.125,2.625,3.625
+RNN,Expert,usability_mean_score,Usability Mean,22,3.4318,0.4239,3.25,2.75,4.25
+RNN,Expert,cognitive_load_mean_score,Cognitive Load Mean,22,3.4697,0.366,3.5,3.0,4.0
+Transformer,AI,task_goal_clarity,Task Goal Clarity,10,3.8,0.4216,4.0,3.0,4.0
+Transformer,AI,key_support,Key Support,10,3.6,0.5164,4.0,3.0,4.0
+Transformer,AI,course_relevance,Course Relevance,10,3.7,0.483,4.0,3.0,4.0
+Transformer,AI,learning_help,Learning Help,10,3.4,0.5164,3.0,3.0,4.0
+Transformer,AI,info_load,Information Load,10,3.7,0.483,4.0,3.0,4.0
+Transformer,AI,search_effort,Search Effort,10,3.5,0.527,3.5,3.0,4.0
+Transformer,AI,active_engagement,Active Engagement,10,3.8,0.4216,4.0,3.0,4.0
+Transformer,AI,mental_effort,Mental Effort,10,4.0,0.8165,4.0,3.0,5.0
+Transformer,AI,item_mean_score,Overall Item Score,10,3.1375,0.3459,3.125,2.75,3.625
+Transformer,AI,usability_mean_score,Usability Mean,10,3.625,0.3173,3.75,3.0,4.0
+Transformer,AI,cognitive_load_mean_score,Cognitive Load Mean,10,3.7333,0.5622,3.8334,3.0,4.3333
+Transformer,Expert,task_goal_clarity,Task Goal Clarity,10,3.4,0.5164,3.0,3.0,4.0
+Transformer,Expert,key_support,Key Support,10,3.2,0.4216,3.0,3.0,4.0
+Transformer,Expert,course_relevance,Course Relevance,10,3.1,0.5676,3.0,2.0,4.0
+Transformer,Expert,learning_help,Learning Help,10,3.0,0.0,3.0,3.0,3.0
+Transformer,Expert,info_load,Information Load,10,3.6,0.5164,4.0,3.0,4.0
+Transformer,Expert,search_effort,Search Effort,10,3.7,0.6749,4.0,3.0,5.0
+Transformer,Expert,active_engagement,Active Engagement,10,3.3,0.483,3.0,3.0,4.0
+Transformer,Expert,mental_effort,Mental Effort,10,3.9,0.5676,4.0,3.0,5.0
+Transformer,Expert,item_mean_score,Overall Item Score,10,2.85,0.2342,2.875,2.5,3.25
+Transformer,Expert,usability_mean_score,Usability Mean,10,3.175,0.2899,3.125,2.75,3.75
+Transformer,Expert,cognitive_load_mean_score,Cognitive Load Mean,10,3.7333,0.5164,3.8334,3.0,4.6667

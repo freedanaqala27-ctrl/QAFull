@@ -1,0 +1,6 @@
+﻿# Minimal dependencies for deploying the student survey app.
+# This environment is intended for the Streamlit-based student questionnaire only.
+
+pandas>=2.3,<2.4
+streamlit>=1.44,<1.45
+supabase>=2.15,<3.0

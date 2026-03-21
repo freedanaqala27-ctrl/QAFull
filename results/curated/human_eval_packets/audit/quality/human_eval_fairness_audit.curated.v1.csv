@@ -1,0 +1,24 @@
+pair_id,reference_exercise_id,ai_exercise_id,topic,difficulty,exercise_type,reference_missing_format_field_count,ai_missing_format_field_count,reference_missing_starter_code,reference_missing_expected_output,reference_missing_constraints,reference_missing_test_cases,ai_missing_starter_code,ai_missing_expected_output,ai_missing_constraints,ai_missing_test_cases,human_eval_eligible,exclude_reason
+PAIR-CURATED-CNN-01,CNN-01,AI-CURATED-CNN-01,CNN,intermediate,code completion,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-CNN-02,CNN-02,AI-CURATED-CNN-02,CNN,beginner,code completion,3,0,False,True,True,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-CNN-03,CNN-03,AI-CURATED-CNN-03,CNN,beginner-intermediate,model building,2,0,True,False,False,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-CNN-04,CNN-04,AI-CURATED-CNN-04,CNN,intermediate,training-analysis,2,0,True,False,False,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-DTL-01,DTL-01,AI-CURATED-DTL-01,Optimization,intermediate,training-analysis,4,0,True,True,True,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-DTL-02,DTL-02,AI-CURATED-DTL-02,Optimization,intermediate,training-analysis,4,0,True,True,True,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-DTL-03,DTL-03,AI-CURATED-DTL-03,Transformer,intermediate,training-analysis,4,0,True,True,True,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-KER-01,KER-01,AI-CURATED-KER-01,CNN,beginner,model building,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-KER-02,KER-02,AI-CURATED-KER-02,RNN,intermediate,model building,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-KER-03,KER-03,AI-CURATED-KER-03,Transformer,intermediate-advanced,model building,2,0,True,False,False,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-KER-04,KER-04,AI-CURATED-KER-04,RNN,intermediate,model building,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-MIT-01,MIT-01,AI-CURATED-MIT-01,RNN,intermediate,code completion,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-MIT-02,MIT-02,AI-CURATED-MIT-02,CNN,beginner-intermediate,model building,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-OPT-02,OPT-02,AI-CURATED-OPT-02,Optimization,beginner-intermediate,training-analysis,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-OPT-03,OPT-03,AI-CURATED-OPT-03,Optimization,intermediate,model revision,3,0,False,True,True,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-OPT-04,OPT-04,AI-CURATED-OPT-04,Optimization,intermediate,model revision,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-OPT-05,OPT-05,AI-CURATED-OPT-05,Optimization,intermediate,model revision,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-RNN-01,RNN-01,AI-CURATED-RNN-01,RNN,intermediate,code completion,1,0,False,False,False,True,False,False,False,False,True,
+PAIR-CURATED-RNN-02,RNN-02,AI-CURATED-RNN-02,RNN,intermediate,model building,1,0,True,False,False,False,False,False,False,False,True,
+PAIR-CURATED-RNN-03,RNN-03,AI-CURATED-RNN-03,RNN,intermediate,model building,3,0,True,False,True,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-TRF-01,TRF-01,AI-CURATED-TRF-01,Transformer,intermediate-advanced,code completion,0,0,False,False,False,False,False,False,False,False,True,
+PAIR-CURATED-TRF-02,TRF-02,AI-CURATED-TRF-02,Transformer,intermediate,code completion,3,0,False,True,True,True,False,False,False,False,False,pair_has_sparse_format_fields
+PAIR-CURATED-UVA-02,UVA-02,AI-CURATED-UVA-02,Transformer,intermediate-advanced,code completion,1,0,False,False,False,True,False,False,False,False,True,

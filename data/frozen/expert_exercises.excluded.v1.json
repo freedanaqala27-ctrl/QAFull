@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_name": "Expert Programming Exercise Samples - Excluded Set",
+  "description": "Excluded records filtered from the master expert exercise dataset using record_status == excluded.",
+  "created_at": "2026-03-13",
+  "source_language": "mixed",
+  "freeze_version": "v1",
+  "selection_rule": "record_status == 'excluded'",
+  "source_master_file": "expert_exercises.updated_optimization.normalized.json",
+  "items": [
+    {
+      "exercise_id": "TRF-04",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Project Task",
+      "extraction_mode": "project_scope_task",
+      "title": "CS224N Default Final Project: Build GPT-2",
+      "topic": "Transformer",
+      "difficulty": "advanced",
+      "exercise_type": "project",
+      "instruction_text": "In this assignment, you will build GPT-2, the precursor of ChatGPT. Specifically, you will implement some of the most important components of the architecture, load official model weights from HuggingFace into your implementation, and explore its capabilities on a variety of downstream applications. You will fill in missing blocks of code to complete GPT-2 and implement part of the Adam optimizer. You will then fine-tune your implementation on sentiment analysis, paraphrase detection, and poem generation tasks, and evaluate the generated outputs qualitatively and quantitatively.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "constraints": [
+        "For the first part of this assignment, only use libraries that are installed by setup.sh.",
+        "Do not change existing command options or add new required parameters.",
+        "Do not use a pre-existing GPT-2 implementation for the sentiment analysis task unless you wrote it yourself.",
+        "Only use the provided training and dev sets for the Quora and Sonnets tasks."
+      ],
+      "expected_output": "A completed GPT-2 implementation that passes sanity checks, sentiment prediction files, paraphrase detection outputs, and generated sonnets for evaluation.",
+      "learning_objectives": [
+        "Implement a minimal GPT-2-style decoder-only Transformer in PyTorch.",
+        "Load official GPT-2 weights into a custom implementation.",
+        "Fine-tune the model for sentiment analysis, paraphrase detection, and sonnet generation.",
+        "Evaluate downstream performance and analyze generated outputs qualitatively."
+      ],
+      "prerequisite_concepts": [
+        "Transformers",
+        "masked multi-head self-attention",
+        "token and positional embeddings",
+        "language modeling",
+        "fine-tuning"
+      ],
+      "keywords": [
+        "GPT-2",
+        "Transformer",
+        "decoder-only model",
+        "masked multi-head self-attention",
+        "PyTorch",
+        "sentiment analysis",
+        "paraphrase detection",
+        "sonnet generation"
+      ],
+      "target_learner_level": "advanced",
+      "course_context": "Stanford CS224N Default Final Project",
+      "created_at": "2026-03-13",
+      "notes": "Selected from the official Stanford CS224N default final project handout. This entry is project-scoped and should not be mixed with short single-exercise samples without separate analysis.",
+      "record_status": "excluded",
+      "comparison_status": "non-comparable"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+metric,value,metric_label
+tfidf_cosine_instruction_only,0.1642,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.1861,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2137,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.1279,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.1095,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.1373,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.1309,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2629,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2712,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2711,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.3015,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2125,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2179,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.1742,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2432,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2334,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2269,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.304,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2098,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.3818,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.1635,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.076,Instruction TF-IDF Cosine
+tfidf_cosine_instruction_only,0.2357,Instruction TF-IDF Cosine
+tfidf_cosine_full_text,0.4925,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4353,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3715,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3033,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3714,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3124,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4279,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4889,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4911,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4023,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4234,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3929,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3945,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3187,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3563,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4326,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4367,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3674,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.3337,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4068,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.2326,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.2381,Full-Text TF-IDF Cosine
+tfidf_cosine_full_text,0.4362,Full-Text TF-IDF Cosine
+rougeL_f1_instruction_only,0.1257,ROUGE-L F1
+rougeL_f1_instruction_only,0.1591,ROUGE-L F1
+rougeL_f1_instruction_only,0.1532,ROUGE-L F1
+rougeL_f1_instruction_only,0.0984,ROUGE-L F1
+rougeL_f1_instruction_only,0.1682,ROUGE-L F1
+rougeL_f1_instruction_only,0.1391,ROUGE-L F1
+rougeL_f1_instruction_only,0.086,ROUGE-L F1
+rougeL_f1_instruction_only,0.3077,ROUGE-L F1
+rougeL_f1_instruction_only,0.3469,ROUGE-L F1
+rougeL_f1_instruction_only,0.2659,ROUGE-L F1
+rougeL_f1_instruction_only,0.3956,ROUGE-L F1
+rougeL_f1_instruction_only,0.1695,ROUGE-L F1
+rougeL_f1_instruction_only,0.1739,ROUGE-L F1
+rougeL_f1_instruction_only,0.1624,ROUGE-L F1
+rougeL_f1_instruction_only,0.1678,ROUGE-L F1
+rougeL_f1_instruction_only,0.1975,ROUGE-L F1
+rougeL_f1_instruction_only,0.1775,ROUGE-L F1
+rougeL_f1_instruction_only,0.2323,ROUGE-L F1
+rougeL_f1_instruction_only,0.1791,ROUGE-L F1
+rougeL_f1_instruction_only,0.2294,ROUGE-L F1
+rougeL_f1_instruction_only,0.1143,ROUGE-L F1
+rougeL_f1_instruction_only,0.087,ROUGE-L F1
+rougeL_f1_instruction_only,0.2312,ROUGE-L F1
+meteor_instruction_only,0.1904,METEOR
+meteor_instruction_only,0.3001,METEOR
+meteor_instruction_only,0.1523,METEOR
+meteor_instruction_only,0.1764,METEOR
+meteor_instruction_only,0.1911,METEOR
+meteor_instruction_only,0.1873,METEOR
+meteor_instruction_only,0.1534,METEOR
+meteor_instruction_only,0.448,METEOR
+meteor_instruction_only,0.4759,METEOR
+meteor_instruction_only,0.3177,METEOR
+meteor_instruction_only,0.4544,METEOR
+meteor_instruction_only,0.1756,METEOR
+meteor_instruction_only,0.2639,METEOR
+meteor_instruction_only,0.1849,METEOR
+meteor_instruction_only,0.1699,METEOR
+meteor_instruction_only,0.3307,METEOR
+meteor_instruction_only,0.2434,METEOR
+meteor_instruction_only,0.3104,METEOR
+meteor_instruction_only,0.1372,METEOR
+meteor_instruction_only,0.2039,METEOR
+meteor_instruction_only,0.1618,METEOR
+meteor_instruction_only,0.1203,METEOR
+meteor_instruction_only,0.2193,METEOR
+bertscore_f1_instruction_only,0.8249,BERTScore F1
+bertscore_f1_instruction_only,0.8435,BERTScore F1
+bertscore_f1_instruction_only,0.8394,BERTScore F1
+bertscore_f1_instruction_only,0.8274,BERTScore F1
+bertscore_f1_instruction_only,0.8405,BERTScore F1
+bertscore_f1_instruction_only,0.8442,BERTScore F1
+bertscore_f1_instruction_only,0.8424,BERTScore F1
+bertscore_f1_instruction_only,0.8897,BERTScore F1
+bertscore_f1_instruction_only,0.9066,BERTScore F1
+bertscore_f1_instruction_only,0.8557,BERTScore F1
+bertscore_f1_instruction_only,0.8692,BERTScore F1
+bertscore_f1_instruction_only,0.845,BERTScore F1
+bertscore_f1_instruction_only,0.8423,BERTScore F1
+bertscore_f1_instruction_only,0.852,BERTScore F1
+bertscore_f1_instruction_only,0.8438,BERTScore F1
+bertscore_f1_instruction_only,0.852,BERTScore F1
+bertscore_f1_instruction_only,0.8438,BERTScore F1
+bertscore_f1_instruction_only,0.8282,BERTScore F1
+bertscore_f1_instruction_only,0.8215,BERTScore F1
+bertscore_f1_instruction_only,0.8437,BERTScore F1
+bertscore_f1_instruction_only,0.8359,BERTScore F1
+bertscore_f1_instruction_only,0.8282,BERTScore F1
+bertscore_f1_instruction_only,0.8355,BERTScore F1

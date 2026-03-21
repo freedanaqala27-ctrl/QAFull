@@ -1,0 +1,31 @@
+{
+  "run_id": "run-20260317-150010",
+  "provider": "bailian",
+  "model": "qwen-plus",
+  "filters": {
+    "topic": "Transformer",
+    "difficulty": null,
+    "exercise_type": "model building",
+    "prompt_id": null,
+    "limit": 0
+  },
+  "summary": {
+    "run_id": "run-20260317-150010",
+    "provider": "bailian",
+    "model": "qwen-plus",
+    "total_prompts": 1,
+    "total_generations": 2,
+    "api_success_count": 2,
+    "api_error_count": 0,
+    "json_extract_success_count": 2,
+    "json_extract_fail_count": 0,
+    "schema_valid_count": 2,
+    "schema_invalid_count": 0,
+    "avg_latency_ms": 33894.0
+  },
+  "output_files": {
+    "raw_generations": "D:\\Downloads\\PythonProjectQA\\outputs\\raw_generations\\generations.raw.v1.jsonl",
+    "generation_summary": "D:\\Downloads\\PythonProjectQA\\outputs\\raw_generations\\generation_summary.v1.csv",
+    "generation_manifest": "D:\\Downloads\\PythonProjectQA\\outputs\\raw_generations\\generation_manifest.v1.json"
+  }
+}

@@ -1,0 +1,5 @@
+metric,count,rate
+total,4,1.0
+accepted,1,0.25
+rejected,3,0.75
+acceptance_rate,1,0.25

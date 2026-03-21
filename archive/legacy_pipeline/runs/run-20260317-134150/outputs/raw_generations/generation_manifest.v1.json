@@ -1,0 +1,31 @@
+{
+  "run_id": "run-20260317-134150",
+  "provider": "bailian",
+  "model": "qwen-plus",
+  "filters": {
+    "topic": "RNN",
+    "difficulty": null,
+    "exercise_type": null,
+    "prompt_id": null,
+    "limit": 0
+  },
+  "summary": {
+    "run_id": "run-20260317-134150",
+    "provider": "bailian",
+    "model": "qwen-plus",
+    "total_prompts": 6,
+    "total_generations": 12,
+    "api_success_count": 12,
+    "api_error_count": 0,
+    "json_extract_success_count": 12,
+    "json_extract_fail_count": 0,
+    "schema_valid_count": 12,
+    "schema_invalid_count": 0,
+    "avg_latency_ms": 28033.5
+  },
+  "output_files": {
+    "raw_generations": "D:\\Downloads\\PythonProjectQA\\outputs\\raw_generations\\generations.raw.v1.jsonl",
+    "generation_summary": "D:\\Downloads\\PythonProjectQA\\outputs\\raw_generations\\generation_summary.v1.csv",
+    "generation_manifest": "D:\\Downloads\\PythonProjectQA\\outputs\\raw_generations\\generation_manifest.v1.json"
+  }
+}

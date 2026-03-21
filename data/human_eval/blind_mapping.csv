@@ -1,0 +1,5 @@
+blind_exercise_id,exercise_id,source_type,topic,difficulty,exercise_type
+B001,EXP_CNN_001,Expert,CNN,basic,model_implementation
+B002,AI_RNN_003,AI,RNN,intermediate,debugging
+B003,EXP_OPT_002,Expert,optimization,advanced,code_completion
+B004,AI_CNN_005,AI,CNN,basic,model_implementation

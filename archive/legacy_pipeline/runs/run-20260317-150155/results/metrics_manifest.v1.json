@@ -1,0 +1,10 @@
+{
+  "num_exercises": 6,
+  "num_pairs": 3,
+  "heavy_metrics_enabled": false,
+  "bertscore_attempted": 0,
+  "bertscore_success_count": 0,
+  "bertscore_fail_count": 0,
+  "status": "ok",
+  "reason": ""
+}

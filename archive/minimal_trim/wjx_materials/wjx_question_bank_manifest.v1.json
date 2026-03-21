@@ -1,0 +1,13 @@
+{
+  "expert_packet_rows": 26,
+  "student_packet_rows": 26,
+  "attention_check_interval": 3,
+  "package_question_bank_count": 8,
+  "outputs": {
+    "expert_question_bank": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\wjx_expert_question_bank.curated.txt",
+    "student_question_bank": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\wjx_student_question_bank.curated.txt",
+    "expert_question_outline": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\wjx_expert_question_outline.curated.csv",
+    "student_question_outline": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\wjx_student_question_outline.curated.csv",
+    "package_manifest": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\wjx_package_manifest.curated.v1.csv"
+  }
+}

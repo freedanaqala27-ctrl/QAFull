@@ -1,0 +1,4 @@
+feedback_id,evaluator_type,evaluator_id,blind_exercise_id,exercise_id,topic,difficulty,exercise_type,source_type,best_part,needs_improvement,ambiguity_or_errors,additional_comments,submitted_at
+FB0001,expert,EXP01,B001,EXP_CNN_001,CNN,basic,model_implementation,Expert,任务目标明确,可以增加测试样例,no,适合课堂练习,2026-03-15 14:12:00
+FB0002,expert,EXP01,B002,AI_RNN_003,RNN,intermediate,debugging,AI,题目和课程主题相关,约束条件不够清楚,yes,部分代码上下文不足,2026-03-15 14:20:00
+FB0003,student,STU01,B001,EXP_CNN_001,CNN,basic,model_implementation,Expert,容易看懂,希望给更多提示,no,整体不错,2026-03-15 16:06:00

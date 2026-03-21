@@ -1,0 +1,9 @@
+blind_exercise_id,exercise_id,source_type,topic,difficulty,exercise_type
+B0001,AI-KER-03-01,AI,Transformer,intermediate-advanced,model building
+B0002,TRF-01,Expert,Transformer,intermediate-advanced,code completion
+B0003,UVA-02,Expert,Transformer,intermediate-advanced,code completion
+B0004,AI-UVA-02-01,AI,Transformer,intermediate-advanced,code completion
+B0005,KER-03,Expert,Transformer,intermediate-advanced,model building
+B0006,AI-TRF-01-01,AI,Transformer,intermediate-advanced,code completion
+B0007,DTL-03,Expert,Transformer,intermediate,training-analysis
+B0008,AI-DTL-03-01,AI,Transformer,intermediate,training-analysis

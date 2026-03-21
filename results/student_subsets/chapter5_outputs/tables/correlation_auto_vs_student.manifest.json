@@ -1,0 +1,43 @@
+{
+  "master_csv": "results\\student_subsets\\student_analysis_master_30.csv",
+  "output_dir": "results\\student_subsets\\chapter5_outputs\\tables",
+  "filters": {
+    "exclude_attention_fail": true,
+    "exclude_fast_flag": true
+  },
+  "filter_summary": {
+    "rows_before_filter": 130,
+    "participants_before_filter": 30,
+    "rows_after_filter": 118,
+    "participants_after_filter": 27,
+    "exercises_after_filter": 26
+  },
+  "exercise_level_rows": 26,
+  "ai_only_exercise_rows": 13,
+  "exercise_metric_correlation_rows": 108,
+  "pair_metric_correlation_rows": 72,
+  "exercise_auto_metrics_included": [
+    "auto_avg_sentence_length",
+    "auto_flesch_kincaid_grade",
+    "auto_flesch_reading_ease",
+    "auto_instruction_completeness_ratio",
+    "auto_starter_code_mccabe_max",
+    "auto_starter_code_mi",
+    "auto_structure_completeness_ratio",
+    "auto_structure_score_weighted",
+    "auto_technical_term_density_instruction"
+  ],
+  "pair_auto_metrics_included": [
+    "pair_bertscore_f1_instruction_only",
+    "pair_meteor_instruction_only",
+    "pair_rougeL_f1_instruction_only",
+    "pair_tfidf_cosine_full_text",
+    "pair_tfidf_cosine_instruction_only",
+    "pair_topic_coherence_score_ai"
+  ],
+  "outputs": {
+    "exercise_level_aggregates": "results\\student_subsets\\chapter5_outputs\\tables\\student_exercise_level_aggregates_30.csv",
+    "exercise_metric_correlations": "results\\student_subsets\\chapter5_outputs\\tables\\correlation_auto_vs_student.exercise_metrics.v1.csv",
+    "pair_metric_correlations": "results\\student_subsets\\chapter5_outputs\\tables\\correlation_auto_vs_student.pair_metrics_ai_only.v1.csv"
+  }
+}

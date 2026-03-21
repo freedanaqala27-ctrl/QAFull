@@ -1,0 +1,3 @@
+reference_exercise_id,topic,difficulty,reference_exercise_type,accepted_candidate_count,selected_ai_exercise_id,pair_built,top_soft_rank_score
+DTL-03,Transformer,intermediate,training-analysis,1,AI-DTL-03-01,True,0.7461
+TRF-02,Transformer,intermediate,code completion,0,,False,

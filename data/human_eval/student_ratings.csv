@@ -1,0 +1,4 @@
+rating_id,student_id,blind_exercise_id,exercise_id,topic,difficulty,exercise_type,source_type,easy_to_understand,helpful_for_learning,difficulty_fit,willing_to_continue_using,overall_satisfaction,attempted_reading,has_taken_dl_course,self_reported_level,rating_time_seconds,rated_at,notes
+SR0001,STU01,B001,EXP_CNN_001,CNN,basic,model_implementation,Expert,4,5,4,4,4,yes,yes,intermediate,95,2026-03-15 16:05:00,题目比较清楚
+SR0002,STU01,B002,AI_RNN_003,RNN,intermediate,debugging,AI,3,3,3,3,3,yes,yes,intermediate,88,2026-03-15 16:09:00,调试要求略不明确
+SR0003,STU02,B001,EXP_CNN_001,CNN,basic,model_implementation,Expert,5,4,4,4,5,yes,no,beginner,102,2026-03-15 16:21:00,适合练基础

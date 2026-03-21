@@ -1,0 +1,4 @@
+pair_id,similarity_band,metric_name,metric_display_name,metric_value,reference_exercise_id,ai_exercise_id,topic,difficulty,reference_title,ai_title
+PAIR-CURATED-TRF-02,low,tfidf_cosine_instruction_only,Instruction TF-IDF Cosine,0.076,TRF-02,AI-CURATED-TRF-02,Transformer,intermediate,Implement distance-based attention by modifying the DotProductAttention code,Implement Additive Attention Scoring
+PAIR-CURATED-CNN-03,medium,tfidf_cosine_instruction_only,Instruction TF-IDF Cosine,0.2137,CNN-03,AI-CURATED-CNN-03,CNN,beginner-intermediate,Training a Classifier,Build and Train a CNN Classifier for CIFAR-10
+PAIR-CURATED-RNN-03,high,tfidf_cosine_instruction_only,Instruction TF-IDF Cosine,0.3818,RNN-03,AI-CURATED-RNN-03,RNN,intermediate,The Seq2Seq Model: The Encoder and The Decoder,Build a Teacher-Forced Seq2Seq Model for Character-Level Translation

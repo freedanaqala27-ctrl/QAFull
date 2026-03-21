@@ -1,0 +1,50 @@
+{
+  "schema_version": "v1",
+  "runs": [
+    {
+      "run_id": "run-20260317-133554",
+      "provider": "bailian",
+      "model_name": "qwen-plus",
+      "temperature": 0.7,
+      "max_tokens": 2200,
+      "totals": {
+        "raw_count": 12,
+        "parse_fail_count": 0,
+        "schema_fail_count": 0,
+        "accepted_count": 9,
+        "rejected_count": 3
+      },
+      "breakdowns": {
+        "raw_by_topic": {
+          "CNN": 12
+        },
+        "raw_by_difficulty": {
+          "beginner": 4,
+          "beginner-intermediate": 4,
+          "intermediate": 4
+        },
+        "raw_by_generation_exercise_type": {
+          "code completion": 4,
+          "model building": 6,
+          "training-analysis": 2
+        },
+        "accepted_by_topic": {
+          "CNN": 9
+        },
+        "accepted_by_difficulty": {
+          "beginner": 3,
+          "beginner-intermediate": 4,
+          "intermediate": 2
+        },
+        "accepted_by_generation_exercise_type": {
+          "code completion": 2,
+          "model building": 6,
+          "training-analysis": 1
+        },
+        "rejected_by_reason": {
+          "near_duplicate_current_batch": 3
+        }
+      }
+    }
+  ]
+}

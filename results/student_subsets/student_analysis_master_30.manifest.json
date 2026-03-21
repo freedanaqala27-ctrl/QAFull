@@ -1,0 +1,30 @@
+{
+  "participant_meta_rows": 30,
+  "item_rating_rows": 130,
+  "batch_feedback_rows": 30,
+  "master_rows": 130,
+  "unique_participants": 30,
+  "unique_exercises": 26,
+  "unique_packages": 6,
+  "item_mean_score_definition": {
+    "positive_fields": [
+      "task_goal_clarity",
+      "key_support",
+      "course_relevance",
+      "learning_help",
+      "active_engagement"
+    ],
+    "reverse_coded_fields": [
+      "info_load",
+      "search_effort",
+      "mental_effort"
+    ],
+    "scale": "5-point Likert"
+  },
+  "pair_metric_attachment": {
+    "pair_id_on_both_sources": true,
+    "pair_similarity_metrics_on_ai_rows_only": true
+  },
+  "student_facing_metric_source": "D:\\Downloads\\PythonProjectQA\\results\\curated\\student_facing_exercise_metrics.zh-CN.v1.csv",
+  "output_csv": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\student_analysis_master_30.csv"
+}

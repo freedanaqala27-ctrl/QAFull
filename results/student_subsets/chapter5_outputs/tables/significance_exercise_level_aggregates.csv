@@ -1,0 +1,27 @@
+﻿pair_id,exercise_id,source_type,topic,difficulty,exercise_type,student_rating_count,task_goal_clarity,key_support,course_relevance,learning_help,info_load,search_effort,active_engagement,mental_effort,item_mean_score,usability_mean_score,cognitive_load_mean_score
+PAIR-CURATED-CNN-01,AI-CURATED-CNN-01,AI,CNN,intermediate,code completion,5,3.4,3.2,3.2,3.2,3.6,3.4,3.6,3.8,2.975,3.25,3.6
+PAIR-CURATED-CNN-01,CNN-01,Expert,CNN,intermediate,code completion,5,3.2,3.6,3.6,3.4,3.0,3.2,3.6,3.6,3.2,3.45,3.2666600000000003
+PAIR-CURATED-KER-01,AI-CURATED-KER-01,AI,CNN,beginner,model building,5,4.0,3.8,4.0,3.4,3.2,2.8,4.2,3.4,3.5,3.8,3.13334
+PAIR-CURATED-KER-01,KER-01,Expert,CNN,beginner,model building,5,4.0,3.8,3.6,4.0,2.8,2.6,4.0,3.4,3.575,3.85,2.9333199999999997
+PAIR-CURATED-KER-02,AI-CURATED-KER-02,AI,RNN,intermediate,model building,4,3.75,3.5,3.5,3.0,3.25,3.5,3.5,3.5,3.125,3.4375,3.416675
+PAIR-CURATED-KER-02,KER-02,Expert,RNN,intermediate,model building,3,3.6666666666666665,3.6666666666666665,3.6666666666666665,3.3333333333333335,4.0,3.3333333333333335,3.6666666666666665,4.0,3.0833333333333335,3.5833333333333335,3.7778000000000005
+PAIR-CURATED-KER-04,AI-CURATED-KER-04,AI,RNN,intermediate,model building,5,3.4,3.2,3.2,2.8,3.8,3.8,2.8,4.0,2.725,3.15,3.86668
+PAIR-CURATED-KER-04,KER-04,Expert,RNN,intermediate,model building,5,3.6,3.6,3.8,3.6,3.2,3.0,3.6,3.2,3.35,3.65,3.13332
+PAIR-CURATED-MIT-01,AI-CURATED-MIT-01,AI,RNN,intermediate,code completion,5,3.6,3.4,3.4,3.4,3.2,3.0,3.4,3.6,3.175,3.45,3.26668
+PAIR-CURATED-MIT-01,MIT-01,Expert,RNN,intermediate,code completion,5,3.4,3.2,3.4,3.4,3.8,3.4,3.4,3.6,3.0,3.35,3.6000199999999998
+PAIR-CURATED-MIT-02,AI-CURATED-MIT-02,AI,CNN,beginner-intermediate,model building,4,3.25,3.0,3.25,3.75,3.5,3.0,3.5,3.75,3.0625,3.3125,3.416675
+PAIR-CURATED-MIT-02,MIT-02,Expert,CNN,beginner-intermediate,model building,3,3.6666666666666665,4.0,3.3333333333333335,3.6666666666666665,4.0,3.0,4.0,4.0,3.2083333333333335,3.6666666666666665,3.6667
+PAIR-CURATED-OPT-02,AI-CURATED-OPT-02,AI,Optimization,beginner-intermediate,training-analysis,5,3.8,3.8,3.4,3.4,3.4,3.2,3.8,3.6,3.25,3.6,3.4
+PAIR-CURATED-OPT-02,OPT-02,Expert,Optimization,beginner-intermediate,training-analysis,5,3.4,3.4,3.2,3.2,4.0,3.2,3.4,4.0,2.925,3.3,3.7333600000000002
+PAIR-CURATED-OPT-04,AI-CURATED-OPT-04,AI,Optimization,intermediate,model revision,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,3.0,3.6666666666666665,3.6666666666666665,3.3333333333333335,3.6666666666666665,2.9166666666666665,3.25,3.6666666666666665
+PAIR-CURATED-OPT-04,OPT-04,Expert,Optimization,intermediate,model revision,4,3.0,3.0,3.25,3.0,3.0,3.25,3.25,3.25,3.0,3.0625,3.166675
+PAIR-CURATED-OPT-05,AI-CURATED-OPT-05,AI,Optimization,intermediate,model revision,5,3.6,3.2,3.4,3.2,3.4,3.2,3.2,3.6,3.05,3.35,3.3999800000000002
+PAIR-CURATED-OPT-05,OPT-05,Expert,Optimization,intermediate,model revision,5,3.2,3.2,3.2,3.4,3.8,3.4,3.2,3.8,2.9,3.25,3.6666800000000004
+PAIR-CURATED-RNN-01,AI-CURATED-RNN-01,AI,RNN,intermediate,code completion,3,3.3333333333333335,3.6666666666666665,3.3333333333333335,3.0,3.6666666666666665,3.3333333333333335,3.6666666666666665,3.6666666666666665,3.0416666666666665,3.3333333333333335,3.555566666666667
+PAIR-CURATED-RNN-01,RNN-01,Expert,RNN,intermediate,code completion,4,3.75,3.5,3.0,3.0,3.25,3.25,3.5,3.75,3.0625,3.3125,3.4166499999999997
+PAIR-CURATED-RNN-02,AI-CURATED-RNN-02,AI,RNN,intermediate,model building,5,3.6,3.4,3.4,3.2,3.6,3.6,3.2,4.0,2.95,3.4,3.7333399999999997
+PAIR-CURATED-RNN-02,RNN-02,Expert,RNN,intermediate,model building,5,3.4,3.2,3.2,3.4,3.6,3.2,3.2,3.8,2.975,3.3,3.53334
+PAIR-CURATED-TRF-01,AI-CURATED-TRF-01,AI,Transformer,intermediate-advanced,code completion,5,3.8,3.4,3.6,3.4,3.8,3.6,3.8,4.2,3.05,3.55,3.8666600000000004
+PAIR-CURATED-TRF-01,TRF-01,Expert,Transformer,intermediate-advanced,code completion,5,3.4,3.4,3.2,3.0,3.8,4.0,3.4,4.2,2.8,3.25,4.0
+PAIR-CURATED-UVA-02,AI-CURATED-UVA-02,AI,Transformer,intermediate-advanced,code completion,5,3.8,3.8,3.8,3.4,3.6,3.4,3.8,3.8,3.225,3.7,3.6
+PAIR-CURATED-UVA-02,UVA-02,Expert,Transformer,intermediate-advanced,code completion,5,3.4,3.0,3.0,3.0,3.4,3.4,3.2,3.6,2.9,3.1,3.46668

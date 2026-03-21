@@ -1,0 +1,24 @@
+ai_exercise_id,bertscore_f1_instruction_only,difficulty,exercise_type,heavy_metric_error,meteor_instruction_only,pair_id,reference_exercise_id,rougeL_f1_instruction_only,tfidf_cosine_full_text,tfidf_cosine_instruction_only,topic,topic_coherence_score_ai,topic_coherence_score_reference
+AI-CURATED-CNN-01,0.8249,intermediate,code completion,,0.1904,PAIR-CURATED-CNN-01,CNN-01,0.1257,0.4925,0.1642,CNN,0.5,0.3
+AI-CURATED-CNN-02,0.8435,beginner,code completion,,0.3001,PAIR-CURATED-CNN-02,CNN-02,0.1591,0.4353,0.1861,CNN,0.4,0.4
+AI-CURATED-CNN-03,0.8394,beginner-intermediate,model building,,0.1523,PAIR-CURATED-CNN-03,CNN-03,0.1532,0.3715,0.2137,CNN,0.0,0.1
+AI-CURATED-CNN-04,0.8274,intermediate,training-analysis,,0.1764,PAIR-CURATED-CNN-04,CNN-04,0.0984,0.3033,0.1279,CNN,0.0,0.0
+AI-CURATED-DTL-01,0.8405,intermediate,training-analysis,,0.1911,PAIR-CURATED-DTL-01,DTL-01,0.1682,0.3714,0.1095,Optimization,0.4,0.2
+AI-CURATED-DTL-02,0.8442,intermediate,training-analysis,,0.1873,PAIR-CURATED-DTL-02,DTL-02,0.1391,0.3124,0.1373,Optimization,0.4,0.2
+AI-CURATED-DTL-03,0.8424,intermediate,training-analysis,,0.1534,PAIR-CURATED-DTL-03,DTL-03,0.086,0.4279,0.1309,Transformer,0.2,0.2
+AI-CURATED-KER-01,0.8897,beginner,model building,,0.448,PAIR-CURATED-KER-01,KER-01,0.3077,0.4889,0.2629,CNN,0.2,0.0
+AI-CURATED-KER-02,0.9066,intermediate,model building,,0.4759,PAIR-CURATED-KER-02,KER-02,0.3469,0.4911,0.2712,RNN,0.4,0.4
+AI-CURATED-KER-03,0.8557,intermediate-advanced,model building,,0.3177,PAIR-CURATED-KER-03,KER-03,0.2659,0.4023,0.2711,Transformer,0.1,0.0
+AI-CURATED-KER-04,0.8692,intermediate,model building,,0.4544,PAIR-CURATED-KER-04,KER-04,0.3956,0.4234,0.3015,RNN,0.6,0.4
+AI-CURATED-MIT-01,0.845,intermediate,code completion,,0.1756,PAIR-CURATED-MIT-01,MIT-01,0.1695,0.3929,0.2125,RNN,0.7,0.5
+AI-CURATED-MIT-02,0.8423,beginner-intermediate,model building,,0.2639,PAIR-CURATED-MIT-02,MIT-02,0.1739,0.3945,0.2179,CNN,0.5,0.2
+AI-CURATED-OPT-02,0.852,beginner-intermediate,training-analysis,,0.1849,PAIR-CURATED-OPT-02,OPT-02,0.1624,0.3187,0.1742,Optimization,0.5,0.1
+AI-CURATED-OPT-03,0.8438,intermediate,model revision,,0.1699,PAIR-CURATED-OPT-03,OPT-03,0.1678,0.3563,0.2432,Optimization,0.2,0.1
+AI-CURATED-OPT-04,0.852,intermediate,model revision,,0.3307,PAIR-CURATED-OPT-04,OPT-04,0.1975,0.4326,0.2334,Optimization,0.5,0.3
+AI-CURATED-OPT-05,0.8438,intermediate,model revision,,0.2434,PAIR-CURATED-OPT-05,OPT-05,0.1775,0.4367,0.2269,Optimization,0.2,0.1
+AI-CURATED-RNN-01,0.8282,intermediate,code completion,,0.3104,PAIR-CURATED-RNN-01,RNN-01,0.2323,0.3674,0.304,RNN,0.2,0.3
+AI-CURATED-RNN-02,0.8215,intermediate,model building,,0.1372,PAIR-CURATED-RNN-02,RNN-02,0.1791,0.3337,0.2098,RNN,0.4,0.2
+AI-CURATED-RNN-03,0.8437,intermediate,model building,,0.2039,PAIR-CURATED-RNN-03,RNN-03,0.2294,0.4068,0.3818,RNN,0.7,0.4
+AI-CURATED-TRF-01,0.8359,intermediate-advanced,code completion,,0.1618,PAIR-CURATED-TRF-01,TRF-01,0.1143,0.2326,0.1635,Transformer,0.5,0.2
+AI-CURATED-TRF-02,0.8282,intermediate,code completion,,0.1203,PAIR-CURATED-TRF-02,TRF-02,0.087,0.2381,0.076,Transformer,0.3,0.1
+AI-CURATED-UVA-02,0.8355,intermediate-advanced,code completion,,0.2193,PAIR-CURATED-UVA-02,UVA-02,0.2312,0.4362,0.2357,Transformer,0.6,0.4

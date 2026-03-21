@@ -1,0 +1,1091 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_name": "Expert Programming Exercise Samples - Main Frozen Set",
+  "description": "Frozen main experiment set filtered from the master expert exercise dataset using record_status == finalized and comparison_status == comparable.",
+  "created_at": "2026-03-13",
+  "source_language": "mixed",
+  "freeze_version": "v1",
+  "selection_rule": "record_status == 'finalized' and comparison_status == 'comparable'",
+  "source_master_file": "expert_exercises.updated_optimization.normalized.json",
+  "items": [
+    {
+      "exercise_id": "CNN-01",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Assignment Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Convolution: Naive Forward Pass",
+      "topic": "CNN",
+      "difficulty": "intermediate",
+      "exercise_type": "code completion",
+      "instruction_text": "The core of a convolutional network is the convolution operation. In the file cs231n/layers.py, implement the forward pass for the convolution layer in the function conv_forward_naive.\n\nYou don't have to worry too much about efficiency at this point; just write the code in whatever way you find most clear.\n\nYou can test your implementation by running the following:",
+      "programming_language": "Python",
+      "framework": "NumPy",
+      "has_code": true,
+      "starter_code": "def conv_forward_naive(x, w, b, conv_param):\n    \"\"\"A naive implementation of the forward pass for a convolutional layer.\n\n    The input consists of N data points, each with C channels, height H and\n    width W. We convolve each input with F different filters, where each filter\n    spans all C channels and has height HH and width WW.\n\n    Input:\n    - x: Input data of shape (N, C, H, W)\n    - w: Filter weights of shape (F, C, HH, WW)\n    - b: Biases, of shape (F,)\n    - conv_param: A dictionary with the following keys:\n      - 'stride': The number of pixels between adjacent receptive fields in the\n        horizontal and vertical directions.\n      - 'pad': The number of pixels that will be used to zero-pad the input.\n\n    During padding, 'pad' zeros should be placed symmetrically (i.e equally on both sides)\n    along the height and width axes of the input. Be careful not to modify the original\n    input x directly.\n\n    Returns a tuple of:\n    - out: Output data, of shape (N, F, H', W') where H' and W' are given by\n      H' = 1 + (H + 2 * pad - HH) / stride\n      W' = 1 + (W + 2 * pad - WW) / stride\n    - cache: (x, w, b, conv_param)\n    \"\"\"\n    out = None\n    ###########################################################################\n    # TODO: Implement the convolutional forward pass.                         #\n    # Hint: you can use the function np.pad for padding.                      #\n    ###########################################################################\n    #                                                                         #\n    ###########################################################################\n    # END OF YOUR CODE                                                        #\n    ###########################################################################\n    cache = (x, w, b, conv_param)\n    return out, cache",
+      "constraints": [
+        "You don't have to worry too much about efficiency at this point; just write the code in whatever way you find most clear.",
+        "During padding, 'pad' zeros should be placed symmetrically (i.e equally on both sides) along the height and width axes of the input.",
+        "Be careful not to modify the original input x directly.",
+        "Hint: you can use the function np.pad for padding."
+      ],
+      "expected_output": "Return a tuple (out, cache) where out has shape (N, F, H', W') with H' = 1 + (H + 2 * pad - HH) / stride and W' = 1 + (W + 2 * pad - WW) / stride, and cache = (x, w, b, conv_param).",
+      "learning_objectives": [
+        "Implement the forward pass for a convolutional layer.",
+        "Understand how padding and stride determine convolution output shape.",
+        "Practice manipulating NCHW tensors in NumPy."
+      ],
+      "prerequisite_concepts": [
+        "NumPy arrays",
+        "tensor shapes",
+        "convolution",
+        "padding",
+        "stride"
+      ],
+      "keywords": [
+        "CNN",
+        "convolution",
+        "conv_forward_naive",
+        "padding",
+        "stride",
+        "output shape",
+        "NumPy"
+      ],
+      "estimated_time_minutes": 30,
+      "target_learner_level": "intermediate",
+      "course_context": "Stanford CS231n Assignment 2, Q3: Convolutional Neural Networks, Convolution: Naive Forward Pass",
+      "created_at": "2026-03-13",
+      "notes": "Selected from the official CS231n Assignment 2 materials because it is the most direct single exercise on implementing convolution forward propagation; instruction text comes from ConvolutionalNetworks.ipynb, and starter code comes from the corresponding TODO in cs231n/layers.py.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "CNN-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Textbook Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Calculate the output shape",
+      "topic": "CNN",
+      "difficulty": "beginner",
+      "exercise_type": "concept-to-code",
+      "instruction_text": "Given the final code example in this section with kernel size (3, 5), padding (0, 1), and stride (3, 4), calculate the output shape to check if it is consistent with the experimental result.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "starter_code": "def comp_conv2d(conv2d, X):\n    # (1, 1) indicates that batch size and the number of channels are both 1\n    X = X.reshape((1, 1) + X.shape)\n    Y = conv2d(X)\n    # Strip the first two dimensions: examples and channels\n    return Y.reshape(Y.shape[2:])\n\nX = torch.rand(size=(8, 8))\nconv2d = nn.LazyConv2d(1, kernel_size=(3, 5), padding=(0, 1), stride=(3, 4))\ncomp_conv2d(conv2d, X).shape",
+      "learning_objectives": [
+        "Compare how padding and stride affect convolution output size",
+        "Verify the output shape from a concrete Conv2d configuration"
+      ],
+      "prerequisite_concepts": [
+        "2D convolution",
+        "padding",
+        "stride",
+        "output shape formula"
+      ],
+      "keywords": [
+        "CNN",
+        "padding",
+        "stride",
+        "output shape",
+        "Conv2d"
+      ],
+      "estimated_time_minutes": 10,
+      "target_learner_level": "beginner",
+      "course_context": "Convolutional Neural Networks - Padding and Stride",
+      "created_at": "2026-03-13",
+      "notes": "Selected from the Exercises section of 'Padding and Stride' in the CNN chapter. The starter_code keeps a single original PyTorch tab version of the referenced final code example.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "CNN-03",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "Training a Classifier",
+      "topic": "CNN",
+      "difficulty": "beginner-intermediate",
+      "exercise_type": "model building",
+      "instruction_text": "Training an image classifier.\n\nWe will do the following steps in order:\n1. Load and normalize the CIFAR10 training and test datasets using torchvision.\n2. Define a Convolutional Neural Network.\n3. Define a loss function.\n4. Train the network on the training data.\n5. Test the network on the test data.\n\nDefine a Convolutional Neural Network by copying the neural network from the Neural Networks section before and modifying it to take 3-channel images instead of 1-channel images.\n\nTrain the network by looping over the data iterator, feeding the inputs to the network, and optimizing.\n\nTest the network on the test data by predicting the class label that the neural network outputs and checking it against the ground truth.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "constraints": [
+        "Use the CIFAR10 dataset.",
+        "The images in CIFAR-10 are of size 3x32x32.",
+        "Use nn.CrossEntropyLoss().",
+        "Use optim.SGD(net.parameters(), lr=0.001, momentum=0.9).",
+        "Train for epoch in range(2).",
+        "Print loss every 2000 mini-batches.",
+        "Evaluate on the test set by comparing predicted labels with ground-truth."
+      ],
+      "expected_output": "Printed training loss statistics during training, 'Finished Training', and test-set accuracy such as 'Accuracy of the network on the 10000 test images: ... %.'",
+      "learning_objectives": [
+        "Define a CNN for CIFAR10 in PyTorch.",
+        "Run a complete image classification training loop with forward, loss, backward, and optimizer steps.",
+        "Evaluate classifier accuracy on the CIFAR10 test set and observe printed loss statistics."
+      ],
+      "prerequisite_concepts": [
+        "torchvision.datasets.CIFAR10",
+        "nn.Module",
+        "forward and backward propagation",
+        "CrossEntropyLoss",
+        "SGD"
+      ],
+      "keywords": [
+        "CNN",
+        "CIFAR10",
+        "PyTorch",
+        "training loop",
+        "loss",
+        "accuracy",
+        "image classification"
+      ],
+      "estimated_time_minutes": 30,
+      "target_learner_level": "beginner-intermediate",
+      "course_context": "PyTorch tutorial: Training a Classifier / Training an image classifier",
+      "created_at": "2026-03-13",
+      "notes": "Selected from the official PyTorch CIFAR10 tutorial as a contiguous tutorial task covering model definition, loss, optimizer, training loop, and accuracy evaluation.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "CNN-04",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Textbook Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Improve the accuracy of the classifier in this chapter",
+      "topic": "CNN",
+      "difficulty": "intermediate",
+      "exercise_type": "training-analysis",
+      "instruction_text": "See if you can improve the accuracy of the classifier in this chapter. What's the best accuracy you can achieve? Look on the forums and the book's website to see what other students have achieved with this dataset, and how they did it.",
+      "programming_language": "Python",
+      "framework": "fastai",
+      "has_code": true,
+      "constraints": [
+        "Use the classifier in this chapter",
+        "Use this dataset"
+      ],
+      "expected_output": "An improved image classifier and the best accuracy you can achieve, along with a comparison to results achieved by other students on this dataset.",
+      "learning_objectives": [
+        "Improve an image classifier built in fastai.",
+        "Analyze how training choices affect classification accuracy.",
+        "Relate results to transfer learning-based image classification practice."
+      ],
+      "prerequisite_concepts": [
+        "image classification",
+        "pretrained models",
+        "fine-tuning",
+        "validation metrics"
+      ],
+      "keywords": [
+        "CNN",
+        "image classification",
+        "fastai",
+        "transfer learning",
+        "pet breeds",
+        "accuracy"
+      ],
+      "estimated_time_minutes": 60,
+      "target_learner_level": "intermediate",
+      "course_context": "Image Classification / From Dogs and Cats to Pet Breeds / Further Research",
+      "created_at": "2026-03-13",
+      "notes": "Selected from the official fast.ai fastbook course materials (05_pet_breeds.ipynb, Further Research).",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "RNN-01",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Derived Exercise Unit",
+      "extraction_mode": "masked_code_block",
+      "title": "RNN Model",
+      "topic": "RNN",
+      "difficulty": "intermediate",
+      "exercise_type": "code completion",
+      "instruction_text": "The forward method below defines how to compute the output and hidden state at any time step, given the current input and the state of the model at the previous time step. Note that the RNN model loops through the outermost dimension of inputs, updating the hidden state one time step at a time. The model here uses a tanh activation function.",
+      "programming_language": "Python",
+      "framework": "PyTorch / MXNet / TensorFlow",
+      "has_code": true,
+      "starter_code": "@d2l.add_to_class(RNNScratch)\ndef forward(self, inputs, state=None):\n    if state is None:\n        # Initial state with shape: (batch_size, num_hiddens)\n        if tab.selected('mxnet'):\n            state = d2l.zeros((inputs.shape[1], self.num_hiddens), ctx=inputs.ctx)\n        if tab.selected('pytorch'):\n            state = d2l.zeros((inputs.shape[1], self.num_hiddens), device=inputs.device)\n        if tab.selected('tensorflow'):\n            state = d2l.zeros((inputs.shape[1], self.num_hiddens))\n    else:\n        state, = state\n        if tab.selected('tensorflow'):\n            state = d2l.reshape(state, (-1, self.num_hiddens))\n    outputs = []\n    for X in inputs:\n        state = ______________________________\n        outputs.append(state)\n    return outputs, state",
+      "constraints": [
+        "Loop through the outermost dimension of inputs one time step at a time.",
+        "Update the hidden state using the current input and previous state.",
+        "Use a tanh activation function.",
+        "Return both outputs and the final state."
+      ],
+      "expected_output": "A completed forward method that correctly computes the hidden state at each time step and returns outputs, state.",
+      "learning_objectives": [
+        "Understand how an RNN hidden state is updated from the current input and previous state.",
+        "Connect the hidden-state equation to a framework-level implementation.",
+        "Implement sequence-wise state propagation in RNNScratch.forward."
+      ],
+      "prerequisite_concepts": [
+        "hidden state",
+        "matrix multiplication",
+        "tanh activation",
+        "sequence modeling"
+      ],
+      "keywords": [
+        "RNN",
+        "hidden state",
+        "forward",
+        "tanh",
+        "RNNScratch",
+        "code completion"
+      ],
+      "estimated_time_minutes": 15,
+      "target_learner_level": "intermediate",
+      "course_context": "D2L RNN chapter / sec_rnn-scratch",
+      "created_at": "2026-03-13",
+      "notes": "Derived by masking a single hidden-state update expression from an original D2L code block; not a verbatim standalone exercise in the source.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "RNN-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Assignment Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Neural Transition-Based Dependency Parsing — implement parser_model.py and run.py",
+      "topic": "RNN",
+      "difficulty": "intermediate",
+      "exercise_type": "model building",
+      "instruction_text": "In this section, you’ll be implementing a neural-network based dependency parser with the goal of maximizing performance on the UAS (Unlabeled Attachment Score) metric. First, the model extracts a feature vector representing the current state. This feature vector consists of a list of tokens w = [w1, w2, . . . , wm] where each 0 ≤ wi < |V| is the index of a token in the vocabulary. Then our network looks up an embedding for each word and concatenates them into a single input vector: x = [Ew1, ..., Ewm]. We then compute our prediction as: h = ReLU(xW + b1), l = hU + b2, ŷ = softmax(l). In parser_model.py you will find skeleton code to implement this simple neural network using PyTorch. Complete the init, embedding_lookup and forward functions to implement the model. Then complete the train_for_epoch and train functions within the run.py file. Finally execute python run.py to train your model and compute predictions on test data from Penn Treebank (annotated with Universal Dependencies).",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "constraints": [
+        "Do not use torch.nn.Linear or torch.nn.Embedding in your code.",
+        "Follow naming requirements in the TODOs if any are explicitly specified.",
+        "Use efficient functions and avoid for loops when implementing embedding lookup."
+      ],
+      "expected_output": "A working implementation of the neural dependency parser in parser_model.py and the training functions in run.py; train the model and report the best UAS on the dev set and the UAS on the test set.",
+      "test_cases": [
+        {
+          "command": "python parser_model.py -e",
+          "description": "Run sanity check for embedding_lookup."
+        },
+        {
+          "command": "python parser_model.py -f",
+          "description": "Run sanity check for forward."
+        },
+        {
+          "command": "python run.py -d",
+          "description": "Debug mode; expected dev loss < 0.2 and dev UAS > 65."
+        },
+        {
+          "command": "python run.py",
+          "description": "Full training; expected train loss < 0.08 and dev UAS > 87."
+        }
+      ],
+      "learning_objectives": [
+        "Implement embedding lookup from a token index feature vector.",
+        "Build a feedforward neural dependency parser in PyTorch.",
+        "Train and evaluate a transition-based parser with UAS."
+      ],
+      "prerequisite_concepts": [
+        "word embeddings",
+        "ReLU",
+        "softmax cross-entropy",
+        "dependency parsing",
+        "PyTorch tensors"
+      ],
+      "keywords": [
+        "CS224N",
+        "Assignment 2",
+        "Word2Vec and Dependency Parsing",
+        "dependency parser",
+        "word embeddings",
+        "PyTorch",
+        "UAS"
+      ],
+      "target_learner_level": "intermediate",
+      "course_context": "Stanford CS224N Winter 2026 Assignment 2, Part 3(e)(iii): Neural Transition-Based Dependency Parsing",
+      "created_at": "2026-03-13",
+      "notes": "Selected as the clearest official PyTorch model-building exercise among the provided CS224N assignment files.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "RNN-03",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "The Seq2Seq Model: The Encoder and The Decoder",
+      "topic": "RNN",
+      "difficulty": "intermediate",
+      "exercise_type": "model building",
+      "instruction_text": "Write your own classes and functions to preprocess the data for an NLP modeling task. In this project, you will teach a neural network to translate from French to English.\n\nA Sequence to Sequence network, or seq2seq network, is a model consisting of two RNNs called the encoder and decoder. The encoder reads an input sequence and outputs a single vector, and the decoder reads that vector to produce an output sequence.\n\nThe encoder of a seq2seq network is a RNN that outputs a value for every word from the input sentence. For every input word the encoder outputs a vector and a hidden state, and uses the hidden state for the next input word.\n\nThe decoder is another RNN that takes the encoder output vector(s) and outputs a sequence of words to create the translation.\n\nTeacher forcing is the concept of using the real target outputs as each next input, instead of using the decoder's guess as the next input.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "expected_output": "A sequence-to-sequence model that can translate from French to English.",
+      "learning_objectives": [
+        "Implement an encoder and a decoder for a seq2seq model.",
+        "Explain the role of teacher forcing during training.",
+        "Build and train a PyTorch sequence-to-sequence translation model."
+      ],
+      "prerequisite_concepts": [
+        "Python",
+        "Tensors",
+        "Recurrent Neural Networks",
+        "Sequence to Sequence networks"
+      ],
+      "keywords": [
+        "RNN",
+        "seq2seq",
+        "EncoderRNN",
+        "AttnDecoderRNN",
+        "teacher forcing",
+        "attention",
+        "PyTorch"
+      ],
+      "estimated_time_minutes": 90,
+      "target_learner_level": "intermediate",
+      "course_context": "PyTorch tutorial: Translation with a Sequence to Sequence Network and Attention / The Seq2Seq Model / The Encoder / The Decoder / Training the Model",
+      "created_at": "2026-03-13",
+      "notes": "Normalized as a contiguous tutorial task rather than a verbatim standalone exercise, because the source is a project-style tutorial.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "TRF-01",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Assignment Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Implement CausalAttention.forward",
+      "topic": "Transformer",
+      "difficulty": "intermediate-advanced",
+      "exercise_type": "code completion",
+      "instruction_text": "In this part of the question we will implement a transformer in the model_solution.py file. The file contains a number of different classes that you will implement. In the end, you will have an implementation of the Transformer class with functioning forward and generate methods. Implement CausalAttention.forward and check that you pass the corresponding test.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "starter_code": "class CausalAttention(nn.Module):\n    def __init__(self, config: ModelConfig):\n        super().__init__()\n        assert config.d_model % config.n_heads == 0\n        self.d_attention = int(config.d_model / config.n_heads)\n        self.W_k = nn.Linear(config.d_model, self.d_attention * config.n_heads)\n        self.W_q = nn.Linear(config.d_model, self.d_attention * config.n_heads)\n        self.W_v = nn.Linear(config.d_model, self.d_attention * config.n_heads)\n        self.W_o = nn.Linear(self.d_attention * config.n_heads, config.d_model)\n        self.register_buffer(\n            'causal_mask',\n            torch.tril(torch.ones(config.context_length, config.context_length)).view(1, 1, config.context_length, config.context_length),\n            persistent=False\n        )\n\n    def forward(self, x):\n        # TODO, complete\n        return torch.empty(1)",
+      "constraints": [
+        "Do not edit the unit test file; tests will be run separately during grading.",
+        "Check that you pass the corresponding test."
+      ],
+      "expected_output": "A working implementation of CausalAttention.forward in model_solution.py.",
+      "test_cases": [
+        {
+          "description": "tests/test_student.py::test_attention compares attention(attention_input) against snapshots/attention_output.npy with atol=1e-5."
+        }
+      ],
+      "learning_objectives": [
+        "Implement masked self-attention in a decoder-only transformer.",
+        "Understand how attention weights are computed and how causal masking constrains them.",
+        "Work with multi-head projections and tensor reshaping in PyTorch."
+      ],
+      "prerequisite_concepts": [
+        "scaled dot-product attention",
+        "softmax",
+        "causal masking",
+        "tensor shapes",
+        "PyTorch nn.Module"
+      ],
+      "keywords": [
+        "Transformer",
+        "self-attention",
+        "CausalAttention",
+        "attention weights",
+        "causal mask",
+        "GPT-2 style transformer",
+        "PyTorch"
+      ],
+      "estimated_time_minutes": 60,
+      "target_learner_level": "intermediate-advanced",
+      "course_context": "CS224N Winter 2026 Assignment 3 > Coding a transformer from scratch > Implement CausalAttention.forward",
+      "created_at": "2026-03-13",
+      "notes": "Selected because it most directly targets self-attention implementation in the official Self-Attention and Transformers assignment.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "TRF-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Textbook Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Implement distance-based attention by modifying the DotProductAttention code",
+      "topic": "Transformer",
+      "difficulty": "intermediate",
+      "exercise_type": "code completion",
+      "instruction_text": "Implement distance-based attention by modifying the DotProductAttention code. Note that you only need the squared norms of the keys ||k_i||^2 for an efficient implementation.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "starter_code": "class DotProductAttention(nn.Module):\n    \"\"\"Scaled dot product attention.\"\"\"\n    def __init__(self, dropout):\n        super().__init__()\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, queries, keys, values, valid_lens=None):\n        d = queries.shape[-1]\n        scores = torch.bmm(queries, keys.transpose(1, 2)) / math.sqrt(d)\n        self.attention_weights = masked_softmax(scores, valid_lens)\n        return torch.bmm(self.dropout(self.attention_weights), values)",
+      "learning_objectives": [
+        "Understand how DotProductAttention computes attention scores.",
+        "Modify an existing attention implementation to realize a different scoring function."
+      ],
+      "prerequisite_concepts": [
+        "queries, keys, and values",
+        "masked softmax",
+        "batch matrix multiplication",
+        "scaled dot product attention"
+      ],
+      "keywords": [
+        "Transformer",
+        "attention scoring functions",
+        "DotProductAttention",
+        "scaled dot product attention"
+      ],
+      "estimated_time_minutes": 20,
+      "target_learner_level": "intermediate",
+      "course_context": "Attention Scoring Functions / Scaled Dot Product Attention",
+      "created_at": "2026-03-13",
+      "notes": "Selected as the closest matching official exercise in the D2L Attention & Transformers chapter.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "OPT-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "Demonstrate overfitting",
+      "topic": "Optimization",
+      "difficulty": "beginner-intermediate",
+      "exercise_type": "training-analysis",
+      "instruction_text": "The simplest way to prevent overfitting is to start with a small model. To check if you can beat the performance of the small model, progressively train some larger models. Try two hidden layers with 16 units each. Then try three hidden layers with 64 units each. As an exercise, create an even larger model and check how quickly it begins overfitting. Plot the training and validation losses and compare how validation behavior changes with model capacity.",
+      "programming_language": "Python",
+      "framework": "tf.keras",
+      "has_code": true,
+      "starter_code": "def compile_and_fit(model, name, optimizer=None, max_epochs=10000):\n    if optimizer is None:\n        optimizer = get_optimizer()\n    model.compile(\n        optimizer=optimizer,\n        loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),\n        metrics=[\n            tf.keras.metrics.BinaryCrossentropy(from_logits=True, name='binary_crossentropy'),\n            'accuracy'\n        ]\n    )\n    model.summary()\n    history = model.fit(\n        train_ds,\n        steps_per_epoch=STEPS_PER_EPOCH,\n        epochs=max_epochs,\n        validation_data=validate_ds,\n        callbacks=get_callbacks(name),\n        verbose=0\n    )\n    return history",
+      "constraints": [
+        "Each model uses the same training configuration.",
+        "Plot and compare validation metrics to training metrics.",
+        "Use a log-scale plot for the large model when needed."
+      ],
+      "expected_output": "Training and validation loss curves showing that the Tiny model usually avoids overfitting while larger models overfit more quickly.",
+      "learning_objectives": [
+        "Compare model capacity and overfitting across Tiny, Small, Medium, and large models.",
+        "Interpret training and validation binary cross-entropy curves.",
+        "Recognize validation stagnation or degradation as signs of overfitting."
+      ],
+      "prerequisite_concepts": [
+        "tf.keras.Sequential",
+        "binary classification",
+        "training and validation metrics"
+      ],
+      "keywords": [
+        "overfit and underfit",
+        "tf.keras",
+        "Tiny",
+        "Small",
+        "Medium",
+        "large",
+        "binary_crossentropy",
+        "validation loss"
+      ],
+      "estimated_time_minutes": 45,
+      "target_learner_level": "beginner-intermediate",
+      "course_context": "TensorFlow tutorial: Overfit and underfit > Demonstrate overfitting",
+      "created_at": "2026-03-13",
+      "notes": "Selected as a contiguous tutorial segment from the official TensorFlow notebook.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "OPT-03",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "Combined L2 + dropout",
+      "topic": "Optimization",
+      "difficulty": "intermediate",
+      "exercise_type": "model revision",
+      "instruction_text": "Both L2 regularization and dropout improve the behavior of the large model, but this still does not beat the Tiny baseline. Next, try them both together and see whether the combined model performs better.",
+      "programming_language": "Python",
+      "framework": "TensorFlow / Keras",
+      "has_code": true,
+      "starter_code": "combined_model = tf.keras.Sequential([\n    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001), activation='elu', input_shape=(FEATURES,)),\n    layers.Dropout(0.5),\n    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001), activation='elu'),\n    layers.Dropout(0.5),\n    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001), activation='elu'),\n    layers.Dropout(0.5),\n    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001), activation='elu'),\n    layers.Dropout(0.5),\n    layers.Dense(1)\n])\n\nregularizer_histories['combined'] = compile_and_fit(combined_model, 'regularizers/combined')",
+      "learning_objectives": [
+        "Apply L2 regularization in a tf.keras model.",
+        "Add Dropout layers to reduce overfitting.",
+        "Compare combined regularization against earlier model variants in the tutorial."
+      ],
+      "prerequisite_concepts": [
+        "overfitting",
+        "tf.keras.Sequential",
+        "Dense layers",
+        "regularization"
+      ],
+      "keywords": [
+        "L2 regularization",
+        "dropout",
+        "overfitting",
+        "tf.keras",
+        "model comparison"
+      ],
+      "estimated_time_minutes": 20,
+      "target_learner_level": "intermediate",
+      "course_context": "Overfit and underfit > Combined L2 + dropout",
+      "created_at": "2026-03-13",
+      "notes": "选自原 notebook 中边界清晰的 regularization model revision 段落；保留为 tutorial task，而非独立 handout exercise。",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "MIT-01",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "Define the RNN model for music generation",
+      "topic": "RNN",
+      "difficulty": "intermediate",
+      "exercise_type": "code completion",
+      "instruction_text": "Let's define our model as an nn.Module. Fill in the TODOs to define the RNN model. Add the LSTM and Linear layers so that the model embeds character indices, processes them with an LSTM of hidden_size, and maps outputs back to the vocabulary size.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "learning_objectives": [
+        "Build or complete a recurrent sequence model for generation.",
+        "Understand sequence modeling and autoregressive generation in practice.",
+        "Train and evaluate a music-generation model from a notebook-based lab."
+      ],
+      "prerequisite_concepts": [
+        "PyTorch tensors",
+        "sequence modeling",
+        "recurrent neural networks",
+        "training loops"
+      ],
+      "keywords": [
+        "MIT",
+        "music generation",
+        "RNN",
+        "sequence modeling",
+        "PyTorch"
+      ],
+      "estimated_time_minutes": 60,
+      "target_learner_level": "intermediate",
+      "course_context": "MIT Introduction to Deep Learning / Lab 1: Music Generation with RNNs / Define the RNN model",
+      "source_url": "https://raw.githubusercontent.com/MITDeepLearning/introtodeeplearning/master/lab1/PT_Part2_Music_Generation.ipynb",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from a single contiguous TODO-based unit in the official MIT music-generation lab. This entry now represents the specific \"Define the RNN model\" task rather than a placeholder notebook-level candidate.",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "starter_code": "class LSTMModel(nn.Module):\n    def __init__(self, vocab_size, embedding_dim, hidden_size):\n        super(LSTMModel, self).__init__()\n        self.hidden_size = hidden_size\n\n        self.embedding = nn.Embedding(vocab_size, embedding_dim)\n\n        # TODO: Layer 2: LSTM with hidden_size `hidden_size`\n        self.lstm = nn.LSTM('''TODO''')  # TODO\n\n        # TODO: Layer 3: Linear layer to project to vocab_size\n        self.fc = nn.Linear('''TODO''')  # TODO\n\n    def init_hidden(self, batch_size, device):\n        return (torch.zeros(1, batch_size, self.hidden_size).to(device),\n                torch.zeros(1, batch_size, self.hidden_size).to(device))\n\n    def forward(self, x, state=None, return_state=False):\n        x = self.embedding(x)\n        if state is None:\n            state = self.init_hidden(x.size(0), x.device)\n        out, state = self.lstm(x, state)\n        out = self.fc(out)\n        return out if not return_state else (out, state)\n",
+      "constraints": [
+        "Use nn.Module to define the model.",
+        "Use an embedding layer, an nn.LSTM layer, and a linear output layer.",
+        "The LSTM hidden size should be hidden_size.",
+        "The linear layer should map the LSTM output to vocab_size."
+      ],
+      "expected_output": "A completed LSTMModel class that produces predictions of shape (batch_size, sequence_length, vocab_size) for character-level music generation."
+    },
+    {
+      "exercise_id": "MIT-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "title": "Define and train a CNN for MNIST digit classification",
+      "topic": "CNN",
+      "difficulty": "beginner-intermediate",
+      "exercise_type": "model building",
+      "instruction_text": "In MIT Introduction to Deep Learning Lab 2 Part 1, define the CNN model for handwritten digit classification using the parameters shown in the network architecture, then train and evaluate it on MNIST. Use nn.Conv2d and nn.MaxPool2d layers to build the model, define an optimizer and loss function, run the training loop, and report the test accuracy.",
+      "programming_language": "Python",
+      "framework": "PyTorch",
+      "has_code": true,
+      "starter_code": "class CNN(nn.Module):\n    def __init__(self):\n        super(CNN, self).__init__()\n        # TODO: Define the first convolutional layer\n        self.conv1 = # TODO\n        # TODO: Define the first max pooling layer\n        self.pool1 = # TODO\n        # TODO: Define the second convolutional layer\n        self.conv2 = # TODO\n        # TODO: Define the second max pooling layer\n        self.pool2 = # TODO\n        self.flatten = nn.Flatten()\n        self.fc1 = nn.Linear(36 * 5 * 5, 128)\n        self.relu = nn.ReLU()\n        # TODO: Define the output linear layer\n        self.fc2 = # TODO\n\n    def forward(self, x):\n        x = self.conv1(x)\n        x = self.relu(x)\n        x = self.pool1(x)\n        # TODO: Implement the rest of the forward pass\n        return x",
+      "constraints": [
+        "Use the MNIST training and test datasets from the notebook.",
+        "Use the CNN architecture described in the lab.",
+        "Define both the model and the training/evaluation procedure in PyTorch.",
+        "Report test accuracy after training."
+      ],
+      "expected_output": "A trained CNN for MNIST digit classification and a reported test accuracy on the MNIST test set.",
+      "learning_objectives": [
+        "Implement a basic CNN in PyTorch using convolution and pooling layers.",
+        "Train and evaluate a CNN on MNIST.",
+        "Compare CNN-based classification with earlier fully connected baselines."
+      ],
+      "prerequisite_concepts": [
+        "convolution",
+        "max pooling",
+        "cross-entropy loss",
+        "PyTorch training loop"
+      ],
+      "keywords": [
+        "MIT",
+        "MNIST",
+        "CNN",
+        "computer vision",
+        "PyTorch"
+      ],
+      "estimated_time_minutes": 45,
+      "target_learner_level": "beginner-intermediate",
+      "course_context": "MIT Introduction to Deep Learning / Laboratory 2: Computer Vision / Part 1: MNIST Digit Classification / Define the CNN model",
+      "source_url": "https://raw.githubusercontent.com/MITDeepLearning/introtodeeplearning/master/lab2/PT_Part1_MNIST.ipynb",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from a contiguous official MIT lab segment covering CNN definition, training, and evaluation for MNIST."
+    },
+    {
+      "exercise_id": "UVA-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "title": "Implement scaled dot-product attention and multi-head attention",
+      "topic": "Transformer",
+      "difficulty": "intermediate-advanced",
+      "exercise_type": "code completion",
+      "instruction_text": "In UvA Deep Learning Tutorial 6: Transformers and Multi-Head Attention, implement the contiguous attention module section covering scaled dot-product attention and multi-head attention. Specifically, complete or reproduce the attention computation from the section beginning with 'Scaled Dot Product Attention' and continuing through the Multi-Head Attention implementation. The task includes computing attention logits from queries and keys, applying scaling and masking, normalizing with softmax, combining values, expanding masks to compatible dimensions, and implementing the MultiheadAttention module that projects Q/K/V, splits heads, applies scaled dot-product attention, concatenates heads, and applies the output projection.",
+      "programming_language": "Python",
+      "framework": "PyTorch / PyTorch Lightning",
+      "has_code": true,
+      "starter_code": "def scaled_dot_product(q, k, v, mask=None):\n    d_k = q.size()[-1]\n    attn_logits = torch.matmul(q, k.transpose(-2, -1))\n    attn_logits = attn_logits / math.sqrt(d_k)\n    if mask is not None:\n        attn_logits = attn_logits.masked_fill(mask == 0, -9e15)\n    attention = F.softmax(attn_logits, dim=-1)\n    values = torch.matmul(attention, v)\n    return values, attention\n\n\ndef expand_mask(mask):\n    assert mask.ndim >= 2, \"Mask must be at least 2-dimensional with seq_length x seq_length\"\n    if mask.ndim == 3:\n        mask = mask.unsqueeze(1)\n    while mask.ndim < 4:\n        mask = mask.unsqueeze(0)\n    return mask\n\n\nclass MultiheadAttention(nn.Module):\n    def __init__(self, input_dim, embed_dim, num_heads):\n        super().__init__()\n        assert embed_dim % num_heads == 0\n        self.embed_dim = embed_dim\n        self.num_heads = num_heads\n        self.head_dim = embed_dim // num_heads\n        self.qkv_proj = nn.Linear(input_dim, 3 * embed_dim)\n        self.o_proj = nn.Linear(embed_dim, input_dim)\n\n    def forward(self, x, mask=None, return_attention=False):\n        # implement multi-head attention\n        pass",
+      "constraints": [
+        "Use the contiguous section from Tutorial 6 covering Scaled Dot Product Attention and Multi-Head Attention only.",
+        "Do not expand the unit to include Transformer Encoder, positional encoding, or experiment sections.",
+        "Implement Q/K/V projection, head splitting, masking, softmax attention, head concatenation, and output projection.",
+        "Keep the task at the module level rather than the full end-to-end Transformer."
+      ],
+      "expected_output": "A working implementation of scaled dot-product attention and a MultiheadAttention module that supports masking, multiple heads, and optional return of attention maps.",
+      "learning_objectives": [
+        "Understand scaled dot-product attention mathematically and in code.",
+        "Implement multi-head attention with tensor reshaping and head-wise computation.",
+        "Connect Transformer attention theory to a reusable PyTorch module."
+      ],
+      "prerequisite_concepts": [
+        "self-attention",
+        "queries, keys, values",
+        "scaled dot-product attention",
+        "multi-head attention",
+        "tensor reshaping",
+        "masking",
+        "PyTorch nn.Module"
+      ],
+      "keywords": [
+        "UvA",
+        "Transformer",
+        "scaled dot-product attention",
+        "multi-head attention",
+        "self-attention",
+        "PyTorch Lightning"
+      ],
+      "estimated_time_minutes": 45,
+      "target_learner_level": "intermediate-advanced",
+      "course_context": "UvA Deep Learning Tutorials / Tutorial 6: Transformers and Multi-Head Attention / Scaled Dot Product Attention + Multi-Head Attention section",
+      "source_url": "https://github.com/phlippe/uvadlc_notebooks",
+      "created_at": "2026-03-13",
+      "notes": "Finalized by full cell-by-cell verification of the uploaded UvA notebook. The extracted contiguous section is limited to the attention-core implementation block: markdown and code cells for Scaled Dot Product Attention, expand_mask, and MultiheadAttention, excluding later Transformer Encoder and experiment sections."
+    },
+    {
+      "exercise_id": "KER-01",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "title": "Build, train, and evaluate a simple MNIST convnet",
+      "topic": "CNN",
+      "difficulty": "beginner",
+      "exercise_type": "model building",
+      "instruction_text": "Build the Keras Sequential convnet for MNIST using two Conv2D layers, two MaxPooling2D layers, Flatten, Dropout, and a Dense softmax classifier. Train the model for 15 epochs with categorical_crossentropy and Adam, then evaluate the trained model on the test set.",
+      "programming_language": "Python",
+      "framework": "Keras / TensorFlow",
+      "has_code": true,
+      "starter_code": "model = keras.Sequential([\n    keras.Input(shape=input_shape),\n    layers.Conv2D(32, kernel_size=(3, 3), activation='relu'),\n    layers.MaxPooling2D(pool_size=(2, 2)),\n    layers.Conv2D(64, kernel_size=(3, 3), activation='relu'),\n    layers.MaxPooling2D(pool_size=(2, 2)),\n    layers.Flatten(),\n    layers.Dropout(0.5),\n    layers.Dense(num_classes, activation='softmax'),\n])\n\nmodel.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])\nmodel.fit(x_train, y_train, batch_size=128, epochs=15, validation_split=0.1)",
+      "constraints": [
+        "Use the MNIST dataset from keras.datasets.mnist.",
+        "Use the architecture shown in the example.",
+        "Train with categorical_crossentropy and Adam.",
+        "Evaluate on the test set."
+      ],
+      "expected_output": "A trained MNIST convnet with test accuracy around 99% and reported test loss/test accuracy from model.evaluate.",
+      "learning_objectives": [
+        "Implement a compact CNN in Keras.",
+        "Train and evaluate a convnet on MNIST.",
+        "Understand an end-to-end image classification workflow in Keras."
+      ],
+      "prerequisite_concepts": [
+        "CNNs",
+        "Keras Sequential API",
+        "softmax classification",
+        "MNIST"
+      ],
+      "keywords": [
+        "Keras",
+        "MNIST",
+        "convnet",
+        "CNN",
+        "classification"
+      ],
+      "estimated_time_minutes": 25,
+      "target_learner_level": "beginner",
+      "course_context": "Keras Code Examples / Computer Vision / Simple MNIST convnet",
+      "source_url": "https://keras.io/examples/vision/mnist_convnet/",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from the official Keras example page, which provides a complete contiguous convnet task with architecture, training setup, and evaluation."
+    },
+    {
+      "exercise_id": "KER-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "Build and train a 2-layer bidirectional LSTM on IMDB",
+      "topic": "RNN",
+      "difficulty": "intermediate",
+      "exercise_type": "model building",
+      "instruction_text": "Build a text classification model for the IMDB movie review sentiment dataset. Use an embedding layer followed by two bidirectional LSTM layers and a dense sigmoid classifier, then train and evaluate the model on padded review sequences.",
+      "programming_language": "Python",
+      "framework": "Keras / TensorFlow",
+      "has_code": true,
+      "learning_objectives": [
+        "Build a bidirectional recurrent classifier for text.",
+        "Understand sequence modeling for sentiment classification.",
+        "Apply recurrent architectures to NLP tasks in Keras."
+      ],
+      "prerequisite_concepts": [
+        "embeddings",
+        "LSTM",
+        "text classification",
+        "Keras"
+      ],
+      "keywords": [
+        "Keras",
+        "Bidirectional LSTM",
+        "IMDB",
+        "RNN",
+        "text classification"
+      ],
+      "estimated_time_minutes": 30,
+      "target_learner_level": "intermediate",
+      "course_context": "Keras Code Examples / NLP / Text classification / Bidirectional LSTM on IMDB",
+      "source_url": "https://keras.io/examples/nlp/bidirectional_lstm_imdb/",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from the official Keras example by extracting the contiguous build/train workflow described on the example page. This is no longer a placeholder candidate.",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "starter_code": "max_features = 20000\nmaxlen = 200\n\ninputs = keras.Input(shape=(None,), dtype=\"int32\")\nx = layers.Embedding(max_features, 128)(inputs)\nx = layers.Bidirectional(layers.LSTM(64, return_sequences=True))(x)\nx = layers.Bidirectional(layers.LSTM(64))(x)\noutputs = layers.Dense(1, activation=\"sigmoid\")(x)\nmodel = keras.Model(inputs, outputs)\n\n(x_train, y_train), (x_val, y_val) = keras.datasets.imdb.load_data(num_words=max_features)\nx_train = keras.utils.pad_sequences(x_train, maxlen=maxlen)\nx_val = keras.utils.pad_sequences(x_val, maxlen=maxlen)\n\nmodel.compile(optimizer=\"adam\", loss=\"binary_crossentropy\", metrics=[\"accuracy\"])\nmodel.fit(x_train, y_train, batch_size=32, epochs=2, validation_data=(x_val, y_val))\n",
+      "constraints": [
+        "Use the IMDB dataset loaded with num_words=max_features.",
+        "Pad input sequences to maxlen=200.",
+        "Use two bidirectional LSTM layers.",
+        "Use a sigmoid output for binary sentiment classification."
+      ],
+      "expected_output": "A trained Keras model for IMDB sentiment classification with validation accuracy and loss reported after training."
+    },
+    {
+      "exercise_id": "KER-03",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "title": "Implement and train a sequence-to-sequence Transformer for English-to-Spanish translation",
+      "topic": "Transformer",
+      "difficulty": "intermediate-advanced",
+      "exercise_type": "model building",
+      "instruction_text": "Implement a sequence-to-sequence Transformer for English-to-Spanish translation using Keras. Vectorize the text with TextVectorization, prepare encoder and decoder inputs, implement TransformerEncoder, TransformerDecoder, and PositionalEmbedding, assemble the end-to-end model, train it on the translation dataset, and use the trained model to decode unseen input sentences.",
+      "programming_language": "Python",
+      "framework": "Keras / TensorFlow",
+      "has_code": true,
+      "constraints": [
+        "Use the English-to-Spanish dataset provided in the example.",
+        "Implement TransformerEncoder, TransformerDecoder, and PositionalEmbedding.",
+        "Prepare data as encoder_inputs, decoder_inputs, and next-token targets.",
+        "Train and demonstrate inference on unseen sentences."
+      ],
+      "expected_output": "A trained sequence-to-sequence Transformer model for English-to-Spanish translation and decoded translations for unseen test sentences.",
+      "learning_objectives": [
+        "Implement core Transformer building blocks in Keras.",
+        "Prepare data for sequence-to-sequence translation.",
+        "Train and use a Transformer model for machine translation inference."
+      ],
+      "prerequisite_concepts": [
+        "Transformers",
+        "TextVectorization",
+        "encoder-decoder models",
+        "causal masking",
+        "machine translation"
+      ],
+      "keywords": [
+        "Keras",
+        "Transformer",
+        "machine translation",
+        "English-to-Spanish",
+        "TextVectorization",
+        "encoder-decoder"
+      ],
+      "estimated_time_minutes": 60,
+      "target_learner_level": "intermediate-advanced",
+      "course_context": "Keras Code Examples / NLP / English-to-Spanish translation with a sequence-to-sequence Transformer",
+      "source_url": "https://keras.io/examples/nlp/neural_machine_translation_with_transformer/",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from the official Keras example page, which provides a complete contiguous Transformer implementation, training pipeline, and inference procedure."
+    },
+    {
+      "exercise_id": "DTL-01",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Textbook Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Experiment with the value of lambda in the estimation problem in this section",
+      "topic": "Optimization",
+      "difficulty": "intermediate",
+      "exercise_type": "training-analysis",
+      "instruction_text": "Experiment with the value of lambda in the estimation problem in this section. Plot training and validation accuracy as a function of lambda. What do you observe?",
+      "programming_language": "Python",
+      "framework": "PyTorch / MXNet / JAX / TensorFlow",
+      "has_code": true,
+      "learning_objectives": [
+        "Understand the effect of weight decay strength on model behavior.",
+        "Relate regularization to training and validation performance.",
+        "Interpret empirical curves produced by a controlled experiment."
+      ],
+      "prerequisite_concepts": [
+        "weight decay",
+        "L2 regularization",
+        "training loss",
+        "validation performance"
+      ],
+      "keywords": [
+        "D2L",
+        "weight decay",
+        "lambda",
+        "regularization",
+        "training and validation"
+      ],
+      "estimated_time_minutes": 25,
+      "target_learner_level": "intermediate",
+      "course_context": "Dive into Deep Learning / Weight Decay / Exercises",
+      "source_url": "https://d2l.ai/chapter_linear-regression/weight-decay.html",
+      "created_at": "2026-03-13",
+      "notes": "Directly supported by the official D2L Weight Decay page. This one is already close to a final expert exercise and needs little normalization.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "DTL-02",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Textbook Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Use a validation set to find the optimal value of lambda",
+      "topic": "Optimization",
+      "difficulty": "intermediate",
+      "exercise_type": "training-analysis",
+      "instruction_text": "Use a validation set to find the optimal value of lambda. Is it really the optimal value? Does this matter?",
+      "programming_language": "Python",
+      "framework": "PyTorch / MXNet / JAX / TensorFlow",
+      "has_code": true,
+      "learning_objectives": [
+        "Use validation to tune a regularization hyperparameter.",
+        "Reflect on what optimal means in empirical model selection.",
+        "Connect hyperparameter tuning with generalization."
+      ],
+      "prerequisite_concepts": [
+        "validation sets",
+        "hyperparameter tuning",
+        "weight decay",
+        "generalization"
+      ],
+      "keywords": [
+        "D2L",
+        "validation set",
+        "lambda",
+        "hyperparameter tuning",
+        "generalization"
+      ],
+      "estimated_time_minutes": 20,
+      "target_learner_level": "intermediate",
+      "course_context": "Dive into Deep Learning / Weight Decay / Exercises",
+      "source_url": "https://d2l.ai/chapter_linear-regression/weight-decay.html",
+      "created_at": "2026-03-13",
+      "notes": "Directly supported by the official D2L Weight Decay page. Good for supplementing your optimization expert set with a short, clearly bounded task.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "DTL-03",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Textbook Exercise",
+      "extraction_mode": "verbatim_exercise",
+      "title": "Visualize attention weights of multiple heads in this experiment",
+      "topic": "Transformer",
+      "difficulty": "intermediate",
+      "exercise_type": "training-analysis",
+      "instruction_text": "Visualize attention weights of multiple heads in this experiment.",
+      "programming_language": "Python",
+      "framework": "PyTorch / MXNet / JAX / TensorFlow",
+      "has_code": true,
+      "learning_objectives": [
+        "Interpret multi-head attention behavior visually.",
+        "Connect attention outputs with model internals.",
+        "Analyze how different heads may capture different patterns."
+      ],
+      "prerequisite_concepts": [
+        "multi-head attention",
+        "attention weights",
+        "visualization",
+        "Transformers"
+      ],
+      "keywords": [
+        "D2L",
+        "multi-head attention",
+        "attention weights",
+        "visualization",
+        "Transformer"
+      ],
+      "estimated_time_minutes": 20,
+      "target_learner_level": "intermediate",
+      "course_context": "Dive into Deep Learning / Multi-Head Attention / Exercises",
+      "source_url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/multihead-attention.html",
+      "created_at": "2026-03-13",
+      "notes": "Directly supported by the official D2L Multi-Head Attention page. Useful because it adds a Transformer analysis task that is short and cleanly bounded.",
+      "record_status": "finalized",
+      "comparison_status": "comparable"
+    },
+    {
+      "exercise_id": "KER-04",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "title": "Implement a character-level recurrent seq2seq translator",
+      "topic": "RNN",
+      "difficulty": "intermediate",
+      "exercise_type": "model building",
+      "instruction_text": "Implement a basic character-level recurrent sequence-to-sequence model for translating short English sentences into short French sentences. Build an encoder LSTM that returns its final states, then build a decoder LSTM initialized with the encoder states, followed by a dense softmax layer. Train the model on vectorized character sequences and use the trained model for decoding.",
+      "programming_language": "Python",
+      "framework": "Keras / TensorFlow",
+      "has_code": true,
+      "starter_code": "encoder_inputs = keras.Input(shape=(None, num_encoder_tokens))\nencoder = keras.layers.LSTM(latent_dim, return_state=True)\nencoder_outputs, state_h, state_c = encoder(encoder_inputs)\nencoder_states = [state_h, state_c]\n\ndecoder_inputs = keras.Input(shape=(None, num_decoder_tokens))\ndecoder_lstm = keras.layers.LSTM(latent_dim, return_sequences=True, return_state=True)\ndecoder_outputs, _, _ = decoder_lstm(decoder_inputs, initial_state=encoder_states)\ndecoder_dense = keras.layers.Dense(num_decoder_tokens, activation=\"softmax\")\ndecoder_outputs = decoder_dense(decoder_outputs)\n\nmodel = keras.Model([encoder_inputs, decoder_inputs], decoder_outputs)\nmodel.compile(optimizer=\"rmsprop\", loss=\"categorical_crossentropy\", metrics=[\"accuracy\"])\nmodel.fit(\n    [encoder_input_data, decoder_input_data],\n    decoder_target_data,\n    batch_size=batch_size,\n    epochs=epochs,\n    validation_split=0.2,\n)\n",
+      "constraints": [
+        "Use a character-level encoder-decoder architecture.",
+        "Use an encoder LSTM with return_state=True.",
+        "Initialize the decoder LSTM with the encoder states.",
+        "Use a dense softmax layer over the decoder outputs."
+      ],
+      "expected_output": "A trained character-level seq2seq model that maps short English sentences to short French sentences and can be used for decoding at inference time.",
+      "learning_objectives": [
+        "Understand the encoder-decoder formulation of recurrent sequence-to-sequence learning.",
+        "Implement teacher-forced seq2seq training with Keras.",
+        "Connect training-time seq2seq modeling with inference-time decoding."
+      ],
+      "prerequisite_concepts": [
+        "LSTM",
+        "sequence-to-sequence learning",
+        "teacher forcing",
+        "one-hot vectorization",
+        "machine translation"
+      ],
+      "keywords": [
+        "Keras",
+        "seq2seq",
+        "encoder-decoder",
+        "LSTM",
+        "machine translation",
+        "character-level"
+      ],
+      "estimated_time_minutes": 60,
+      "target_learner_level": "intermediate",
+      "course_context": "Keras Code Examples / Machine translation / Character-level recurrent sequence-to-sequence model",
+      "source_url": "https://keras.io/examples/nlp/lstm_seq2seq/",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from the official Keras seq2seq example by extracting the contiguous model-building and training unit."
+    },
+    {
+      "exercise_id": "OPT-04",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "title": "Add weight regularization",
+      "topic": "Optimization",
+      "difficulty": "intermediate",
+      "exercise_type": "model revision",
+      "instruction_text": "Add L2 weight regularization to the large baseline network and compare its behavior against the earlier unregularized models. In tf.keras, weight regularization is added by passing regularizer instances to layers as keyword arguments. Add L2 weight regularization and train the resulting model using the same compile_and_fit procedure as before.",
+      "programming_language": "Python",
+      "framework": "tf.keras",
+      "has_code": true,
+      "starter_code": "l2_model = tf.keras.Sequential([\n    layers.Dense(512, activation='elu',\n                 kernel_regularizer=regularizers.l2(0.001),\n                 input_shape=(FEATURES,)),\n    layers.Dense(512, activation='elu',\n                 kernel_regularizer=regularizers.l2(0.001)),\n    layers.Dense(512, activation='elu',\n                 kernel_regularizer=regularizers.l2(0.001)),\n    layers.Dense(512, activation='elu',\n                 kernel_regularizer=regularizers.l2(0.001)),\n    layers.Dense(1)\n])\n\nregularizer_histories['l2'] = compile_and_fit(l2_model, 'regularizers/l2')",
+      "constraints": [
+        "Use the same training configuration and compile_and_fit procedure as earlier models in the tutorial.",
+        "Apply L2 regularization through the kernel_regularizer argument.",
+        "Compare the resulting learning behavior against the earlier baseline models."
+      ],
+      "expected_output": "A trained L2-regularized model and comparison plots or observations showing that the regularized model behaves more competitively with the Tiny baseline and is more resistant to overfitting than the unregularized Large model.",
+      "learning_objectives": [
+        "Apply L2 weight regularization in tf.keras.",
+        "Compare regularized and unregularized training behavior.",
+        "Relate weight decay to improved generalization and reduced overfitting."
+      ],
+      "prerequisite_concepts": [
+        "overfitting",
+        "L2 regularization",
+        "tf.keras.Sequential",
+        "training and validation loss"
+      ],
+      "keywords": [
+        "Optimization",
+        "weight regularization",
+        "L2 regularization",
+        "weight decay",
+        "tf.keras",
+        "overfitting"
+      ],
+      "estimated_time_minutes": 20,
+      "target_learner_level": "intermediate",
+      "course_context": "TensorFlow tutorial: Overfit and underfit > Strategies to prevent overfitting > Add weight regularization",
+      "source_url": "https://www.tensorflow.org/tutorials/keras/overfit_and_underfit",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from an official TensorFlow tutorial section with a clear contiguous task and explicit starter code."
+    },
+    {
+      "exercise_id": "OPT-05",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "record_status": "finalized",
+      "comparison_status": "comparable",
+      "title": "Add dropout",
+      "topic": "Optimization",
+      "difficulty": "intermediate",
+      "exercise_type": "model revision",
+      "instruction_text": "Add dropout layers to the large baseline network to examine how dropout reduces overfitting. In Keras, introduce dropout through tf.keras.layers.Dropout, applied to the output of the preceding layer. Add dropout layers to the network and train the resulting model using the same compile_and_fit procedure as before.",
+      "programming_language": "Python",
+      "framework": "tf.keras",
+      "has_code": true,
+      "starter_code": "dropout_model = tf.keras.Sequential([\n    layers.Dense(512, activation='elu', input_shape=(FEATURES,)),\n    layers.Dropout(0.5),\n    layers.Dense(512, activation='elu'),\n    layers.Dropout(0.5),\n    layers.Dense(512, activation='elu'),\n    layers.Dropout(0.5),\n    layers.Dense(512, activation='elu'),\n    layers.Dropout(0.5),\n    layers.Dense(1)\n])\n\nregularizer_histories['dropout'] = compile_and_fit(dropout_model, 'regularizers/dropout')",
+      "constraints": [
+        "Use the same training configuration and compile_and_fit procedure as earlier models in the tutorial.",
+        "Introduce dropout through tf.keras.layers.Dropout.",
+        "Compare the resulting model against the Tiny baseline and earlier regularization variants."
+      ],
+      "expected_output": "A trained dropout-regularized model and comparison plots or observations showing improved behavior relative to the unregularized Large model.",
+      "learning_objectives": [
+        "Apply dropout in tf.keras to reduce overfitting.",
+        "Compare dropout-based regularization against baseline training behavior.",
+        "Interpret how dropout changes generalization behavior in a large network."
+      ],
+      "prerequisite_concepts": [
+        "overfitting",
+        "dropout",
+        "tf.keras.Sequential",
+        "training and validation curves"
+      ],
+      "keywords": [
+        "Optimization",
+        "dropout",
+        "regularization",
+        "tf.keras",
+        "overfitting",
+        "model revision"
+      ],
+      "estimated_time_minutes": 20,
+      "target_learner_level": "intermediate",
+      "course_context": "TensorFlow tutorial: Overfit and underfit > Strategies to prevent overfitting > Add dropout",
+      "source_url": "https://www.tensorflow.org/tutorials/keras/overfit_and_underfit",
+      "created_at": "2026-03-13",
+      "notes": "Finalized from an official TensorFlow tutorial section with a clear contiguous task and explicit starter code."
+    }
+  ]
+}

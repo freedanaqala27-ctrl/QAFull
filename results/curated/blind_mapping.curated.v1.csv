@@ -1,0 +1,47 @@
+blind_exercise_id,exercise_id,source_type,topic,difficulty,exercise_type
+B0001,KER-03,Expert,Transformer,intermediate-advanced,model building
+B0002,AI-CURATED-KER-04,AI,RNN,intermediate,model building
+B0003,OPT-03,Expert,Optimization,intermediate,model revision
+B0004,DTL-02,Expert,Optimization,intermediate,training-analysis
+B0005,AI-CURATED-MIT-01,AI,RNN,intermediate,code completion
+B0006,AI-CURATED-DTL-01,AI,Optimization,intermediate,training-analysis
+B0007,AI-CURATED-OPT-03,AI,Optimization,intermediate,model revision
+B0008,AI-CURATED-OPT-05,AI,Optimization,intermediate,model revision
+B0009,DTL-03,Expert,Transformer,intermediate,training-analysis
+B0010,AI-CURATED-CNN-02,AI,CNN,beginner,code completion
+B0011,AI-CURATED-RNN-02,AI,RNN,intermediate,model building
+B0012,CNN-03,Expert,CNN,beginner-intermediate,model building
+B0013,AI-CURATED-TRF-01,AI,Transformer,intermediate-advanced,code completion
+B0014,AI-CURATED-MIT-02,AI,CNN,beginner-intermediate,model building
+B0015,AI-CURATED-DTL-02,AI,Optimization,intermediate,training-analysis
+B0016,OPT-05,Expert,Optimization,intermediate,model revision
+B0017,AI-CURATED-RNN-01,AI,RNN,intermediate,code completion
+B0018,AI-CURATED-RNN-03,AI,RNN,intermediate,model building
+B0019,AI-CURATED-UVA-02,AI,Transformer,intermediate-advanced,code completion
+B0020,OPT-04,Expert,Optimization,intermediate,model revision
+B0021,AI-CURATED-OPT-04,AI,Optimization,intermediate,model revision
+B0022,OPT-02,Expert,Optimization,beginner-intermediate,training-analysis
+B0023,MIT-02,Expert,CNN,beginner-intermediate,model building
+B0024,KER-04,Expert,RNN,intermediate,model building
+B0025,MIT-01,Expert,RNN,intermediate,code completion
+B0026,RNN-03,Expert,RNN,intermediate,model building
+B0027,TRF-02,Expert,Transformer,intermediate,code completion
+B0028,CNN-01,Expert,CNN,intermediate,code completion
+B0029,AI-CURATED-KER-03,AI,Transformer,intermediate-advanced,model building
+B0030,KER-02,Expert,RNN,intermediate,model building
+B0031,UVA-02,Expert,Transformer,intermediate-advanced,code completion
+B0032,AI-CURATED-DTL-03,AI,Transformer,intermediate,training-analysis
+B0033,RNN-02,Expert,RNN,intermediate,model building
+B0034,AI-CURATED-TRF-02,AI,Transformer,intermediate,code completion
+B0035,CNN-02,Expert,CNN,beginner,concept-to-code
+B0036,AI-CURATED-OPT-02,AI,Optimization,beginner-intermediate,training-analysis
+B0037,AI-CURATED-CNN-03,AI,CNN,beginner-intermediate,model building
+B0038,RNN-01,Expert,RNN,intermediate,code completion
+B0039,CNN-04,Expert,CNN,intermediate,training-analysis
+B0040,DTL-01,Expert,Optimization,intermediate,training-analysis
+B0041,KER-01,Expert,CNN,beginner,model building
+B0042,AI-CURATED-KER-01,AI,CNN,beginner,model building
+B0043,AI-CURATED-KER-02,AI,RNN,intermediate,model building
+B0044,AI-CURATED-CNN-01,AI,CNN,intermediate,code completion
+B0045,AI-CURATED-CNN-04,AI,CNN,intermediate,training-analysis
+B0046,TRF-01,Expert,Transformer,intermediate-advanced,code completion

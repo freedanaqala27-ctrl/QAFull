@@ -1,0 +1,30 @@
+{
+  "input_csv": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\student_analysis_master_30.csv",
+  "tables_dir": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\chapter5_outputs\\tables",
+  "figures_dir": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\chapter5_outputs\\figures",
+  "filters": {
+    "exclude_attention_fail": true,
+    "exclude_fast_flag": true
+  },
+  "filter_summary": {
+    "rows_before_filter": 130,
+    "participants_before_filter": 30,
+    "rows_after_filter": 118,
+    "participants_after_filter": 27,
+    "exercises_after_filter": 26
+  },
+  "generated_tables": [
+    "sample_overview.csv",
+    "item_metrics_by_source.csv",
+    "item_metrics_by_topic_and_source.csv",
+    "item_metrics_by_exercise_type_and_source.csv",
+    "batch_metrics_by_package.csv",
+    "batch_metrics_overall.csv"
+  ],
+  "generated_figures": [
+    "bar_student_metrics_ai_vs_expert.png",
+    "box_item_mean_by_source.png",
+    "heatmap_item_mean_by_topic_and_source.png",
+    "bar_batch_metrics_overall.png"
+  ]
+}

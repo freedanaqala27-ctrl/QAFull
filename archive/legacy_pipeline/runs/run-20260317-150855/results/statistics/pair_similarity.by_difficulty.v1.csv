@@ -1,0 +1,6 @@
+difficulty,metric,sample_size,mean,std,median,min,max
+intermediate,rougeL_f1_instruction_only,1,0.129,,0.129,0.129,0.129
+intermediate,tfidf_cosine_full_text,1,0.3473,,0.3473,0.3473,0.3473
+intermediate,tfidf_cosine_instruction_only,1,0.1055,,0.1055,0.1055,0.1055
+intermediate,topic_coherence_score_ai,1,0.2,,0.2,0.2,0.2
+intermediate,topic_coherence_score_reference,1,0.2,,0.2,0.2,0.2

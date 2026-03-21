@@ -1,0 +1,7 @@
+ai_exercise_id,bertscore_f1_instruction_only,difficulty,exercise_type,heavy_metric_error,meteor_instruction_only,pair_id,reference_exercise_id,rougeL_f1_instruction_only,tfidf_cosine_full_text,tfidf_cosine_instruction_only,topic,topic_coherence_score_ai,topic_coherence_score_reference
+AI-CNN-01-01,nan,intermediate,code completion,,nan,PAIR-CNN-01-01,CNN-01,0.1351,0.4815,0.1642,CNN,0.4,0.3
+AI-CNN-02-01,nan,beginner,code completion,,nan,PAIR-CNN-02-01,CNN-02,0.1591,0.4105,0.1861,CNN,0.4,0.4
+AI-CNN-03-01,nan,beginner-intermediate,model building,,nan,PAIR-CNN-03-01,CNN-03,0.1532,0.3715,0.2137,CNN,0.0,0.1
+AI-CNN-04-01,nan,intermediate,training-analysis,,nan,PAIR-CNN-04-01,CNN-04,0.0984,0.3033,0.1279,CNN,0.0,0.0
+AI-KER-01-01,nan,beginner,model building,,nan,PAIR-KER-01-01,KER-01,0.3262,0.4514,0.2807,CNN,0.1,0.0
+AI-MIT-02-01,nan,beginner-intermediate,model building,,nan,PAIR-MIT-02-01,MIT-02,0.1707,0.3754,0.2223,CNN,0.4,0.2

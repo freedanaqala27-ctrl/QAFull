@@ -1,0 +1,227 @@
+{
+  "base_dir": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets",
+  "mode": "dry-run",
+  "sections": [
+    "packets",
+    "materials",
+    "templates",
+    "distribution",
+    "audit"
+  ],
+  "summary": {
+    "already_migrated": 30
+  },
+  "moves": [
+    {
+      "section": "packets",
+      "source": "expert_packages",
+      "target": "packets/expert_packages",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "packets",
+      "source": "student_packages",
+      "target": "packets/student_packages",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "packets",
+      "source": "expert_eval_packet.curated.v1.csv",
+      "target": "packets/expert_eval_packet.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "packets",
+      "source": "student_eval_packet.curated.v1.csv",
+      "target": "packets/student_eval_packet.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "packets",
+      "source": "student_eval_packet.zh-CN.curated.v1.csv",
+      "target": "packets/student_eval_packet.zh-CN.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "packets",
+      "source": "expert_package_manifest.curated.v1.csv",
+      "target": "packets/expert_package_manifest.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "packets",
+      "source": "student_package_manifest.curated.v1.csv",
+      "target": "packets/student_package_manifest.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "materials",
+      "source": "blind_review_booklet.curated.html",
+      "target": "materials/blind_review_booklet.curated.html",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "materials",
+      "source": "blind_review_booklet.curated.md",
+      "target": "materials/blind_review_booklet.curated.md",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "materials",
+      "source": "wjx_expert_question_bank.curated.txt",
+      "target": "materials/wjx_expert_question_bank.curated.txt",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "materials",
+      "source": "wjx_student_question_bank.curated.txt",
+      "target": "materials/wjx_student_question_bank.curated.txt",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "materials",
+      "source": "wjx_expert_question_outline.curated.csv",
+      "target": "materials/wjx_expert_question_outline.curated.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "materials",
+      "source": "wjx_student_question_outline.curated.csv",
+      "target": "materials/wjx_student_question_outline.curated.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "templates",
+      "source": "expert_response_template.curated.v1.csv",
+      "target": "templates/expert_response_template.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "templates",
+      "source": "student_response_template.curated.v1.csv",
+      "target": "templates/student_response_template.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "templates",
+      "source": "expert_batch_template.curated.v1.csv",
+      "target": "templates/expert_batch_template.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "templates",
+      "source": "student_batch_template.curated.v1.csv",
+      "target": "templates/student_batch_template.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "distribution",
+      "source": "student_distribution_sheet.curated.v1.csv",
+      "target": "distribution/student_distribution_sheet.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "distribution",
+      "source": "student_distribution_with_qrcodes.curated.v1.csv",
+      "target": "distribution/student_distribution_with_qrcodes.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "distribution",
+      "source": "student_qrcode_print_sheets.curated.html",
+      "target": "distribution/student_qrcode_print_sheets.curated.html",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "distribution",
+      "source": "student_qrcodes",
+      "target": "distribution/student_qrcodes",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "eval_packet_build_issues.v1.csv",
+      "target": "audit/eval_packet_build_issues.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "eval_packet_manifest.v1.json",
+      "target": "audit/eval_packet_manifest.v1.json",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "human_eval_fairness_audit.curated.v1.csv",
+      "target": "audit/human_eval_fairness_audit.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "human_eval_source_balance.curated.v1.csv",
+      "target": "audit/human_eval_source_balance.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "human_eval_materials_manifest.v1.json",
+      "target": "audit/human_eval_materials_manifest.v1.json",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "package_materials_manifest.curated.v1.csv",
+      "target": "audit/package_materials_manifest.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "student_packets.zh-CN.manifest.v1.json",
+      "target": "audit/student_packets.zh-CN.manifest.v1.json",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "wjx_package_manifest.curated.v1.csv",
+      "target": "audit/wjx_package_manifest.curated.v1.csv",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    },
+    {
+      "section": "audit",
+      "source": "wjx_question_bank_manifest.v1.json",
+      "target": "audit/wjx_question_bank_manifest.v1.json",
+      "status": "already_migrated",
+      "detail": "source missing, target already present"
+    }
+  ],
+  "note": "This script only restructures human_eval_packets artifacts. Downstream readers still need path updates before the new layout becomes the runtime default."
+}

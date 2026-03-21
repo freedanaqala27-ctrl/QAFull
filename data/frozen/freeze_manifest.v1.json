@@ -1,0 +1,27 @@
+{
+  "freeze_version": "v1",
+  "freeze_date": "2026-03-13",
+  "source_master_file": "expert_exercises.updated_optimization.normalized.json",
+  "selection_rules": {
+    "main_frozen": "record_status == 'finalized' and comparison_status == 'comparable'",
+    "reserve_candidates": "record_status == 'candidate'",
+    "excluded": "record_status == 'excluded'"
+  },
+  "counts": {
+    "master_total": 26,
+    "main_frozen_total": 23,
+    "reserve_candidates_total": 2,
+    "excluded_total": 1
+  },
+  "topic_distribution_main_frozen": {
+    "CNN": 6,
+    "RNN": 6,
+    "Transformer": 5,
+    "Optimization": 6
+  },
+  "notes": [
+    "This freeze manifest records the exact rule-based split of the expert exercise master dataset.",
+    "After freezing, exercise_id, topic, difficulty, exercise_type, record_status, and comparison_status should not be edited inside the frozen files.",
+    "If any substantive changes are needed, create a new freeze version rather than overwriting v1."
+  ]
+}

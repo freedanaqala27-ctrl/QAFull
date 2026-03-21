@@ -1,0 +1,14 @@
+metric,threshold,chi2_statistic,raw_p_value,degrees_of_freedom,p_adjust_bh
+code_quality_metrics.starter_code_comment_line_ratio,0.05355,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+code_quality_metrics.starter_code_loc_total,20.5,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+code_quality_metrics.starter_code_pylint_warning_count,3.5,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+code_quality_metrics.starter_code_ruff_error_count,7.5,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+instruction_metrics.avg_sentence_length,18.5,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+instruction_metrics.flesch_kincaid_grade,10.8313,0.0,1.0,1,1.0
+instruction_metrics.flesch_reading_ease,41.675200000000004,0.0,1.0,1,1.0
+instruction_metrics.instruction_completeness_ratio,0.75,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+instruction_metrics.max_sentence_length,25.0,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+instruction_metrics.technical_term_density_instruction,0.02,0.0,1.0,1,1.0
+instruction_metrics.var_sentence_length,19.32,2.6666666666666665,0.10247043485974942,1,0.1665144566470928
+structure_metrics.structure_completeness_ratio,0.875,0.0,1.0,1,1.0
+structure_metrics.structure_score_weighted,0.8667,0.0,1.0,1,1.0

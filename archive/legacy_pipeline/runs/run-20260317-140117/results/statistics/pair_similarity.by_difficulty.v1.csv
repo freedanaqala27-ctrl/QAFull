@@ -1,0 +1,16 @@
+difficulty,metric,sample_size,mean,std,median,min,max
+beginner,rougeL_f1_instruction_only,2,0.2334,0.10507606768432096,0.2334,0.1591,0.3077
+beginner,tfidf_cosine_full_text,2,0.43185,0.017182694782833095,0.43185,0.4197,0.444
+beginner,tfidf_cosine_instruction_only,2,0.2245,0.054305800795126875,0.2245,0.1861,0.2629
+beginner,topic_coherence_score_ai,2,0.30000000000000004,0.14142135623730953,0.30000000000000004,0.2,0.4
+beginner,topic_coherence_score_reference,2,0.2,0.28284271247461906,0.2,0.0,0.4
+beginner-intermediate,rougeL_f1_instruction_only,2,0.17325000000000002,0.0009192388155425087,0.17325000000000002,0.1726,0.1739
+beginner-intermediate,tfidf_cosine_full_text,2,0.372,0.03181980515339467,0.372,0.3495,0.3945
+beginner-intermediate,tfidf_cosine_instruction_only,2,0.2228,0.006929646455628168,0.2228,0.2179,0.2277
+beginner-intermediate,topic_coherence_score_ai,2,0.3,0.282842712474619,0.3,0.1,0.5
+beginner-intermediate,topic_coherence_score_reference,2,0.15000000000000002,0.07071067811865477,0.15000000000000002,0.1,0.2
+intermediate,rougeL_f1_instruction_only,2,0.1101,0.022061731573020285,0.1101,0.0945,0.1257
+intermediate,tfidf_cosine_full_text,2,0.3731,0.16885709934734755,0.3731,0.2537,0.4925
+intermediate,tfidf_cosine_instruction_only,2,0.14775,0.02326381310103742,0.14775,0.1313,0.1642
+intermediate,topic_coherence_score_ai,2,0.25,0.3535533905932738,0.25,0.0,0.5
+intermediate,topic_coherence_score_reference,2,0.15,0.21213203435596426,0.15,0.0,0.3

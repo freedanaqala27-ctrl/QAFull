@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_name": "Expert Programming Exercise Samples - Reserve Candidates",
+  "description": "Reserve candidate pool filtered from the master expert exercise dataset using record_status == candidate.",
+  "created_at": "2026-03-13",
+  "source_language": "mixed",
+  "freeze_version": "v1",
+  "selection_rule": "record_status == 'candidate'",
+  "source_master_file": "expert_exercises.updated_optimization.normalized.json",
+  "items": [
+    {
+      "exercise_id": "UVA-01",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "Optimization and Initialization",
+      "topic": "Optimization",
+      "difficulty": "intermediate",
+      "exercise_type": "training-analysis",
+      "instruction_text": "Use the official UvA Deep Learning tutorial on Optimization and Initialization and extract one contiguous notebook segment involving optimizer behavior, initialization choices, or their empirical effects on training.",
+      "programming_language": "Python",
+      "framework": "PyTorch / PyTorch Lightning",
+      "has_code": true,
+      "learning_objectives": [
+        "Understand how optimization and initialization affect training dynamics.",
+        "Analyze training behavior under different design choices.",
+        "Interpret empirical results from notebook-based experiments."
+      ],
+      "prerequisite_concepts": [
+        "gradient descent",
+        "initialization",
+        "loss curves",
+        "PyTorch"
+      ],
+      "keywords": [
+        "UvA",
+        "optimization",
+        "initialization",
+        "training dynamics",
+        "PyTorch Lightning"
+      ],
+      "estimated_time_minutes": 45,
+      "target_learner_level": "intermediate",
+      "course_context": "UvA Deep Learning Tutorials / Tutorial 4: Optimization and Initialization",
+      "source_url": "https://github.com/phlippe/uvadlc_notebooks",
+      "created_at": "2026-03-13",
+      "notes": "Candidate record. The official UvA tutorial repository explicitly lists 'Tutorial 4: Optimization and Initialization'. This is a good source for structured optimization-focused expert tasks.",
+      "record_status": "candidate",
+      "comparison_status": "non-comparable"
+    },
+    {
+      "exercise_id": "UVA-03",
+      "source_type": "Expert",
+      "source_subtype": "Expert-Tutorial Task",
+      "extraction_mode": "contiguous_section",
+      "title": "Vision Transformers",
+      "topic": "Transformer",
+      "difficulty": "advanced",
+      "exercise_type": "model building",
+      "instruction_text": "Use the official UvA Deep Learning tutorial on Vision Transformers and extract one contiguous implementation or analysis task involving Transformer-based image classification.",
+      "programming_language": "Python",
+      "framework": "PyTorch / PyTorch Lightning",
+      "has_code": true,
+      "learning_objectives": [
+        "Understand Transformer-based image classification.",
+        "Relate patch-based representations to downstream classification.",
+        "Implement or analyze a ViT-style workflow in practice."
+      ],
+      "prerequisite_concepts": [
+        "Transformers",
+        "image classification",
+        "patch embeddings",
+        "PyTorch"
+      ],
+      "keywords": [
+        "UvA",
+        "Vision Transformer",
+        "ViT",
+        "image classification",
+        "PyTorch Lightning"
+      ],
+      "estimated_time_minutes": 60,
+      "target_learner_level": "advanced",
+      "course_context": "UvA Deep Learning Tutorials / Tutorial 15: Vision Transformers",
+      "source_url": "https://github.com/phlippe/uvadlc_notebooks",
+      "created_at": "2026-03-13",
+      "notes": "Candidate record. The official UvA tutorial repository explicitly lists 'Tutorial 15: Vision Transformers'. This is a good high-level Transformer source if you want more than pure NLP tasks.",
+      "record_status": "candidate",
+      "comparison_status": "non-comparable"
+    }
+  ]
+}

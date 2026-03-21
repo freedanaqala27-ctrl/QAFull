@@ -1,0 +1,11 @@
+difficulty,metric,sample_size,mean,std,median,min,max
+intermediate,rougeL_f1_instruction_only,1,0.129,,0.129,0.129,0.129
+intermediate,tfidf_cosine_full_text,1,0.3408,,0.3408,0.3408,0.3408
+intermediate,tfidf_cosine_instruction_only,1,0.1055,,0.1055,0.1055,0.1055
+intermediate,topic_coherence_score_ai,1,0.2,,0.2,0.2,0.2
+intermediate,topic_coherence_score_reference,1,0.2,,0.2,0.2,0.2
+intermediate-advanced,rougeL_f1_instruction_only,3,0.2038,0.07942738822345854,0.2312,0.1143,0.2659
+intermediate-advanced,tfidf_cosine_full_text,3,0.3581666666666667,0.11033160623018833,0.4023,0.2326,0.4396
+intermediate-advanced,tfidf_cosine_instruction_only,3,0.22343333333333334,0.05483879405433104,0.2357,0.1635,0.2711
+intermediate-advanced,topic_coherence_score_ai,3,0.39999999999999997,0.264575131106459,0.5,0.1,0.6
+intermediate-advanced,topic_coherence_score_reference,3,0.20000000000000004,0.2,0.2,0.0,0.4

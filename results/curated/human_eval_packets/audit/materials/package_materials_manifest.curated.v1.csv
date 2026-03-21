@@ -1,0 +1,9 @@
+package_id,audience,exercise_count,output_dir
+EXPERT-P01,expert,12,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\expert_packages\EXPERT-P01
+EXPERT-P02,expert,12,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\expert_packages\EXPERT-P02
+EXPERT-P03,expert,2,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\expert_packages\EXPERT-P03
+STUDENT-P01,student,6,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\student_packages\STUDENT-P01
+STUDENT-P02,student,6,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\student_packages\STUDENT-P02
+STUDENT-P03,student,6,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\student_packages\STUDENT-P03
+STUDENT-P04,student,6,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\student_packages\STUDENT-P04
+STUDENT-P05,student,2,D:\Downloads\PythonProjectQA\results\curated\human_eval_packets\student_packages\STUDENT-P05

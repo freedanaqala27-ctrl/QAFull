@@ -1,0 +1,15 @@
+{
+  "num_exercises": 46,
+  "num_pairs": 23,
+  "heavy_metrics_enabled": true,
+  "include_expert_metrics": true,
+  "bertscore_attempted": 23,
+  "bertscore_success_count": 23,
+  "bertscore_fail_count": 0,
+  "status": "ok",
+  "reason": "",
+  "exercise_rows_by_source": {
+    "AI": 23,
+    "Expert": 23
+  }
+}

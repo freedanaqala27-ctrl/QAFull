@@ -1,0 +1,12 @@
+﻿metric,metric_label,n_pairs,mean_ai,sd_ai,mean_expert,sd_expert,mean_diff_ai_minus_expert,paired_t_stat,paired_t_p,paired_t_sig,wilcoxon_stat,wilcoxon_p,wilcoxon_sig,cohen_dz_ai_minus_expert,not_tested_small_n,paired_t_p_adjust_bh,wilcoxon_p_adjust_bh
+task_goal_clarity,Task Goal Clarity,13,3.5897,0.232,3.4679,0.2653,0.1218,1.4689,0.167569,ns,27.0,0.374512,ns,0.4074,False,0.942436,1.0
+key_support,Key Support,13,3.4385,0.2624,3.4282,0.3042,0.0103,0.0833,0.934991,ns,25.5,0.861328,ns,0.0231,False,0.986077,1.0
+course_relevance,Course Relevance,13,3.4474,0.2331,3.3423,0.2541,0.1051,1.0351,0.321024,ns,24.5,0.272949,ns,0.2871,False,0.942436,1.0
+learning_help,Learning Help,13,3.2423,0.2515,3.3385,0.3036,-0.0962,-0.9879,0.342704,ns,19.5,0.439453,ns,-0.274,False,0.942436,1.0
+info_load,Information Load,13,3.5141,0.2093,3.5115,0.4263,0.0026,0.0178,0.986077,ns,33.0,1.0,ns,0.0049,False,0.986077,1.0
+search_effort,Search Effort,13,3.3462,0.2955,3.2487,0.3152,0.0974,1.0573,0.311207,ns,18.0,0.376953,ns,0.2932,False,0.942436,1.0
+active_engagement,Active Engagement,13,3.5231,0.3534,3.4936,0.2753,0.0295,0.2857,0.779943,ns,18.5,0.679688,ns,0.0793,False,0.986077,1.0
+mental_effort,Mental Effort,13,3.7372,0.223,3.7077,0.3047,0.0295,0.3067,0.764309,ns,26.0,0.919922,ns,0.0851,False,0.986077,1.0
+item_mean_score,Overall Item Score,13,3.0804,0.1874,3.0753,0.2121,0.0051,0.0714,0.944244,ns,40.0,0.720459,ns,0.0198,False,0.986077,1.0
+usability_mean_score,Usability Mean,13,3.4295,0.1887,3.3942,0.2329,0.0353,0.4342,0.671861,ns,39.0,0.684326,ns,0.1204,False,0.986077,1.0
+cognitive_load_mean_score,Cognitive Load Mean,13,3.5325,0.2205,3.4893,0.2994,0.0432,0.4407,0.667238,ns,44.5,0.960693,ns,0.1222,False,0.986077,1.0

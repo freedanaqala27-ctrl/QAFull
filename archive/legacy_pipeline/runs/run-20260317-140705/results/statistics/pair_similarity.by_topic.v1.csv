@@ -1,0 +1,6 @@
+topic,metric,sample_size,mean,std,median,min,max
+RNN,rougeL_f1_instruction_only,6,0.2592333333333333,0.10262969680685345,0.22,0.1695,0.4199
+RNN,tfidf_cosine_full_text,6,0.3861333333333334,0.07202423666146464,0.37805,0.294,0.4911
+RNN,tfidf_cosine_instruction_only,6,0.2653833333333333,0.05427826145582288,0.2571,0.2098,0.3436
+RNN,topic_coherence_score_ai,6,0.5,0.15491933384829665,0.5,0.3,0.7
+RNN,topic_coherence_score_reference,6,0.3666666666666667,0.10327955589886445,0.4,0.2,0.5

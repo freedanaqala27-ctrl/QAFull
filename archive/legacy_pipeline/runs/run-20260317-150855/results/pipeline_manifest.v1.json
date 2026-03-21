@@ -1,0 +1,17 @@
+﻿{
+    "run_timestamp":  "2026-03-17T15:11:21",
+    "run_id":  "run-20260317-150855",
+    "provider":  "bailian",
+    "model":  "qwen-plus",
+    "topic_filter":  "Transformer",
+    "difficulty_filter":  "intermediate",
+    "exercise_type_filter":  "",
+    "reference_id_filter":  "",
+    "num_prompts":  2,
+    "num_raw_generations":  4,
+    "num_accepted":  1,
+    "num_pairs":  1,
+    "num_exercise_metrics":  2,
+    "num_pair_metrics":  1,
+    "status":  "completed"
+}

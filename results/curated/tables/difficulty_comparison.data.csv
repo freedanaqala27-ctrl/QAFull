@@ -1,0 +1,9 @@
+difficulty,source_type,mean_value,metric_label
+beginner,AI,0.91665,Instruction Completeness
+beginner,Expert,0.5,Instruction Completeness
+beginner-intermediate,AI,0.9444333333333333,Instruction Completeness
+beginner-intermediate,Expert,0.7222333333333334,Instruction Completeness
+intermediate,AI,0.9444333333333332,Instruction Completeness
+intermediate,Expert,0.5888933333333333,Instruction Completeness
+intermediate-advanced,AI,1.0,Instruction Completeness
+intermediate-advanced,Expert,0.7777666666666666,Instruction Completeness

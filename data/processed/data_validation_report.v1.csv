@@ -1,0 +1,208 @@
+exercise_id,field,check_name,status,details
+CNN-01,constraints,field_type,pass,list
+CNN-01,test_cases,field_type,pass,list
+CNN-01,learning_objectives,field_type,pass,list
+CNN-01,prerequisite_concepts,field_type,pass,list
+CNN-01,keywords,field_type,pass,list
+CNN-01,estimated_time_minutes,field_type,pass,int_or_none
+CNN-01,,title_instruction_separation,pass,separated
+CNN-01,starter_code,starter_code_parse,pass,ok
+CNN-01,,duplicate_check,pass,unique title+instruction
+CNN-02,constraints,field_type,pass,list
+CNN-02,test_cases,field_type,pass,list
+CNN-02,learning_objectives,field_type,pass,list
+CNN-02,prerequisite_concepts,field_type,pass,list
+CNN-02,keywords,field_type,pass,list
+CNN-02,estimated_time_minutes,field_type,pass,int_or_none
+CNN-02,,title_instruction_separation,pass,separated
+CNN-02,starter_code,starter_code_parse,pass,ok
+CNN-02,,duplicate_check,pass,unique title+instruction
+CNN-03,constraints,field_type,pass,list
+CNN-03,test_cases,field_type,pass,list
+CNN-03,learning_objectives,field_type,pass,list
+CNN-03,prerequisite_concepts,field_type,pass,list
+CNN-03,keywords,field_type,pass,list
+CNN-03,estimated_time_minutes,field_type,pass,int_or_none
+CNN-03,,title_instruction_separation,pass,separated
+CNN-03,starter_code,starter_code_parse,warn,empty starter_code
+CNN-03,,duplicate_check,pass,unique title+instruction
+CNN-04,constraints,field_type,pass,list
+CNN-04,test_cases,field_type,pass,list
+CNN-04,learning_objectives,field_type,pass,list
+CNN-04,prerequisite_concepts,field_type,pass,list
+CNN-04,keywords,field_type,pass,list
+CNN-04,estimated_time_minutes,field_type,pass,int_or_none
+CNN-04,,title_instruction_separation,pass,separated
+CNN-04,starter_code,starter_code_parse,warn,empty starter_code
+CNN-04,,duplicate_check,pass,unique title+instruction
+RNN-01,constraints,field_type,pass,list
+RNN-01,test_cases,field_type,pass,list
+RNN-01,learning_objectives,field_type,pass,list
+RNN-01,prerequisite_concepts,field_type,pass,list
+RNN-01,keywords,field_type,pass,list
+RNN-01,estimated_time_minutes,field_type,pass,int_or_none
+RNN-01,,title_instruction_separation,pass,separated
+RNN-01,starter_code,starter_code_parse,pass,ok
+RNN-01,,duplicate_check,pass,unique title+instruction
+RNN-02,constraints,field_type,pass,list
+RNN-02,test_cases,field_type,pass,list
+RNN-02,learning_objectives,field_type,pass,list
+RNN-02,prerequisite_concepts,field_type,pass,list
+RNN-02,keywords,field_type,pass,list
+RNN-02,estimated_time_minutes,field_type,pass,int_or_none
+RNN-02,,title_instruction_separation,pass,separated
+RNN-02,starter_code,starter_code_parse,warn,empty starter_code
+RNN-02,,duplicate_check,pass,unique title+instruction
+RNN-03,constraints,field_type,pass,list
+RNN-03,test_cases,field_type,pass,list
+RNN-03,learning_objectives,field_type,pass,list
+RNN-03,prerequisite_concepts,field_type,pass,list
+RNN-03,keywords,field_type,pass,list
+RNN-03,estimated_time_minutes,field_type,pass,int_or_none
+RNN-03,,title_instruction_separation,pass,separated
+RNN-03,starter_code,starter_code_parse,warn,empty starter_code
+RNN-03,,duplicate_check,pass,unique title+instruction
+TRF-01,constraints,field_type,pass,list
+TRF-01,test_cases,field_type,pass,list
+TRF-01,learning_objectives,field_type,pass,list
+TRF-01,prerequisite_concepts,field_type,pass,list
+TRF-01,keywords,field_type,pass,list
+TRF-01,estimated_time_minutes,field_type,pass,int_or_none
+TRF-01,,title_instruction_separation,pass,separated
+TRF-01,starter_code,starter_code_parse,pass,ok
+TRF-01,,duplicate_check,pass,unique title+instruction
+TRF-02,constraints,field_type,pass,list
+TRF-02,test_cases,field_type,pass,list
+TRF-02,learning_objectives,field_type,pass,list
+TRF-02,prerequisite_concepts,field_type,pass,list
+TRF-02,keywords,field_type,pass,list
+TRF-02,estimated_time_minutes,field_type,pass,int_or_none
+TRF-02,,title_instruction_separation,warn,instruction_text starts with title
+TRF-02,starter_code,starter_code_parse,pass,ok
+TRF-02,,duplicate_check,pass,unique title+instruction
+OPT-02,constraints,field_type,pass,list
+OPT-02,test_cases,field_type,pass,list
+OPT-02,learning_objectives,field_type,pass,list
+OPT-02,prerequisite_concepts,field_type,pass,list
+OPT-02,keywords,field_type,pass,list
+OPT-02,estimated_time_minutes,field_type,pass,int_or_none
+OPT-02,,title_instruction_separation,pass,separated
+OPT-02,starter_code,starter_code_parse,pass,ok
+OPT-02,,duplicate_check,pass,unique title+instruction
+OPT-03,constraints,field_type,pass,list
+OPT-03,test_cases,field_type,pass,list
+OPT-03,learning_objectives,field_type,pass,list
+OPT-03,prerequisite_concepts,field_type,pass,list
+OPT-03,keywords,field_type,pass,list
+OPT-03,estimated_time_minutes,field_type,pass,int_or_none
+OPT-03,,title_instruction_separation,pass,separated
+OPT-03,starter_code,starter_code_parse,pass,ok
+OPT-03,,duplicate_check,pass,unique title+instruction
+MIT-01,constraints,field_type,pass,list
+MIT-01,test_cases,field_type,pass,list
+MIT-01,learning_objectives,field_type,pass,list
+MIT-01,prerequisite_concepts,field_type,pass,list
+MIT-01,keywords,field_type,pass,list
+MIT-01,estimated_time_minutes,field_type,pass,int_or_none
+MIT-01,,title_instruction_separation,pass,separated
+MIT-01,starter_code,starter_code_parse,pass,ok
+MIT-01,,duplicate_check,pass,unique title+instruction
+MIT-02,constraints,field_type,pass,list
+MIT-02,test_cases,field_type,pass,list
+MIT-02,learning_objectives,field_type,pass,list
+MIT-02,prerequisite_concepts,field_type,pass,list
+MIT-02,keywords,field_type,pass,list
+MIT-02,estimated_time_minutes,field_type,pass,int_or_none
+MIT-02,,title_instruction_separation,pass,separated
+MIT-02,starter_code,starter_code_parse,fail,"invalid syntax (<unknown>, line 5)"
+MIT-02,,duplicate_check,pass,unique title+instruction
+UVA-02,constraints,field_type,pass,list
+UVA-02,test_cases,field_type,pass,list
+UVA-02,learning_objectives,field_type,pass,list
+UVA-02,prerequisite_concepts,field_type,pass,list
+UVA-02,keywords,field_type,pass,list
+UVA-02,estimated_time_minutes,field_type,pass,int_or_none
+UVA-02,,title_instruction_separation,pass,separated
+UVA-02,starter_code,starter_code_parse,pass,ok
+UVA-02,,duplicate_check,pass,unique title+instruction
+KER-01,constraints,field_type,pass,list
+KER-01,test_cases,field_type,pass,list
+KER-01,learning_objectives,field_type,pass,list
+KER-01,prerequisite_concepts,field_type,pass,list
+KER-01,keywords,field_type,pass,list
+KER-01,estimated_time_minutes,field_type,pass,int_or_none
+KER-01,,title_instruction_separation,pass,separated
+KER-01,starter_code,starter_code_parse,pass,ok
+KER-01,,duplicate_check,pass,unique title+instruction
+KER-02,constraints,field_type,pass,list
+KER-02,test_cases,field_type,pass,list
+KER-02,learning_objectives,field_type,pass,list
+KER-02,prerequisite_concepts,field_type,pass,list
+KER-02,keywords,field_type,pass,list
+KER-02,estimated_time_minutes,field_type,pass,int_or_none
+KER-02,,title_instruction_separation,pass,separated
+KER-02,starter_code,starter_code_parse,pass,ok
+KER-02,,duplicate_check,pass,unique title+instruction
+KER-03,constraints,field_type,pass,list
+KER-03,test_cases,field_type,pass,list
+KER-03,learning_objectives,field_type,pass,list
+KER-03,prerequisite_concepts,field_type,pass,list
+KER-03,keywords,field_type,pass,list
+KER-03,estimated_time_minutes,field_type,pass,int_or_none
+KER-03,,title_instruction_separation,pass,separated
+KER-03,starter_code,starter_code_parse,warn,empty starter_code
+KER-03,,duplicate_check,pass,unique title+instruction
+DTL-01,constraints,field_type,pass,list
+DTL-01,test_cases,field_type,pass,list
+DTL-01,learning_objectives,field_type,pass,list
+DTL-01,prerequisite_concepts,field_type,pass,list
+DTL-01,keywords,field_type,pass,list
+DTL-01,estimated_time_minutes,field_type,pass,int_or_none
+DTL-01,,title_instruction_separation,warn,instruction_text starts with title
+DTL-01,starter_code,starter_code_parse,warn,empty starter_code
+DTL-01,,duplicate_check,pass,unique title+instruction
+DTL-02,constraints,field_type,pass,list
+DTL-02,test_cases,field_type,pass,list
+DTL-02,learning_objectives,field_type,pass,list
+DTL-02,prerequisite_concepts,field_type,pass,list
+DTL-02,keywords,field_type,pass,list
+DTL-02,estimated_time_minutes,field_type,pass,int_or_none
+DTL-02,,title_instruction_separation,warn,instruction_text starts with title
+DTL-02,starter_code,starter_code_parse,warn,empty starter_code
+DTL-02,,duplicate_check,pass,unique title+instruction
+DTL-03,constraints,field_type,pass,list
+DTL-03,test_cases,field_type,pass,list
+DTL-03,learning_objectives,field_type,pass,list
+DTL-03,prerequisite_concepts,field_type,pass,list
+DTL-03,keywords,field_type,pass,list
+DTL-03,estimated_time_minutes,field_type,pass,int_or_none
+DTL-03,,title_instruction_separation,warn,instruction_text starts with title
+DTL-03,starter_code,starter_code_parse,warn,empty starter_code
+DTL-03,,duplicate_check,pass,unique title+instruction
+KER-04,constraints,field_type,pass,list
+KER-04,test_cases,field_type,pass,list
+KER-04,learning_objectives,field_type,pass,list
+KER-04,prerequisite_concepts,field_type,pass,list
+KER-04,keywords,field_type,pass,list
+KER-04,estimated_time_minutes,field_type,pass,int_or_none
+KER-04,,title_instruction_separation,pass,separated
+KER-04,starter_code,starter_code_parse,pass,ok
+KER-04,,duplicate_check,pass,unique title+instruction
+OPT-04,constraints,field_type,pass,list
+OPT-04,test_cases,field_type,pass,list
+OPT-04,learning_objectives,field_type,pass,list
+OPT-04,prerequisite_concepts,field_type,pass,list
+OPT-04,keywords,field_type,pass,list
+OPT-04,estimated_time_minutes,field_type,pass,int_or_none
+OPT-04,,title_instruction_separation,pass,separated
+OPT-04,starter_code,starter_code_parse,pass,ok
+OPT-04,,duplicate_check,pass,unique title+instruction
+OPT-05,constraints,field_type,pass,list
+OPT-05,test_cases,field_type,pass,list
+OPT-05,learning_objectives,field_type,pass,list
+OPT-05,prerequisite_concepts,field_type,pass,list
+OPT-05,keywords,field_type,pass,list
+OPT-05,estimated_time_minutes,field_type,pass,int_or_none
+OPT-05,,title_instruction_separation,warn,instruction_text starts with title
+OPT-05,starter_code,starter_code_parse,pass,ok
+OPT-05,,duplicate_check,pass,unique title+instruction

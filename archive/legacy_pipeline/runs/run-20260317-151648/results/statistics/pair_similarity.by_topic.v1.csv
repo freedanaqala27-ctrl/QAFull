@@ -1,0 +1,6 @@
+topic,metric,sample_size,mean,std,median,min,max
+Transformer,rougeL_f1_instruction_only,1,0.086,,0.086,0.086,0.086
+Transformer,tfidf_cosine_full_text,1,0.4279,,0.4279,0.4279,0.4279
+Transformer,tfidf_cosine_instruction_only,1,0.1309,,0.1309,0.1309,0.1309
+Transformer,topic_coherence_score_ai,1,0.2,,0.2,0.2,0.2
+Transformer,topic_coherence_score_reference,1,0.2,,0.2,0.2,0.2

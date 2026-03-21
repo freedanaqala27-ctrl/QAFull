@@ -1,0 +1,5 @@
+source_type,metric,mean_value,metric_label
+AI,code_quality_metrics.starter_code_mi,94.22317826086956,Starter Code Maintainability
+Expert,code_quality_metrics.starter_code_mi,89.69561428571429,Starter Code Maintainability
+AI,code_quality_metrics.starter_code_mccabe_max,1.75,Starter Code Complexity
+Expert,code_quality_metrics.starter_code_mccabe_max,2.875,Starter Code Complexity

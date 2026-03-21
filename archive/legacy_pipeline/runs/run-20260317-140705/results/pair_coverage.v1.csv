@@ -1,0 +1,7 @@
+reference_exercise_id,topic,difficulty,reference_exercise_type,accepted_candidate_count,selected_ai_exercise_id,pair_built,top_soft_rank_score
+KER-02,RNN,intermediate,model building,1,AI-KER-02-01,True,0.8729
+KER-04,RNN,intermediate,model building,1,AI-KER-04-01,True,0.8023
+MIT-01,RNN,intermediate,code completion,1,AI-MIT-01-01,True,0.5761
+RNN-01,RNN,intermediate,code completion,1,AI-RNN-01-01,True,0.7254
+RNN-02,RNN,intermediate,model building,2,AI-RNN-02-01,True,0.879
+RNN-03,RNN,intermediate,model building,1,AI-RNN-03-01,True,0.8124

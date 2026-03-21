@@ -1,0 +1,33 @@
+{
+  "mapping_version": "v1.0",
+  "applies_to_freeze_version": "v1",
+  "source_file": "expert_exercises.main_frozen.v1.json",
+  "policy": {
+    "frozen_file_edit_policy": "Do not edit difficulty or exercise_type inside main_frozen.v1. Apply this mapping only in analysis scripts, tables, and statistical exports.",
+    "notes": [
+      "This is a lightweight sidecar mapping table.",
+      "It standardizes labels for analysis while preserving the frozen source data unchanged."
+    ]
+  },
+  "difficulty_mapping": {
+    "beginner": "Beginner",
+    "beginner-intermediate": "Intermediate",
+    "intermediate": "Intermediate",
+    "intermediate-advanced": "Advanced",
+    "advanced": "Advanced"
+  },
+  "exercise_type_mapping": {
+    "code completion": "Code Completion",
+    "concept-to-code": "Code Completion",
+    "model building": "Model Building",
+    "training-analysis": "Model Building",
+    "model revision": "Model Building",
+    "debugging": "Debugging",
+    "reflection + coding": "Model Building",
+    "project": "Project"
+  },
+  "recommended_analysis_fields": {
+    "difficulty_coarse_field": "difficulty_mapped",
+    "exercise_type_standard_field": "exercise_type_mapped"
+  }
+}

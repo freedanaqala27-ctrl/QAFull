@@ -1,0 +1,22 @@
+{
+  "status": "ready",
+  "min_group_size": 2,
+  "has_ai_group": true,
+  "has_expert_group": true,
+  "ai_n": 13,
+  "expert_n": 13,
+  "reason": "",
+  "eligible_only": true,
+  "fairness_summary": {
+    "eligible_only": true,
+    "fairness_audit_loaded": true,
+    "eligible_pair_count": 13,
+    "ineligible_pair_count": 10,
+    "rows_before_filter": 46,
+    "rows_after_filter": 26,
+    "filter_applied": true,
+    "reason": "eligible_pairs_only",
+    "pair_count_after_filter": 13
+  },
+  "legacy_human_correlations_enabled": false
+}

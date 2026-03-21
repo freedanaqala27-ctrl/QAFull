@@ -1,0 +1,13 @@
+{
+  "expert_packet_rows": 26,
+  "student_packet_rows": 26,
+  "booklet_row_count": 26,
+  "package_material_count": 8,
+  "outputs": {
+    "booklet_markdown": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\blind_review_booklet.curated.md",
+    "booklet_html": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\blind_review_booklet.curated.html",
+    "expert_response_template": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\expert_response_template.curated.v1.csv",
+    "student_response_template": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\student_response_template.curated.v1.csv",
+    "package_material_manifest": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\package_materials_manifest.curated.v1.csv"
+  }
+}
