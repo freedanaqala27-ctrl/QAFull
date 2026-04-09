@@ -18,5 +18,23 @@
     "reason": "eligible_pairs_only",
     "pair_count_after_filter": 13
   },
+  "correctness_fairness_summary": {
+    "eligible_only": true,
+    "fairness_audit_loaded": true,
+    "eligible_pair_count": 13,
+    "ineligible_pair_count": 10,
+    "rows_before_filter": 46,
+    "rows_after_filter": 26,
+    "filter_applied": true,
+    "reason": "eligible_pairs_only",
+    "pair_count_after_filter": 13
+  },
+  "correctness_rows_raw": 46,
+  "correctness_rows_analysis": 26,
+  "correctness_rows_evaluable": 26,
+  "correctness_status_counts": {
+    "pass": 25,
+    "partial_pass": 1
+  },
   "legacy_human_correlations_enabled": false
 }

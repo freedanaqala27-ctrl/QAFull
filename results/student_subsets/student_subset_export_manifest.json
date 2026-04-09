@@ -9,7 +9,7 @@
   "output_dir": "results\\student_subsets",
   "filters": {
     "require_submitted": true,
-    "participant_ids_csv": ""
+    "participant_ids_csv": "results\\student_subsets\\participant_selection_manifest_30.csv"
   },
   "selection_summary": {
     "meta_participants": 30,
@@ -17,7 +17,7 @@
     "batch_participants": 30,
     "submitted_participants": 30,
     "selected_participants": 30,
-    "used_frozen_participant_list": false
+    "used_frozen_participant_list": true
   },
   "outputs": {
     "participant_meta": "results\\student_subsets\\participant_meta_30.csv",

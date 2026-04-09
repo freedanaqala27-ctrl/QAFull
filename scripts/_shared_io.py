@@ -49,3 +49,37 @@ def write_csv_rows(
         writer = csv.DictWriter(handle, fieldnames=ordered_fieldnames)
         writer.writeheader()
         writer.writerows(rows)
+
+
+def write_jsonl_rows(
+    rows: list[dict[str, Any]],
+    path: Path,
+    *,
+    encoding: str = "utf-8",
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding=encoding) as handle:
+        for row in rows:
+            handle.write(json.dumps(row, ensure_ascii=False, allow_nan=True) + "\n")
+
+
+def write_json_doc(
+    doc: dict[str, Any],
+    path: Path,
+    *,
+    encoding: str = "utf-8",
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(doc, ensure_ascii=False, indent=2, allow_nan=True), encoding=encoding)
+
+
+def index_rows_by_key(
+    rows: list[dict[str, Any]],
+    key_field: str,
+) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        key = str(row.get(key_field, "") or "").strip()
+        if key:
+            index[key] = row
+    return index

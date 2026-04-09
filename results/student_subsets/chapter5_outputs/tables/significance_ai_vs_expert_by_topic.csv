@@ -1,15 +1,15 @@
 ﻿topic,metric,metric_label,n_pairs,mean_ai,sd_ai,mean_expert,sd_expert,mean_diff_ai_minus_expert,paired_t_stat,paired_t_p,paired_t_sig,wilcoxon_stat,wilcoxon_p,wilcoxon_sig,cohen_dz_ai_minus_expert,not_tested_small_n,paired_t_p_adjust_bh_topic,wilcoxon_p_adjust_bh_topic
 CNN,task_goal_clarity,Task Goal Clarity,3,3.55,0.3969,3.6222,0.4018,-0.0722,-0.3976,0.729343,ns,,,,-0.2296,False,0.8914192222222221,
 CNN,key_support,Key Support,3,3.3333,0.4163,3.8,0.2,-0.4667,-1.6059,0.249521,ns,,,,-0.9272,False,0.68618275,
-CNN,course_relevance,Course Relevance,3,3.4833,0.4481,3.5111,0.154,-0.0278,-0.1194,0.915856,ns,2.5,1.0,ns,-0.0689,False,0.9158559999999999,1.0
-CNN,learning_help,Learning Help,3,3.45,0.2784,3.6889,0.3006,-0.2389,-1.2052,0.351382,ns,1.0,0.5,ns,-0.6958,False,0.7730404000000001,0.9
-CNN,info_load,Information Load,3,3.4333,0.2082,3.2667,0.6429,0.1667,0.4927,0.671024,ns,2.0,0.75,ns,0.2844,False,0.8914192222222221,0.9
+CNN,course_relevance,Course Relevance,3,3.4833,0.4481,3.5111,0.154,-0.0278,-0.1194,0.915856,ns,2.5,1.0,ns,-0.0689,False,0.915856,1.0
+CNN,learning_help,Learning Help,3,3.45,0.2784,3.6889,0.3006,-0.2389,-1.2052,0.351382,ns,1.0,0.5,ns,-0.6958,False,0.7730404000000001,0.8999999999999999
+CNN,info_load,Information Load,3,3.4333,0.2082,3.2667,0.6429,0.1667,0.4927,0.671024,ns,2.0,0.75,ns,0.2844,False,0.8914192222222221,0.8999999999999999
 CNN,search_effort,Search Effort,3,3.0667,0.3055,2.9333,0.3055,0.1333,2.0,0.183503,ns,,,,1.1547,False,0.6728443333333334,
 CNN,active_engagement,Active Engagement,3,3.7667,0.3786,3.8667,0.2309,-0.1,-0.4804,0.678366,ns,,,,-0.2774,False,0.8914192222222221,
-CNN,mental_effort,Mental Effort,3,3.65,0.2179,3.6667,0.3055,-0.0167,-0.128,0.909833,ns,,,,-0.0739,False,0.9158559999999999,
+CNN,mental_effort,Mental Effort,3,3.65,0.2179,3.6667,0.3055,-0.0167,-0.128,0.909833,ns,,,,-0.0739,False,0.915856,
 CNN,item_mean_score,Overall Item Score,3,3.1792,0.2813,3.3278,0.2141,-0.1486,-3.4303,0.075488,ns,0.0,0.25,ns,-1.9805,False,0.6728443333333334,0.75
 CNN,usability_mean_score,Usability Mean,3,3.4542,0.3011,3.6556,0.2002,-0.2014,-2.2935,0.148809,ns,0.0,0.25,ns,-1.3242,False,0.6728443333333334,0.75
-CNN,cognitive_load_mean_score,Cognitive Load Mean,3,3.3833,0.2351,3.2889,0.3672,0.0944,0.5352,0.646082,ns,2.0,0.75,ns,0.309,False,0.8914192222222221,0.9
+CNN,cognitive_load_mean_score,Cognitive Load Mean,3,3.3833,0.2351,3.2889,0.3672,0.0944,0.5352,0.646082,ns,2.0,0.75,ns,0.309,False,0.8914192222222221,0.8999999999999999
 Optimization,task_goal_clarity,Task Goal Clarity,3,3.5778,0.2341,3.2,0.2,0.3778,17.0,0.003442,*,0.0,0.25,ns,9.815,False,0.037862,0.5833333333333334
 Optimization,key_support,Key Support,3,3.4444,0.3151,3.2,0.2,0.2444,1.9757,0.186857,ns,,,,1.1406,False,0.51385675,
 Optimization,course_relevance,Course Relevance,3,3.3778,0.0385,3.2167,0.0289,0.1611,4.1429,0.053621,ns,0.0,0.25,ns,2.3919,False,0.283679,0.5833333333333334
@@ -18,7 +18,7 @@ Optimization,info_load,Information Load,3,3.4889,0.154,3.6,0.5292,-0.1111,-0.282
 Optimization,search_effort,Search Effort,3,3.3556,0.2694,3.2833,0.1041,0.0722,0.3976,0.729343,ns,,,,0.2296,False,1.0,
 Optimization,active_engagement,Active Engagement,3,3.4444,0.3151,3.2833,0.1041,0.1611,1.3223,0.317032,ns,,,,0.7634,False,0.6974703999999999,
 Optimization,mental_effort,Mental Effort,3,3.6222,0.0385,3.6833,0.3884,-0.0611,-0.2487,0.826831,ns,3.0,1.0,ns,-0.1436,False,1.0,1.0
-Optimization,item_mean_score,Overall Item Score,3,3.0722,0.1678,2.9417,0.052,0.1306,1.1038,0.384713,ns,1.0,0.5,ns,0.6373,False,0.7053071666666667,0.875
+Optimization,item_mean_score,Overall Item Score,3,3.0722,0.1678,2.9417,0.052,0.1306,1.1038,0.384713,ns,1.0,0.5,ns,0.6373,False,0.7053071666666668,0.875
 Optimization,usability_mean_score,Usability Mean,3,3.4,0.1803,3.2042,0.1252,0.1958,3.3831,0.077367,ns,0.0,0.25,ns,1.9533,False,0.283679,0.5833333333333334
 Optimization,cognitive_load_mean_score,Cognitive Load Mean,3,3.4889,0.154,3.5222,0.3097,-0.0334,-0.1248,0.912124,ns,3.0,1.0,ns,-0.072,False,1.0,1.0
 RNN,task_goal_clarity,Task Goal Clarity,5,3.5367,0.1685,3.5633,0.1583,-0.0267,-0.2188,0.837495,ns,7.0,1.0,ns,-0.0979,False,0.9212445,1.0

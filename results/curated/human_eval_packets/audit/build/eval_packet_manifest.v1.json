@@ -12,14 +12,14 @@
   "expert_package_size": 12,
   "student_package_size": 6,
   "outputs": {
-    "expert_eval_packet": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\expert_eval_packet.curated.v1.csv",
-    "student_eval_packet": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\student_eval_packet.curated.v1.csv",
-    "expert_batch_template": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\expert_batch_template.curated.v1.csv",
-    "student_batch_template": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\student_batch_template.curated.v1.csv",
-    "fairness_audit": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\human_eval_fairness_audit.curated.v1.csv",
-    "source_balance": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\human_eval_source_balance.curated.v1.csv",
-    "expert_package_manifest": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\expert_package_manifest.curated.v1.csv",
-    "student_package_manifest": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\student_package_manifest.curated.v1.csv",
-    "build_issues": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\eval_packet_build_issues.v1.csv"
+    "expert_eval_packet": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\packets\\expert_eval_packet.curated.v1.csv",
+    "student_eval_packet": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\packets\\student_eval_packet.curated.v1.csv",
+    "expert_batch_template": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\templates\\expert_batch_template.curated.v1.csv",
+    "student_batch_template": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\templates\\student_batch_template.curated.v1.csv",
+    "fairness_audit": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\audit\\quality\\human_eval_fairness_audit.curated.v1.csv",
+    "source_balance": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\audit\\quality\\human_eval_source_balance.curated.v1.csv",
+    "expert_package_manifest": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\packets\\expert_package_manifest.curated.v1.csv",
+    "student_package_manifest": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\packets\\student_package_manifest.curated.v1.csv",
+    "build_issues": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\audit\\build\\eval_packet_build_issues.v1.csv"
   }
 }

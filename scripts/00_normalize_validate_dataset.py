@@ -56,6 +56,10 @@ REQUIRED_FIELDS = [
 LIST_FIELDS = [
     "constraints",
     "test_cases",
+    "public_tests_py",
+    "hidden_tests_py",
+    "surface_checks",
+    "required_packages",
     "learning_objectives",
     "prerequisite_concepts",
     "keywords",
@@ -67,6 +71,13 @@ TEXT_FIELDS = [
     "starter_code",
     "expected_output",
     "solution",
+    "evaluation_mode",
+    "entry_point",
+    "solution_format",
+    "todo_start_marker",
+    "todo_end_marker",
+    "setup_code",
+    "reference_solution_authority",
 ]
 
 MOJIBAKE_PATTERNS = [
@@ -126,6 +137,13 @@ def normalize_item(item: dict[str, Any]) -> dict[str, Any]:
     normalized["starter_code"] = str(item.get("starter_code", "") or "")
     normalized["expected_output"] = str(item.get("expected_output", "") or "")
     normalized["solution"] = str(item.get("solution", "") or "")
+    normalized["evaluation_mode"] = str(item.get("evaluation_mode", "") or "")
+    normalized["entry_point"] = str(item.get("entry_point", "") or "")
+    normalized["solution_format"] = str(item.get("solution_format", "") or "")
+    normalized["todo_start_marker"] = str(item.get("todo_start_marker", "") or "")
+    normalized["todo_end_marker"] = str(item.get("todo_end_marker", "") or "")
+    normalized["setup_code"] = str(item.get("setup_code", "") or "")
+    normalized["reference_solution_authority"] = str(item.get("reference_solution_authority", "") or "")
     normalized["has_code"] = bool(item.get("has_code", bool(normalized["starter_code"].strip())))
     for field in LIST_FIELDS:
         normalized[field] = ensure_list(item.get(field, []))

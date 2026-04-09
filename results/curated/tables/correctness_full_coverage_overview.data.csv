@@ -1,0 +1,6 @@
+stage,count,total,rate,scope
+Overlay Coverage,46,46,1.0,exercise_level
+Executable References,46,46,1.0,exercise_level
+Correctness Pass,45,46,0.9782608695652174,exercise_level
+Eligible Pairs,13,13,1.0,pair_level
+Evaluable Pairs,13,13,1.0,pair_level

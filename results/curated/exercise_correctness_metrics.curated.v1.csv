@@ -1,0 +1,47 @@
+pair_id,exercise_id,source_type,topic,difficulty,exercise_type,entry_point,evaluation_mode,public_tests_total,public_tests_passed,hidden_tests_total,hidden_tests_passed,public_pass_rate,hidden_pass_rate,surface_checks_total,surface_checks_passed,shape_checks_passed,behavior_checks_passed,correctness_status,reference_solution_fully_valid,required_packages_satisfied,missing_packages,exec_prereq_status,timeout_seconds,max_memory_bytes,failure_message,solution_overlay_hit,tests_overlay_hit
+PAIR-CURATED-CNN-01,CNN-01,Expert,CNN,intermediate,code completion,conv_forward_naive,function_completion,2,2,1,1,1.0,1.0,2,2,1,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-CNN-01,AI-CURATED-CNN-01,AI,CNN,intermediate,code completion,conv_forward_naive,function_completion,2,2,1,1,1.0,1.0,2,2,1,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-CNN-02,CNN-02,Expert,CNN,beginner,concept-to-code,comp_conv2d,concept_to_code,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-CNN-02,AI-CURATED-CNN-02,AI,CNN,beginner,code completion,compute_conv2d_output_shape,function_completion,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-CNN-03,CNN-03,Expert,CNN,beginner-intermediate,model building,model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-CNN-03,AI-CURATED-CNN-03,AI,CNN,beginner-intermediate,model building,model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-CNN-04,CNN-04,Expert,CNN,intermediate,training-analysis,comparison_note,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-CNN-04,AI-CURATED-CNN-04,AI,CNN,intermediate,training-analysis,interpretation,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-DTL-01,DTL-01,Expert,Optimization,intermediate,training-analysis,best_lambda,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-DTL-01,AI-CURATED-DTL-01,AI,Optimization,intermediate,training-analysis,best_weight_decay,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-DTL-02,DTL-02,Expert,Optimization,intermediate,training-analysis,optimal_lambda,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-DTL-02,AI-CURATED-DTL-02,AI,Optimization,intermediate,training-analysis,selected_weight_decay,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-DTL-03,DTL-03,Expert,Transformer,intermediate,training-analysis,attention_summary,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-DTL-03,AI-CURATED-DTL-03,AI,Transformer,intermediate,training-analysis,head_comparison_note,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-01,KER-01,Expert,CNN,beginner,model building,model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-01,AI-CURATED-KER-01,AI,CNN,beginner,model building,model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-02,KER-02,Expert,RNN,intermediate,model building,sentiment_model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-02,AI-CURATED-KER-02,AI,RNN,intermediate,model building,sentiment_model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-03,KER-03,Expert,Transformer,intermediate-advanced,model building,transformer_model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-03,AI-CURATED-KER-03,AI,Transformer,intermediate-advanced,model building,transformer_model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-04,KER-04,Expert,RNN,intermediate,model building,seq2seq_model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-KER-04,AI-CURATED-KER-04,AI,RNN,intermediate,model building,seq2seq_model,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-MIT-01,MIT-01,Expert,RNN,intermediate,code completion,LSTMModel,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-MIT-01,AI-CURATED-MIT-01,AI,RNN,intermediate,code completion,MusicRNNCell,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-MIT-02,MIT-02,Expert,CNN,beginner-intermediate,model building,CNN,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-MIT-02,AI-CURATED-MIT-02,AI,CNN,beginner-intermediate,model building,TwoBlockCNN,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-02,OPT-02,Expert,Optimization,beginner-intermediate,training-analysis,overfitting_summary,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-02,AI-CURATED-OPT-02,AI,Optimization,beginner-intermediate,training-analysis,comparison_statement,training_analysis,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-03,OPT-03,Expert,Optimization,intermediate,model revision,combined_model,model_revision,3,3,1,1,1.0,1.0,2,2,0,2,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-03,AI-CURATED-OPT-03,AI,Optimization,intermediate,model revision,revised_model,model_revision,3,3,2,2,1.0,1.0,1,1,1,0,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-04,OPT-04,Expert,Optimization,intermediate,model revision,l2_model,model_revision,2,2,1,1,1.0,1.0,2,2,0,2,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-04,AI-CURATED-OPT-04,AI,Optimization,intermediate,model revision,regularized_model,model_revision,3,3,2,2,1.0,1.0,1,1,1,0,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-05,OPT-05,Expert,Optimization,intermediate,model revision,dropout_model,model_revision,2,2,1,1,1.0,1.0,2,2,0,2,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-OPT-05,AI-CURATED-OPT-05,AI,Optimization,intermediate,model revision,revised_model,model_revision,3,3,2,2,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-RNN-01,RNN-01,Expert,RNN,intermediate,code completion,RNNScratch,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-RNN-01,AI-CURATED-RNN-01,AI,RNN,intermediate,code completion,RNNScratch,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-RNN-02,RNN-02,Expert,RNN,intermediate,model building,ParserModel,model_building,2,1,1,1,0.5,1.0,1,1,0,1,partial_pass,False,True,,exec_ok,10,536870912,AssertionError:,True,True
+PAIR-CURATED-RNN-02,AI-CURATED-RNN-02,AI,RNN,intermediate,model building,StackLSTMParser,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-RNN-03,RNN-03,Expert,RNN,intermediate,model building,Seq2Seq,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-RNN-03,AI-CURATED-RNN-03,AI,RNN,intermediate,model building,TeacherForcedSeq2Seq,model_building,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-TRF-01,TRF-01,Expert,Transformer,intermediate-advanced,code completion,CausalAttention,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-TRF-01,AI-CURATED-TRF-01,AI,Transformer,intermediate-advanced,code completion,CausalSelfAttention,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-TRF-02,TRF-02,Expert,Transformer,intermediate,code completion,DotProductAttention,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-TRF-02,AI-CURATED-TRF-02,AI,Transformer,intermediate,code completion,additive_attention_scores,function_completion,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-UVA-02,UVA-02,Expert,Transformer,intermediate-advanced,code completion,MultiheadAttention,class_implementation,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True
+PAIR-CURATED-UVA-02,AI-CURATED-UVA-02,AI,Transformer,intermediate-advanced,code completion,scaled_dot_product_attention,function_completion,2,2,1,1,1.0,1.0,1,1,0,1,pass,True,True,,exec_ok,10,536870912,,True,True

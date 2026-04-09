@@ -61,6 +61,8 @@ These are preserved for reproducibility. They are not the main active path for t
 ### Automatic metrics and curated analysis
 
 - [`scripts/06_compute_auto_metrics.py`](D:/Downloads/PythonProjectQA/scripts/06_compute_auto_metrics.py)
+- [`scripts/06c_validate_reference_solutions.py`](D:/Downloads/PythonProjectQA/scripts/06c_validate_reference_solutions.py)
+- [`scripts/06d_run_functional_correctness.py`](D:/Downloads/PythonProjectQA/scripts/06d_run_functional_correctness.py)
 - [`scripts/07_statistical_analysis.py`](D:/Downloads/PythonProjectQA/scripts/07_statistical_analysis.py)
 - [`scripts/10_visualize_results.py`](D:/Downloads/PythonProjectQA/scripts/10_visualize_results.py)
 - [`scripts/_shared_io.py`](D:/Downloads/PythonProjectQA/scripts/_shared_io.py)
@@ -69,6 +71,13 @@ Recommended mode:
 
 - run with curated inputs
 - use outputs under [`results/curated`](D:/Downloads/PythonProjectQA/results/curated)
+
+For the extended code-validity workflow, run:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\06c_validate_reference_solutions.py --use-curated
+.\.venv\Scripts\python.exe scripts\06d_run_functional_correctness.py --use-curated
+```
 
 ### Human-evaluation material preparation
 
@@ -159,10 +168,29 @@ Especially:
 
 - [`exercise_metrics.curated.v1.csv`](D:/Downloads/PythonProjectQA/results/curated/exercise_metrics.curated.v1.csv)
 - [`pair_similarity_metrics.curated.v1.csv`](D:/Downloads/PythonProjectQA/results/curated/pair_similarity_metrics.curated.v1.csv)
+- [`reference_solutions.curated.v1.jsonl`](D:/Downloads/PythonProjectQA/results/curated/reference_solutions.curated.v1.jsonl)
+- [`executable_tests.curated.v1.jsonl`](D:/Downloads/PythonProjectQA/results/curated/executable_tests.curated.v1.jsonl)
+- [`reference_solution_validation.curated.v1.csv`](D:/Downloads/PythonProjectQA/results/curated/reference_solution_validation.curated.v1.csv)
+- [`exercise_correctness_metrics.curated.v1.csv`](D:/Downloads/PythonProjectQA/results/curated/exercise_correctness_metrics.curated.v1.csv)
 - [`metrics_manifest.curated.v1.json`](D:/Downloads/PythonProjectQA/results/curated/metrics_manifest.curated.v1.json)
 - [`statistics`](D:/Downloads/PythonProjectQA/results/curated/statistics)
 - [`figures`](D:/Downloads/PythonProjectQA/results/curated/figures)
 - [`tables`](D:/Downloads/PythonProjectQA/results/curated/tables)
+
+Additional executable-evaluation fields supported by the exercise schema:
+
+- `evaluation_mode`
+- `entry_point`
+- `solution_format`
+- `todo_start_marker`
+- `todo_end_marker`
+- `setup_code`
+- `public_tests_py`
+- `hidden_tests_py`
+- `surface_checks`
+- `timeout_seconds`
+- `required_packages`
+- `reference_solution_authority`
 
 ### Student analysis outputs
 

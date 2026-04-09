@@ -1,0 +1,15 @@
+{
+  "num_pairs": 23,
+  "num_exercises": 46,
+  "status_counts": {
+    "exec_ok": 46
+  },
+  "solution_present_counts": {
+    "present": 46,
+    "missing": 0
+  },
+  "overlay_coverage": {
+    "solution_overlay_hits": 46,
+    "tests_overlay_hits": 46
+  }
+}

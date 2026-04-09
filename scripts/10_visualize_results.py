@@ -21,9 +21,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from thesis_plot import AI_COLOR, EXPERT_COLOR, apply_axis_style, heatmap, save_figure, set_tick_fonts, setup_thesis_style
+from thesis_plot import AI_COLOR, AUX_COLOR, EXPERT_COLOR, apply_axis_style, heatmap, save_figure, set_tick_fonts, setup_thesis_style
 
 CURATED_DIR = PROJECT_ROOT / "results" / "curated"
+CURATED_STATS_DIR = CURATED_DIR / "statistics"
 
 DISPLAY_NAME_MAP = {
     "instruction_metrics.instruction_completeness_ratio": "Instruction Completeness",
@@ -87,6 +88,11 @@ PAIR_METRICS = [
     "bertscore_f1_instruction_only",
 ]
 
+CORRECTNESS_RATE_LABELS = {
+    "rate_pass": "Pass Rate",
+    "rate_not_evaluable": "Not-Evaluable Rate",
+}
+
 
 def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
@@ -107,6 +113,12 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
             if line.strip():
                 records.append(json.loads(line))
     return records
+
+
+def load_json_doc(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def pretty_name(metric: str) -> str:
@@ -379,6 +391,212 @@ def save_pair_similarity_by_topic(df: pd.DataFrame, figures_dir: Path, tables_di
     plt.close(fig)
 
 
+def save_correctness_pass_rate(df: pd.DataFrame, figures_dir: Path, tables_dir: Path) -> None:
+    required = {"source_type", "correctness_status"}
+    if df.empty or not required.issubset(df.columns):
+        return
+
+    grouped = (
+        df.groupby("source_type")
+        .agg(
+            sample_size=("exercise_id", "count"),
+            status_pass=("correctness_status", lambda s: int((s == "pass").sum())),
+        )
+        .reset_index()
+    )
+    grouped["status_not_evaluable"] = 0
+    grouped["rate_pass"] = grouped["status_pass"] / grouped["sample_size"]
+    grouped["rate_not_evaluable"] = 0.0
+    grouped.to_csv(tables_dir / "correctness_pass_rate.summary.csv", index=False)
+
+    summary = grouped[["source_type", "rate_pass", "rate_not_evaluable"]].copy()
+    summary = summary.melt(id_vars="source_type", var_name="metric", value_name="rate")
+    summary["metric_label"] = summary["metric"].map(CORRECTNESS_RATE_LABELS)
+    summary.to_csv(tables_dir / "correctness_pass_rate.data.csv", index=False)
+
+    fig, ax = plt.subplots(figsize=(5.8, 4.0))
+    if sns is not None:
+        sns.barplot(
+            data=summary,
+            x="metric_label",
+            y="rate",
+            hue="source_type",
+            palette={"AI": AI_COLOR, "Expert": EXPERT_COLOR},
+            edgecolor="black",
+            linewidth=0.5,
+            ax=ax,
+        )
+    else:
+        pivoted = summary.pivot(index="metric_label", columns="source_type", values="rate").fillna(0)
+        pivoted.plot(kind="bar", ax=ax, color=[AI_COLOR, EXPERT_COLOR], edgecolor="black", linewidth=0.5)
+    ax.set_ylim(0, 1.0)
+    ax.legend(frameon=False, prop={"family": "Times New Roman", "size": 9})
+    set_tick_fonts(ax, rotation=0, ha="center")
+    apply_axis_style(ax, ylabel="Rate")
+    for patch in ax.patches:
+        height = patch.get_height()
+        ax.text(
+            patch.get_x() + patch.get_width() / 2,
+            height + 0.02,
+            f"{height:.2f}",
+            ha="center",
+            va="bottom",
+            fontsize=8,
+            fontname="Times New Roman",
+        )
+    fig.tight_layout()
+    save_figure(fig, figures_dir / "correctness_pass_rate.png")
+    plt.close(fig)
+
+
+def save_correctness_evaluable_subset(df: pd.DataFrame, figures_dir: Path, tables_dir: Path) -> None:
+    required = {"pair_id", "topic", "exercise_type"}
+    if df.empty or not required.issubset(df.columns):
+        return
+
+    pair_df = df.drop_duplicates(subset=["pair_id"])[["pair_id", "topic", "exercise_type"]].copy()
+    if pair_df.empty:
+        return
+
+    summary = (
+        pair_df.groupby(["topic", "exercise_type"])
+        .size()
+        .reset_index(name="pair_count")
+        .sort_values(["topic", "exercise_type"])
+    )
+    summary.to_csv(tables_dir / "correctness_evaluable_subset.data.csv", index=False)
+
+    summary["topic_label"] = summary.apply(lambda row: f"{row['topic']} ({row['exercise_type']})", axis=1)
+
+    fig, ax = plt.subplots(figsize=(6.6, 4.2))
+    if sns is not None:
+        sns.barplot(
+            data=summary,
+            x="topic_label",
+            y="pair_count",
+            color=AI_COLOR,
+            edgecolor="black",
+            linewidth=0.5,
+            ax=ax,
+        )
+    else:
+        ax.bar(summary["topic_label"], summary["pair_count"], color=AI_COLOR, edgecolor="black", linewidth=0.5)
+    set_tick_fonts(ax, rotation=25, ha="right")
+    apply_axis_style(ax, ylabel="Number of Evaluable Pairs")
+    for idx, value in enumerate(summary["pair_count"].tolist()):
+        ax.text(idx, value, str(int(value)), ha="center", va="bottom", fontsize=8, fontname="Times New Roman")
+    fig.tight_layout()
+    save_figure(fig, figures_dir / "correctness_evaluable_subset.png")
+    plt.close(fig)
+
+
+def save_correctness_full_coverage_overview(
+    validation_manifest: dict[str, Any],
+    correctness_manifest: dict[str, Any],
+    analysis_status: dict[str, Any],
+    figures_dir: Path,
+    tables_dir: Path,
+) -> None:
+    if not validation_manifest or not correctness_manifest or not analysis_status:
+        return
+
+    num_exercises = int(correctness_manifest.get("num_exercises", 0) or 0)
+    exec_ok = int(validation_manifest.get("status_counts", {}).get("exec_ok", 0) or 0)
+    pass_count = int(correctness_manifest.get("correctness_status_counts", {}).get("pass", 0) or 0)
+    solution_hits = int(correctness_manifest.get("overlay_coverage", {}).get("solution_overlay_hits", 0) or 0)
+
+    eligible_pairs = int(analysis_status.get("correctness_fairness_summary", {}).get("eligible_pair_count", 0) or 0)
+    pair_count_after_filter = int(
+        analysis_status.get("correctness_fairness_summary", {}).get("pair_count_after_filter", 0) or 0
+    )
+    evaluable_rows = int(analysis_status.get("correctness_rows_evaluable", 0) or 0)
+    evaluable_pairs = evaluable_rows // 2 if evaluable_rows else 0
+
+    if num_exercises <= 0:
+        return
+
+    exercise_summary = pd.DataFrame(
+        [
+            {"stage": "Overlay Coverage", "count": solution_hits, "total": num_exercises},
+            {"stage": "Executable References", "count": exec_ok, "total": num_exercises},
+            {"stage": "Correctness Pass", "count": pass_count, "total": num_exercises},
+        ]
+    )
+    exercise_summary["rate"] = exercise_summary["count"] / exercise_summary["total"]
+
+    pair_total = eligible_pairs or pair_count_after_filter
+    if pair_total <= 0:
+        pair_total = 1
+    pair_summary = pd.DataFrame(
+        [
+            {"stage": "Eligible Pairs", "count": pair_count_after_filter, "total": pair_total},
+            {"stage": "Evaluable Pairs", "count": evaluable_pairs, "total": pair_total},
+        ]
+    )
+    pair_summary["rate"] = pair_summary["count"] / pair_summary["total"]
+
+    overview_table = pd.concat(
+        [
+            exercise_summary.assign(scope="exercise_level"),
+            pair_summary.assign(scope="pair_level"),
+        ],
+        ignore_index=True,
+    )
+    overview_table.to_csv(tables_dir / "correctness_full_coverage_overview.data.csv", index=False)
+
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 4.1), gridspec_kw={"width_ratios": [3, 2]})
+
+    left = axes[0]
+    left.bar(
+        exercise_summary["stage"],
+        exercise_summary["rate"],
+        color=AUX_COLOR,
+        edgecolor="black",
+        linewidth=0.5,
+    )
+    left.set_ylim(0, 1.05)
+    set_tick_fonts(left, rotation=20, ha="right")
+    apply_axis_style(left, ylabel="Coverage Rate")
+    left.set_title("Exercise-Level Coverage", fontname="Times New Roman", fontsize=10)
+    for idx, row in exercise_summary.reset_index(drop=True).iterrows():
+        left.text(
+            idx,
+            float(row["rate"]) + 0.02,
+            f"{int(row['count'])}/{int(row['total'])}",
+            ha="center",
+            va="bottom",
+            fontsize=8,
+            fontname="Times New Roman",
+        )
+
+    right = axes[1]
+    right.bar(
+        pair_summary["stage"],
+        pair_summary["rate"],
+        color=AUX_COLOR,
+        edgecolor="black",
+        linewidth=0.5,
+    )
+    right.set_ylim(0, 1.05)
+    set_tick_fonts(right, rotation=20, ha="right")
+    apply_axis_style(right, ylabel="Coverage Rate")
+    right.set_title("Pair-Level Fairness Subset", fontname="Times New Roman", fontsize=10)
+    for idx, row in pair_summary.reset_index(drop=True).iterrows():
+        right.text(
+            idx,
+            float(row["rate"]) + 0.02,
+            f"{int(row['count'])}/{int(row['total'])}",
+            ha="center",
+            va="bottom",
+            fontsize=8,
+            fontname="Times New Roman",
+        )
+
+    fig.tight_layout()
+    save_figure(fig, figures_dir / "correctness_full_coverage_overview.png")
+    plt.close(fig)
+
+
 def build_case_study_candidates(pair_df: pd.DataFrame, pair_records: list[dict[str, Any]]) -> pd.DataFrame:
     if pair_df.empty or "pair_id" not in pair_df.columns:
         return pd.DataFrame()
@@ -436,6 +654,11 @@ def main() -> None:
     parser.add_argument("--final-pairs", default="results/final_pairs.v1.jsonl")
     parser.add_argument("--figures-dir", default="results/figures")
     parser.add_argument("--tables-dir", default="results/tables")
+    parser.add_argument("--correctness-status-by-source", default="results/statistics/correctness_status.by_source.v1.csv")
+    parser.add_argument("--correctness-evaluable-subset", default="results/statistics/exercise_correctness.evaluable_subset.v1.csv")
+    parser.add_argument("--reference-validation-manifest", default="results/reference_solution_validation_manifest.v1.json")
+    parser.add_argument("--correctness-manifest", default="results/exercise_correctness_manifest.v1.json")
+    parser.add_argument("--analysis-status", default="results/statistics/analysis_status.v1.json")
     args = parser.parse_args()
 
     if args.use_curated:
@@ -444,6 +667,11 @@ def main() -> None:
         args.final_pairs = str(CURATED_DIR / "final_pairs.curated.v1.jsonl")
         args.figures_dir = str(CURATED_DIR / "figures")
         args.tables_dir = str(CURATED_DIR / "tables")
+        args.correctness_status_by_source = str(CURATED_STATS_DIR / "correctness_status.by_source.v1.csv")
+        args.correctness_evaluable_subset = str(CURATED_STATS_DIR / "exercise_correctness.evaluable_subset.v1.csv")
+        args.reference_validation_manifest = str(CURATED_DIR / "reference_solution_validation_manifest.curated.v1.json")
+        args.correctness_manifest = str(CURATED_DIR / "exercise_correctness_manifest.curated.v1.json")
+        args.analysis_status = str(CURATED_STATS_DIR / "analysis_status.v1.json")
 
     figures_dir = Path(args.figures_dir)
     tables_dir = Path(args.tables_dir)
@@ -454,6 +682,11 @@ def main() -> None:
     exercise_df = load_csv(Path(args.exercise_metrics))
     pair_df = load_csv(Path(args.pair_metrics))
     pair_records = load_jsonl(Path(args.final_pairs))
+    correctness_status_by_source_df = load_csv(Path(args.correctness_status_by_source))
+    correctness_evaluable_subset_df = load_csv(Path(args.correctness_evaluable_subset))
+    validation_manifest = load_json_doc(Path(args.reference_validation_manifest))
+    correctness_manifest = load_json_doc(Path(args.correctness_manifest))
+    analysis_status = load_json_doc(Path(args.analysis_status))
 
     for filename_base, config in BAR_METRIC_GROUPS.items():
         save_bar_ai_vs_expert(
@@ -470,6 +703,15 @@ def main() -> None:
     save_difficulty_comparison(exercise_df, figures_dir, tables_dir)
     save_pair_similarity_boxplot(pair_df, figures_dir, tables_dir)
     save_pair_similarity_by_topic(pair_df, figures_dir, tables_dir)
+    save_correctness_pass_rate(correctness_evaluable_subset_df, figures_dir, tables_dir)
+    save_correctness_evaluable_subset(correctness_evaluable_subset_df, figures_dir, tables_dir)
+    save_correctness_full_coverage_overview(
+        validation_manifest,
+        correctness_manifest,
+        analysis_status,
+        figures_dir,
+        tables_dir,
+    )
 
     case_study_df = build_case_study_candidates(pair_df, pair_records)
     if not case_study_df.empty:

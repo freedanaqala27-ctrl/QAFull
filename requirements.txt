@@ -31,4 +31,6 @@ transformers>=4.52,<4.53
 torch>=2.8,<2.9
 pingouin>=0.5.5,<0.6
 streamlit>=1.44,<1.45
+pydantic>=2.11,<2.12
 supabase>=2.15,<3.0
+

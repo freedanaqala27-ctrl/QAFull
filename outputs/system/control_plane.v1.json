@@ -1,0 +1,569 @@
+{
+  "schema_version": "control_plane.v1",
+  "created_at": "2026-03-29T13:48:28+08:00",
+  "updated_at": "2026-03-29T13:48:28+08:00",
+  "batch": {
+    "batch_id": "batch-default",
+    "batch_name": "2026 春季正式批次"
+  },
+  "settings": {
+    "batch_name": "2026 春季正式批次",
+    "freeze_threshold": 30,
+    "current_mainline": "学生问卷主线",
+    "role_permissions": {
+      "管理员": [
+        "流程总览",
+        "题目生成",
+        "当前任务",
+        "审核中心",
+        "问卷管理",
+        "分析报告",
+        "运行记录",
+        "系统设置"
+      ],
+      "研究员": [
+        "流程总览",
+        "题目生成",
+        "当前任务",
+        "审核中心",
+        "问卷管理",
+        "分析报告",
+        "运行记录"
+      ]
+    },
+    "data_source": {},
+    "paths": {}
+  },
+  "tasks": {
+    "generation": {
+      "task_key": "generation",
+      "label": "题目生成",
+      "stage_key": "generation",
+      "owner_role": "研究员",
+      "action_key": "start_generation",
+      "depends_on": [],
+      "status": "completed",
+      "summary": "基于提示词模板生成并过滤候选题。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 2,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {
+        "candidate_total": 1,
+        "accepted_pool_ready": true,
+        "rejected_pool_ready": true
+      },
+      "block_reason": "",
+      "retry_policy": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    },
+    "review": {
+      "task_key": "review",
+      "label": "人工审核",
+      "stage_key": "review",
+      "owner_role": "研究员",
+      "action_key": "finalize_review_batch",
+      "depends_on": [
+        "generation"
+      ],
+      "status": "completed",
+      "summary": "完成人工审核并将通过题目定稿入正式题库。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 1,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {
+        "pending": 1,
+        "approved": 0,
+        "rejected": 0,
+        "missing_assets": 1,
+        "approved_missing_assets": 0,
+        "approved_total": 0,
+        "total": 1
+      },
+      "block_reason": "",
+      "retry_policy": {
+        "max_retries": 1,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    },
+    "evaluation": {
+      "task_key": "evaluation",
+      "label": "自动评测",
+      "stage_key": "evaluation",
+      "owner_role": "研究员",
+      "action_key": "run_auto_evaluation",
+      "depends_on": [
+        "review"
+      ],
+      "status": "ready",
+      "summary": "对 AI 生成习题运行自动评测链。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 2,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {
+        "approved_total": 0,
+        "approved_missing_assets": 0
+      },
+      "block_reason": "",
+      "retry_policy": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    },
+    "survey_publish": {
+      "task_key": "survey_publish",
+      "label": "问卷发放",
+      "stage_key": "survey_publish",
+      "owner_role": "研究员",
+      "action_key": "generate_student_packets",
+      "depends_on": [
+        "evaluation"
+      ],
+      "status": "blocked",
+      "summary": "生成问卷题包、二维码和分发表。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 2,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {
+        "issued_count": 30,
+        "submitted_count": 30
+      },
+      "block_reason": "自动评测未完成。",
+      "retry_policy": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    },
+    "survey_collect": {
+      "task_key": "survey_collect",
+      "label": "问卷回收",
+      "stage_key": "survey_collect",
+      "owner_role": "研究员",
+      "action_key": null,
+      "depends_on": [
+        "survey_publish"
+      ],
+      "status": "blocked",
+      "summary": "等待学生问卷回收达到冻结阈值。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 0,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {
+        "issued_count": 30,
+        "scanned_count": 30,
+        "submitted_count": 30,
+        "effective_samples": 27,
+        "attention_fail_count": 3,
+        "latest_submit": "2026-03-19 23:30",
+        "freeze_threshold": 30,
+        "threshold_ready": true,
+        "data_synced": true
+      },
+      "block_reason": "问卷尚未发放。",
+      "retry_policy": {
+        "max_retries": 0,
+        "recovery_actions": [
+          "mark_ready"
+        ]
+      }
+    },
+    "freeze": {
+      "task_key": "freeze",
+      "label": "冻结样本",
+      "stage_key": "freeze",
+      "owner_role": "研究员",
+      "action_key": "freeze_analysis_input",
+      "depends_on": [
+        "survey_collect"
+      ],
+      "status": "blocked",
+      "summary": "冻结本轮正式分析输入。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 2,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {},
+      "block_reason": "问卷发放尚未完成。",
+      "retry_policy": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    },
+    "report": {
+      "task_key": "report",
+      "label": "分析报告",
+      "stage_key": "report",
+      "owner_role": "研究员",
+      "action_key": "generate_analysis_report",
+      "depends_on": [
+        "freeze"
+      ],
+      "status": "blocked",
+      "summary": "结合自动指标与问卷数据生成报告交付物。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 2,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {},
+      "block_reason": "冻结样本尚未完成。",
+      "retry_policy": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    },
+    "snapshot": {
+      "task_key": "snapshot",
+      "label": "快照发布",
+      "stage_key": "snapshot",
+      "owner_role": "管理员",
+      "action_key": "publish_snapshot",
+      "depends_on": [
+        "report"
+      ],
+      "status": "blocked",
+      "summary": "归档批次完整快照。",
+      "latest_run_id": "",
+      "latest_message": "",
+      "latest_error": "",
+      "latest_status": "not_started",
+      "latest_run_at": "",
+      "latest_work_order_id": "",
+      "active_work_order_id": "",
+      "attempt_count": 0,
+      "failed_attempts": 0,
+      "retry_remaining": 1,
+      "retry_available": false,
+      "recovery_hint": "",
+      "updated_at": "2026-03-29T13:48:28+08:00",
+      "metrics": {
+        "archive_available": false
+      },
+      "block_reason": "报告链尚未完成。",
+      "retry_policy": {
+        "max_retries": 1,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    }
+  },
+  "observability": {
+    "review_queue": {
+      "pending": 1,
+      "approved": 0,
+      "rejected": 0,
+      "missing_assets": 1,
+      "approved_missing_assets": 0,
+      "approved_total": 0,
+      "total": 1
+    },
+    "survey": {
+      "issued_count": 30,
+      "scanned_count": 30,
+      "submitted_count": 30,
+      "effective_samples": 27,
+      "attention_fail_count": 3,
+      "latest_submit": "2026-03-19 23:30",
+      "freeze_threshold": 30,
+      "threshold_ready": true,
+      "data_synced": true
+    },
+    "deliverables": {
+      "generation_manifest": {
+        "label": "生成批次 manifest",
+        "path": "D:\\Downloads\\PythonProjectQA\\outputs\\raw_generations\\generation_manifest.v1.json",
+        "available": true,
+        "updated_at": "2026-03-26 16:07",
+        "source": "reconciled"
+      },
+      "filtered_accepted": {
+        "label": "候选题通过池",
+        "path": "D:\\Downloads\\PythonProjectQA\\outputs\\filtered\\accepted\\candidates.accepted.v1.jsonl",
+        "available": true,
+        "updated_at": "2026-03-26 16:08",
+        "source": "reconciled"
+      },
+      "filtered_rejected": {
+        "label": "候选题拒绝池",
+        "path": "D:\\Downloads\\PythonProjectQA\\outputs\\filtered\\rejected\\candidates.rejected.v1.jsonl",
+        "available": true,
+        "updated_at": "2026-03-26 16:08",
+        "source": "reconciled"
+      },
+      "filter_summary": {
+        "label": "过滤摘要",
+        "path": "D:\\Downloads\\PythonProjectQA\\outputs\\filtered\\filter_summary.v1.csv",
+        "available": true,
+        "updated_at": "2026-03-26 16:08",
+        "source": "reconciled"
+      },
+      "final_pairs": {
+        "label": "正式配对题库",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\final_pairs.curated.v1.jsonl",
+        "available": true,
+        "updated_at": "2026-03-17 15:49",
+        "source": "reconciled"
+      },
+      "blind_mapping": {
+        "label": "盲评映射表",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\blind_mapping.curated.v1.csv",
+        "available": true,
+        "updated_at": "2026-03-17 15:49",
+        "source": "reconciled"
+      },
+      "ai_dataset": {
+        "label": "AI 习题数据集",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\ai_exercises.curated.v1.json",
+        "available": true,
+        "updated_at": "2026-03-17 15:49",
+        "source": "reconciled"
+      },
+      "exercises_all": {
+        "label": "全量题目清单",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\exercises_all.curated.v1.jsonl",
+        "available": true,
+        "updated_at": "2026-03-17 15:49",
+        "source": "reconciled"
+      },
+      "packet_manifest": {
+        "label": "题包清单",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\packets\\student_package_manifest.curated.v1.csv",
+        "available": true,
+        "updated_at": "2026-03-26 17:30",
+        "source": "reconciled"
+      },
+      "distribution_sheet": {
+        "label": "分发清单",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\distribution\\student_distribution_sheet.curated.v1.csv",
+        "available": true,
+        "updated_at": "2026-03-19 12:34",
+        "source": "reconciled"
+      },
+      "qrcode_sheet": {
+        "label": "二维码页",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\human_eval_packets\\distribution\\student_qrcode_print_sheets.curated.html",
+        "available": true,
+        "updated_at": "2026-03-26 16:15",
+        "source": "reconciled"
+      },
+      "subset_manifest": {
+        "label": "冻结说明",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\student_subset_export_manifest.json",
+        "available": true,
+        "updated_at": "2026-03-26 16:09",
+        "source": "reconciled"
+      },
+      "master_manifest": {
+        "label": "主分析表 manifest",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\student_analysis_master_30.manifest.json",
+        "available": true,
+        "updated_at": "2026-03-26 16:47",
+        "source": "reconciled"
+      },
+      "report_manifest": {
+        "label": "报告 manifest",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\chapter5_outputs\\chapter5_outputs_manifest.json",
+        "available": true,
+        "updated_at": "2026-03-26 16:47",
+        "source": "reconciled"
+      },
+      "significance_manifest": {
+        "label": "显著性 manifest",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\chapter5_outputs\\tables\\significance_outputs_manifest.json",
+        "available": true,
+        "updated_at": "2026-03-26 16:48",
+        "source": "reconciled"
+      },
+      "correlation_manifest": {
+        "label": "相关性 manifest",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\student_subsets\\chapter5_outputs\\tables\\correlation_auto_vs_student.manifest.json",
+        "available": true,
+        "updated_at": "2026-03-26 16:48",
+        "source": "reconciled"
+      },
+      "report_summary": {
+        "label": "报告摘要",
+        "path": "D:\\Downloads\\PythonProjectQA\\outputs\\system\\report_summary.v1.json",
+        "available": true,
+        "updated_at": "2026-03-28 19:57",
+        "source": "reconciled"
+      },
+      "evaluation_status": {
+        "label": "自动评测状态",
+        "path": "D:\\Downloads\\PythonProjectQA\\results\\curated\\statistics\\analysis_status.v1.json",
+        "available": true,
+        "updated_at": "2026-03-26 16:47",
+        "source": "reconciled"
+      },
+      "snapshot_archive": {
+        "label": "快照归档",
+        "path": "D:\\Downloads\\PythonProjectQA\\outputs\\system\\snapshots",
+        "available": false,
+        "updated_at": "未生成",
+        "source": "reconciled"
+      }
+    }
+  },
+  "review_entities": {
+    "count": 1,
+    "source": "review_state"
+  },
+  "orchestration": {
+    "retry_policies": {
+      "generation": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      },
+      "review": {
+        "max_retries": 1,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      },
+      "evaluation": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      },
+      "survey_publish": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      },
+      "survey_collect": {
+        "max_retries": 0,
+        "recovery_actions": [
+          "mark_ready"
+        ]
+      },
+      "freeze": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      },
+      "report": {
+        "max_retries": 2,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      },
+      "snapshot": {
+        "max_retries": 1,
+        "recovery_actions": [
+          "retry_now",
+          "mark_ready"
+        ]
+      }
+    },
+    "work_orders": {}
+  },
+  "ui": {
+    "last_page": "流程总览"
+  },
+  "pipeline": {
+    "current_stage": "evaluation",
+    "completed_tasks": [
+      "generation",
+      "review"
+    ]
+  }
+}

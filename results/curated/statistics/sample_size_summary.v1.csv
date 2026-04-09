@@ -12,6 +12,9 @@ exercise_metrics_by_topic_raw,Transformer|Expert,5
 exercise_metrics_analysis,AI,13
 exercise_metrics_analysis,Expert,13
 exercise_pairs_analysis,overall,13
+correctness_metrics_analysis,AI,13
+correctness_metrics_analysis,Expert,13
+correctness_pairs_analysis,overall,13
 pair_metrics,overall,23
 pair_metrics_by_topic,CNN,6
 pair_metrics_by_topic,Optimization,6

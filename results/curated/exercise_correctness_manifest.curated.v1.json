@@ -1,0 +1,13 @@
+{
+  "num_pairs": 23,
+  "num_exercises": 46,
+  "correctness_status_counts": {
+    "pass": 45,
+    "partial_pass": 1
+  },
+  "fully_valid_reference_solutions": 45,
+  "overlay_coverage": {
+    "solution_overlay_hits": 46,
+    "tests_overlay_hits": 46
+  }
+}

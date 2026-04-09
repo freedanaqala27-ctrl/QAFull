@@ -1,0 +1,343 @@
+﻿{
+    "schema_version":  "workflow_state.v1",
+    "updated_at":  "2026-03-29T13:33:45+08:00",
+    "current_stage":  "generation",
+    "snapshot_locked":  false,
+    "active_task_id":  null,
+    "active_task_label":  "",
+    "tasks":  [
+
+              ],
+    "queues":  {
+                   "review_pending":  11,
+                   "overlay_pending":  10,
+                   "eval_ready":  1,
+                   "survey_ready":  0,
+                   "data_import_ready":  0,
+                   "report_ready":  0,
+                   "snapshot_ready":  1
+               },
+    "generation":  {
+                       "current_task_id":  null,
+                       "status":  "draft",
+                       "config":  {
+                                      "topic":  "CNN",
+                                      "difficulty":  "Intermediate",
+                                      "exercise_type":  "Code Completion",
+                                      "prompt_version":  "MP-v1",
+                                      "count":  5,
+                                      "reference_id":  "REF-CNN-01",
+                                      "model":  "qwen-plus"
+                                  },
+                       "last_run":  null
+                   },
+    "review":  {
+                   "selected_candidate_id":  "CAN-8802",
+                   "items":  [
+                                 {
+                                     "candidate_id":  "CAN-8802",
+                                     "review_id":  "REVIEW-8802",
+                                     "reference_id":  "REF-CNN-01",
+                                     "topic":  "CNN",
+                                     "difficulty":  "Intermediate",
+                                     "exercise_type":  "Code Completion",
+                                     "title":  "Basic RNN Forward Pass",
+                                     "instruction":  "Implement a basic RNN cell forward pass with tanh activation.",
+                                     "starter_code":  "def rnn_forward(x_t, h_prev, Wx, Wh, b):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8803",
+                                     "review_id":  "REVIEW-8803",
+                                     "reference_id":  "REF-CNN-01",
+                                     "topic":  "CNN",
+                                     "difficulty":  "Intermediate",
+                                     "exercise_type":  "Code Completion",
+                                     "title":  "Convolution Output Shape",
+                                     "instruction":  "Fill in the helper that computes the output shape of a convolution layer.",
+                                     "starter_code":  "def conv_output_shape(h, w, kernel, stride, padding):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8804",
+                                     "review_id":  "REVIEW-8804",
+                                     "reference_id":  "REF-RNN-02",
+                                     "topic":  "RNN",
+                                     "difficulty":  "Intermediate",
+                                     "exercise_type":  "Code Completion",
+                                     "title":  "Sequence Mask Builder",
+                                     "instruction":  "Build a mask tensor for padded sequence batches.",
+                                     "starter_code":  "def build_sequence_mask(lengths, max_len):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  true,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8805",
+                                     "review_id":  "REVIEW-8805",
+                                     "reference_id":  "REF-RNN-02",
+                                     "topic":  "RNN",
+                                     "difficulty":  "Advanced",
+                                     "exercise_type":  "Model Building",
+                                     "title":  "Stacked LSTM Cell",
+                                     "instruction":  "Complete the constructor and forward logic for a stacked LSTM block.",
+                                     "starter_code":  "class StackedLSTM(nn.Module):\n    def __init__(self, input_size, hidden_size):\n        super().__init__()",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8806",
+                                     "review_id":  "REVIEW-8806",
+                                     "reference_id":  "REF-TR-03",
+                                     "topic":  "Transformer",
+                                     "difficulty":  "Advanced",
+                                     "exercise_type":  "Model Building",
+                                     "title":  "Scaled Dot Product Attention",
+                                     "instruction":  "Construct a simplified scaled dot product attention layer.",
+                                     "starter_code":  "class ScaledDotProductAttention(nn.Module):\n    def forward(self, q, k, v, mask=None):\n        pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  true,
+                                     "tests_overlay_ready":  true,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8807",
+                                     "review_id":  "REVIEW-8807",
+                                     "reference_id":  "REF-TR-03",
+                                     "topic":  "Transformer",
+                                     "difficulty":  "Intermediate",
+                                     "exercise_type":  "Code Completion",
+                                     "title":  "Positional Encoding Slice",
+                                     "instruction":  "Return the positional encoding slice for a mini-batch.",
+                                     "starter_code":  "def positional_encoding_slice(pe, seq_len):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  true,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8808",
+                                     "review_id":  "REVIEW-8808",
+                                     "reference_id":  "REF-OPT-04",
+                                     "topic":  "Optimization",
+                                     "difficulty":  "Beginner",
+                                     "exercise_type":  "Training Analysis",
+                                     "title":  "Learning Rate Warmup Log",
+                                     "instruction":  "Explain and complete the warmup scheduler logging snippet.",
+                                     "starter_code":  "def log_warmup_step(step, lr):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8809",
+                                     "review_id":  "REVIEW-8809",
+                                     "reference_id":  "REF-CNN-05",
+                                     "topic":  "CNN",
+                                     "difficulty":  "Intermediate",
+                                     "exercise_type":  "Code Completion",
+                                     "title":  "Pooling Window Tracker",
+                                     "instruction":  "Track pooling windows across a feature map.",
+                                     "starter_code":  "def pooling_windows(height, width, kernel, stride):\n    pass",
+                                     "review_status":  "approved",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  true,
+                                     "tests_overlay_ready":  true,
+                                     "eval_status":  "ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "历史样例：已入评测池"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8810",
+                                     "review_id":  "REVIEW-8810",
+                                     "reference_id":  "REF-TR-06",
+                                     "topic":  "Transformer",
+                                     "difficulty":  "Advanced",
+                                     "exercise_type":  "Model Revision",
+                                     "title":  "Attention Mask Fix",
+                                     "instruction":  "Repair the attention mask broadcast bug in the module.",
+                                     "starter_code":  "def fix_attention_mask(mask, num_heads):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8811",
+                                     "review_id":  "REVIEW-8811",
+                                     "reference_id":  "REF-RNN-07",
+                                     "topic":  "RNN",
+                                     "difficulty":  "Intermediate",
+                                     "exercise_type":  "Code Completion",
+                                     "title":  "Teacher Forcing Ratio",
+                                     "instruction":  "Implement teacher forcing ratio scheduling for sequence training.",
+                                     "starter_code":  "def teacher_forcing_ratio(epoch, total_epochs):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8812",
+                                     "review_id":  "REVIEW-8812",
+                                     "reference_id":  "REF-OPT-08",
+                                     "topic":  "Optimization",
+                                     "difficulty":  "Advanced",
+                                     "exercise_type":  "Training Analysis",
+                                     "title":  "Gradient Explosion Report",
+                                     "instruction":  "Summarize and diagnose a gradient explosion trace.",
+                                     "starter_code":  "def summarize_gradient_report(norms):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 },
+                                 {
+                                     "candidate_id":  "CAN-8813",
+                                     "review_id":  "REVIEW-8813",
+                                     "reference_id":  "REF-CNN-09",
+                                     "topic":  "CNN",
+                                     "difficulty":  "Intermediate",
+                                     "exercise_type":  "Code Completion",
+                                     "title":  "Padding Strategy Helper",
+                                     "instruction":  "Choose padding mode for the requested convolution scenario.",
+                                     "starter_code":  "def choose_padding(mode, kernel_size):\n    pass",
+                                     "review_status":  "pending_review",
+                                     "code_state":  "valid",
+                                     "solution_overlay_ready":  false,
+                                     "tests_overlay_ready":  false,
+                                     "eval_status":  "not_ready",
+                                     "survey_status":  "pending",
+                                     "last_action":  "初始化待审核"
+                                 }
+                             ]
+               },
+    "evaluation":  {
+                       "batch_id":  null,
+                       "status":  "idle",
+                       "selected_items":  [
+                                              "CAN-8809"
+                                          ],
+                       "run_options":  {
+                                           "run_reference_validation":  true,
+                                           "run_functional_correctness":  true,
+                                           "run_auto_metrics":  true
+                                       },
+                       "last_run":  null
+                   },
+    "survey":  {
+                   "target":  "学生盲评",
+                   "status":  "idle",
+                   "available_batches":  [
+
+                                         ],
+                   "last_run":  null
+               },
+    "survey_data":  {
+                        "status":  "idle",
+                        "source_mode":  "csv",
+                        "fetch_from_db":  false,
+                        "meta_csv":  "results/student_subsets/participant_meta_30.csv",
+                        "item_csv":  "results/student_subsets/item_ratings_30.csv",
+                        "batch_csv":  "results/student_subsets/batch_feedback_30.csv",
+                        "participant_ids_csv":  "results/student_subsets/participant_selection_manifest_30.csv",
+                        "last_run":  null,
+                        "inputs_ready":  false
+                    },
+    "report":  {
+                   "status":  "completed",
+                   "summary_ready":  true,
+                   "last_run":  null
+               },
+    "snapshot":  {
+                     "mode":  "lightweight",
+                     "status":  "unlocked",
+                     "label":  "",
+                     "last_run":  null
+                 },
+    "ui":  {
+               "last_page":  "7. 分析报告",
+               "filter_mode":  "仅看未审",
+               "run_filter":  "全部"
+           },
+    "admin_settings":  {
+                           "batch_name":  "2026 春季正式批次",
+                           "freeze_threshold":  30,
+                           "current_mainline":  "学生问卷主线",
+                           "role":  "管理员",
+                           "role_permissions":  {
+                                                    "管理员":  [
+                                                                "流程总览",
+                                                                "当前任务",
+                                                                "审核中心",
+                                                                "问卷管理",
+                                                                "分析报告",
+                                                                "运行记录",
+                                                                "系统设置"
+                                                            ],
+                                                    "审核员":  [
+                                                                "流程总览",
+                                                                "当前任务",
+                                                                "审核中心",
+                                                                "运行记录"
+                                                            ],
+                                                    "研究员":  [
+                                                                "流程总览",
+                                                                "当前任务",
+                                                                "问卷管理",
+                                                                "分析报告",
+                                                                "运行记录"
+                                                            ]
+                                                },
+                           "data_source":  {
+                                               "supabase_url":  "",
+                                               "supabase_key":  "",
+                                               "pull_mode":  "本地 CSV"
+                                           },
+                           "paths":  {
+                                         "packet_export_dir":  "results/curated/human_eval_packets",
+                                         "report_export_dir":  "results/student_subsets/chapter5_outputs",
+                                         "snapshot_export_dir":  "outputs/system"
+                                     }
+                       }
+}

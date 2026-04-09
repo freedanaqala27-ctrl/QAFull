@@ -15,7 +15,7 @@
   "exercise_level_rows": 26,
   "ai_only_exercise_rows": 13,
   "exercise_metric_correlation_rows": 108,
-  "pair_metric_correlation_rows": 72,
+  "pair_metric_correlation_rows": 60,
   "exercise_auto_metrics_included": [
     "auto_avg_sentence_length",
     "auto_flesch_kincaid_grade",
@@ -28,7 +28,6 @@
     "auto_technical_term_density_instruction"
   ],
   "pair_auto_metrics_included": [
-    "pair_bertscore_f1_instruction_only",
     "pair_meteor_instruction_only",
     "pair_rougeL_f1_instruction_only",
     "pair_tfidf_cosine_full_text",

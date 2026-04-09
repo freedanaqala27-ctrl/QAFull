@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from pathlib import Path
 from typing import Iterable
@@ -100,9 +100,10 @@ def set_tick_fonts(ax: plt.Axes, *, rotation: float = 0, ha: str = "center") -> 
 
 
 def save_figure(fig: plt.Figure, output_path: Path) -> None:
+    output_path = Path(output_path).resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, dpi=300, bbox_inches="tight")
-    fig.savefig(output_path.with_suffix(".pdf"), bbox_inches="tight")
+    fig.savefig(str(output_path), dpi=300, bbox_inches="tight")
+    fig.savefig(str(output_path.with_suffix(".pdf")), bbox_inches="tight")
 
 
 def format_p_value(p_value: float) -> str:
@@ -245,3 +246,4 @@ def heatmap(
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     return im
+

@@ -374,7 +374,7 @@ def build_student_package_rows(
     packet_builder,
     package_prefix: str,
     package_size: int,
-) -> list[tuple[str, list[dict[str, Any]]]]:
+) -> list[tuple[str, list[dict[str, Any]], int]]:
     ordered_pairs = interleave_pairs_by_topic(pair_rows)
     total_exercises = len(ordered_pairs) * 2
     topic_exercise_type_counts: dict[tuple[str, str], int] = {}
@@ -436,7 +436,7 @@ def build_student_package_rows(
             )
             package_state["source_counts"][source_type] = package_state["source_counts"].get(source_type, 0) + 1
 
-    packages: list[tuple[str, list[dict[str, Any]]]] = []
+    packages: list[tuple[str, list[dict[str, Any]], int]] = []
     for state in package_states:
         rows = state["rows"]
         rows.sort(key=lambda row: (row.get("topic", ""), row.get("blind_exercise_id", "")))
@@ -444,7 +444,7 @@ def build_student_package_rows(
             row["display_order"] = display_order
             row.pop("_pair_id", None)
             row.pop("_source_type", None)
-        packages.append((state["package_id"], rows))
+        packages.append((state["package_id"], rows, len(state["pair_ids"])))
     return packages
 
 
@@ -559,11 +559,11 @@ def main() -> None:
             {"package_id": package_id, "exercise_count": len(rows), "pair_count": len(rows) // 2}
         )
     student_package_manifest_rows: list[dict[str, Any]] = []
-    for package_id, rows in student_packages:
+    for package_id, rows, pair_count in student_packages:
         package_dir = packets_dir / "student_packages" / package_id
         write_csv_rows(rows, package_dir / "student_eval_packet.curated.v1.csv")
         student_package_manifest_rows.append(
-            {"package_id": package_id, "exercise_count": len(rows), "pair_count": len(rows) // 2}
+            {"package_id": package_id, "exercise_count": len(rows), "pair_count": pair_count}
         )
 
     write_csv_rows(

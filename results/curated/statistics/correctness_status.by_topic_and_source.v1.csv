@@ -1,0 +1,9 @@
+topic,source_type,sample_size,status_pass,rate_pass,status_partial_pass,rate_partial_pass
+CNN,AI,3,3,1.0,,
+CNN,Expert,3,3,1.0,,
+Optimization,AI,3,3,1.0,,
+Optimization,Expert,3,3,1.0,,
+RNN,AI,5,5,1.0,,
+RNN,Expert,5,4,0.8,1.0,0.2
+Transformer,AI,2,2,1.0,,
+Transformer,Expert,2,2,1.0,,

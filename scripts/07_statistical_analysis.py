@@ -18,6 +18,7 @@ except Exception:
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CURATED_DIR = PROJECT_ROOT / "results" / "curated"
 CURATED_FAIRNESS_AUDIT = CURATED_DIR / "human_eval_packets" / "audit" / "quality" / "human_eval_fairness_audit.curated.v1.csv"
+CURATED_CORRECTNESS_METRICS = CURATED_DIR / "exercise_correctness_metrics.curated.v1.csv"
 
 
 def ensure_dir(path: Path) -> None:
@@ -47,6 +48,10 @@ def load_exercise_metrics(path: Path) -> pd.DataFrame:
 
 
 def load_pair_metrics(path: Path) -> pd.DataFrame:
+    return load_table(path)
+
+
+def load_correctness_metrics(path: Path) -> pd.DataFrame:
     return load_table(path)
 
 
@@ -100,6 +105,7 @@ def build_sample_size_summary(
     raw_exercise_df: pd.DataFrame,
     pair_df: pd.DataFrame,
     analysis_exercise_df: pd.DataFrame | None = None,
+    correctness_df: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     if not raw_exercise_df.empty and "source_type" in raw_exercise_df.columns:
@@ -141,6 +147,24 @@ def build_sample_size_summary(
                 }
             )
 
+    if correctness_df is not None and not correctness_df.empty and "source_type" in correctness_df.columns:
+        for source_type, group_df in correctness_df.groupby("source_type", dropna=False):
+            rows.append(
+                {
+                    "dataset": "correctness_metrics_analysis",
+                    "group": str(source_type),
+                    "sample_size": int(group_df["exercise_id"].nunique()) if "exercise_id" in group_df.columns else int(len(group_df)),
+                }
+            )
+        if "pair_id" in correctness_df.columns:
+            rows.append(
+                {
+                    "dataset": "correctness_pairs_analysis",
+                    "group": "overall",
+                    "sample_size": int(correctness_df["pair_id"].dropna().nunique()),
+                }
+            )
+
     if not pair_df.empty:
         rows.append(
             {
@@ -158,6 +182,62 @@ def build_sample_size_summary(
                         "sample_size": int(group_df["pair_id"].nunique()) if "pair_id" in group_df.columns else int(len(group_df)),
                     }
                 )
+    return pd.DataFrame(rows)
+
+
+def normalize_boolean_series(series: pd.Series) -> pd.Series:
+    return series.astype(str).str.strip().str.lower().map({"true": 1.0, "false": 0.0})
+
+
+def prepare_correctness_df(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df.copy()
+
+    prepared = df.copy()
+    for col in ["reference_solution_fully_valid", "required_packages_satisfied", "solution_overlay_hit", "tests_overlay_hit"]:
+        if col in prepared.columns:
+            prepared[col] = normalize_boolean_series(prepared[col])
+
+    if "correctness_status" in prepared.columns:
+        prepared["correctness_status_binary_pass"] = (
+            prepared["correctness_status"].astype(str).str.strip().str.lower().eq("pass").astype(float)
+        )
+        prepared["correctness_status_binary_evaluable"] = (
+            prepared["correctness_status"].astype(str).str.strip().str.lower().isin(["pass", "partial_pass", "fail"]).astype(float)
+        )
+    return prepared
+
+
+def filter_evaluable_correctness(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty or "correctness_status" not in df.columns:
+        return df.copy()
+    return df[df["correctness_status"].astype(str).str.strip().str.lower().isin(["pass", "partial_pass", "fail"])].copy()
+
+
+def correctness_status_summary(df: pd.DataFrame, group_cols: list[str]) -> pd.DataFrame:
+    if df.empty or "correctness_status" not in df.columns:
+        return pd.DataFrame()
+
+    rows: list[dict[str, Any]] = []
+    grouped = [((), df)] if not group_cols else df.groupby(group_cols, dropna=False)
+    for group_key, group_df in grouped:
+        if not isinstance(group_key, tuple):
+            group_key = (group_key,)
+        group_meta = dict(zip(group_cols, group_key))
+        counts = (
+            group_df["correctness_status"]
+            .astype(str)
+            .str.strip()
+            .str.lower()
+            .value_counts(dropna=False)
+            .to_dict()
+        )
+        total = int(len(group_df))
+        row = {**group_meta, "sample_size": total}
+        for status_name, count in counts.items():
+            row[f"status_{status_name}"] = int(count)
+            row[f"rate_{status_name}"] = float(count / total) if total else np.nan
+        rows.append(row)
     return pd.DataFrame(rows)
 
 
@@ -451,6 +531,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--use-curated", action="store_true")
     parser.add_argument("--exercise-metrics", default="results/exercise_metrics.v1.csv")
+    parser.add_argument("--correctness-metrics", default="results/exercise_correctness_metrics.v1.csv")
     parser.add_argument("--pair-metrics", default="results/pair_similarity_metrics.v1.csv")
     parser.add_argument("--fairness-audit", default=str(CURATED_FAIRNESS_AUDIT))
     parser.add_argument("--human-merged-dir", default="results/human_eval_merged")
@@ -472,6 +553,7 @@ def main() -> None:
 
     if args.use_curated:
         args.exercise_metrics = str(CURATED_DIR / "exercise_metrics.curated.v1.csv")
+        args.correctness_metrics = str(CURATED_CORRECTNESS_METRICS)
         args.pair_metrics = str(CURATED_DIR / "pair_similarity_metrics.curated.v1.csv")
         args.fairness_audit = str(CURATED_FAIRNESS_AUDIT)
         args.human_merged_dir = str(CURATED_DIR / "human_eval_merged")
@@ -481,6 +563,7 @@ def main() -> None:
     ensure_dir(output_dir)
 
     exercise_df_raw = load_exercise_metrics(Path(args.exercise_metrics))
+    correctness_df_raw = prepare_correctness_df(load_correctness_metrics(Path(args.correctness_metrics)))
     pair_df = load_pair_metrics(Path(args.pair_metrics))
     fairness_df = load_table(Path(args.fairness_audit))
     human_dir = Path(args.human_merged_dir)
@@ -491,15 +574,36 @@ def main() -> None:
         fairness_df,
         eligible_only=args.eligible_only,
     )
+    correctness_df, correctness_fairness_summary = apply_fairness_filter(
+        correctness_df_raw,
+        fairness_df,
+        eligible_only=args.eligible_only,
+    )
+    evaluable_correctness_df = filter_evaluable_correctness(correctness_df)
 
     write_dataframe(
-        build_sample_size_summary(exercise_df_raw, pair_df, analysis_exercise_df=exercise_df),
+        build_sample_size_summary(
+            exercise_df_raw,
+            pair_df,
+            analysis_exercise_df=exercise_df,
+            correctness_df=evaluable_correctness_df,
+        ),
         output_dir / "sample_size_summary.v1.csv",
     )
 
     status_doc = build_analysis_status(exercise_df, args.min_group_size)
     status_doc["eligible_only"] = args.eligible_only
     status_doc["fairness_summary"] = fairness_summary
+    status_doc["correctness_fairness_summary"] = correctness_fairness_summary
+    status_doc["correctness_rows_raw"] = int(len(correctness_df_raw))
+    status_doc["correctness_rows_analysis"] = int(len(correctness_df))
+    status_doc["correctness_rows_evaluable"] = int(len(evaluable_correctness_df))
+    if not evaluable_correctness_df.empty and "correctness_status" in evaluable_correctness_df.columns:
+        status_doc["correctness_status_counts"] = (
+            evaluable_correctness_df["correctness_status"].astype(str).str.strip().str.lower().value_counts().to_dict()
+        )
+    else:
+        status_doc["correctness_status_counts"] = {}
     status_doc["legacy_human_correlations_enabled"] = args.enable_legacy_human_correlations
     write_json(status_doc, output_dir / "analysis_status.v1.json")
 
@@ -524,6 +628,54 @@ def main() -> None:
             chi_square_path = output_dir / "chi_square.ai_vs_expert.v1.csv"
             if chi_square_path.exists():
                 chi_square_path.unlink()
+
+    write_dataframe(
+        correctness_status_summary(correctness_df, ["source_type"]),
+        output_dir / "correctness_status.by_source.v1.csv",
+    )
+    write_dataframe(
+        correctness_status_summary(correctness_df, ["topic", "source_type"]),
+        output_dir / "correctness_status.by_topic_and_source.v1.csv",
+    )
+
+    if not evaluable_correctness_df.empty:
+        correctness_metric_cols = [
+            col
+            for col in [
+                "public_tests_passed",
+                "public_tests_total",
+                "hidden_tests_passed",
+                "hidden_tests_total",
+                "public_pass_rate",
+                "hidden_pass_rate",
+                "surface_checks_passed",
+                "surface_checks_total",
+                "shape_checks_passed",
+                "behavior_checks_passed",
+                "correctness_status_binary_pass",
+                "correctness_status_binary_evaluable",
+                "reference_solution_fully_valid",
+                "required_packages_satisfied",
+            ]
+            if col in evaluable_correctness_df.columns
+        ]
+
+        write_dataframe(
+            evaluable_correctness_df,
+            output_dir / "exercise_correctness.evaluable_subset.v1.csv",
+        )
+        write_dataframe(
+            summarize_group(evaluable_correctness_df, ["source_type"], correctness_metric_cols),
+            output_dir / "correctness.descriptive_stats.by_source.v1.csv",
+        )
+        write_dataframe(
+            summarize_group(evaluable_correctness_df, ["topic", "source_type"], correctness_metric_cols),
+            output_dir / "correctness.descriptive_stats.by_topic_and_source.v1.csv",
+        )
+        write_dataframe(
+            run_paired_group_comparison(evaluable_correctness_df, correctness_metric_cols),
+            output_dir / "correctness.ttest.ai_vs_expert.v1.csv",
+        )
 
     if not pair_df.empty:
         pair_metric_cols = get_numeric_metric_columns(pair_df)

@@ -91,26 +91,3 @@ meteor_instruction_only,0.2039,METEOR
 meteor_instruction_only,0.1618,METEOR
 meteor_instruction_only,0.1203,METEOR
 meteor_instruction_only,0.2193,METEOR
-bertscore_f1_instruction_only,0.8249,BERTScore F1
-bertscore_f1_instruction_only,0.8435,BERTScore F1
-bertscore_f1_instruction_only,0.8394,BERTScore F1
-bertscore_f1_instruction_only,0.8274,BERTScore F1
-bertscore_f1_instruction_only,0.8405,BERTScore F1
-bertscore_f1_instruction_only,0.8442,BERTScore F1
-bertscore_f1_instruction_only,0.8424,BERTScore F1
-bertscore_f1_instruction_only,0.8897,BERTScore F1
-bertscore_f1_instruction_only,0.9066,BERTScore F1
-bertscore_f1_instruction_only,0.8557,BERTScore F1
-bertscore_f1_instruction_only,0.8692,BERTScore F1
-bertscore_f1_instruction_only,0.845,BERTScore F1
-bertscore_f1_instruction_only,0.8423,BERTScore F1
-bertscore_f1_instruction_only,0.852,BERTScore F1
-bertscore_f1_instruction_only,0.8438,BERTScore F1
-bertscore_f1_instruction_only,0.852,BERTScore F1
-bertscore_f1_instruction_only,0.8438,BERTScore F1
-bertscore_f1_instruction_only,0.8282,BERTScore F1
-bertscore_f1_instruction_only,0.8215,BERTScore F1
-bertscore_f1_instruction_only,0.8437,BERTScore F1
-bertscore_f1_instruction_only,0.8359,BERTScore F1
-bertscore_f1_instruction_only,0.8282,BERTScore F1
-bertscore_f1_instruction_only,0.8355,BERTScore F1

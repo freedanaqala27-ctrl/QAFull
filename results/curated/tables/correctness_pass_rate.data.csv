@@ -1,0 +1,5 @@
+source_type,metric,rate,metric_label
+AI,rate_pass,1.0,Pass Rate
+Expert,rate_pass,0.9230769230769231,Pass Rate
+AI,rate_not_evaluable,0.0,Not-Evaluable Rate
+Expert,rate_not_evaluable,0.0,Not-Evaluable Rate

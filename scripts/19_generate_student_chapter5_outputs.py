@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import json
@@ -286,9 +286,10 @@ def plot_batch_metrics(df: pd.DataFrame, path: Path) -> None:
 
 def main() -> None:
     args = parse_args()
-    output_dir = args.output_dir
-    tables_dir = output_dir / "tables"
-    figures_dir = output_dir / "figures"
+    args.input_csv = args.input_csv.resolve()
+    output_dir = args.output_dir.resolve()
+    tables_dir = (output_dir / "tables").resolve()
+    figures_dir = (output_dir / "figures").resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     tables_dir.mkdir(parents=True, exist_ok=True)
     figures_dir.mkdir(parents=True, exist_ok=True)
@@ -375,3 +376,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
