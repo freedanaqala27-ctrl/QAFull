@@ -1,9 +1,0 @@
-exercise_id,source_type,topic,difficulty,exercise_type,expert_rating_count,student_rating_count
-AI-DTL-03-01,AI,Transformer,intermediate,training-analysis,,
-AI-KER-03-01,AI,Transformer,intermediate-advanced,model building,,
-AI-TRF-01-01,AI,Transformer,intermediate-advanced,code completion,,
-AI-UVA-02-01,AI,Transformer,intermediate-advanced,code completion,,
-DTL-03,Expert,Transformer,intermediate,training-analysis,,
-KER-03,Expert,Transformer,intermediate-advanced,model building,,
-TRF-01,Expert,Transformer,intermediate-advanced,code completion,,
-UVA-02,Expert,Transformer,intermediate-advanced,code completion,,

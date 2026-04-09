@@ -1,7 +1,0 @@
-dataset,group,sample_size
-exercise_metrics,AI,6
-exercise_metrics,Expert,6
-exercise_metrics_by_topic,RNN|AI,6
-exercise_metrics_by_topic,RNN|Expert,6
-pair_metrics,overall,6
-pair_metrics_by_topic,RNN,6

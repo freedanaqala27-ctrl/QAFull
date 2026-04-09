@@ -1,7 +1,0 @@
-﻿group,metric,metric_label,n,mean,std,median,min,max
-All,overall_usefulness,Overall Usefulness,27,3.5556,0.5064,4.0,3.0,4.0
-All,overall_ease,Overall Ease,27,3.3333,0.4804,3.0,3.0,4.0
-All,continued_use_intention,Continued Use,27,3.4074,0.5007,3.0,3.0,4.0
-All,overall_quality,Overall Quality,27,3.5556,0.6405,4.0,2.0,5.0
-All,batch_acceptance_mean,Batch Acceptance Mean,27,3.463,0.2372,3.5,3.0,3.75
-All,rating_time_seconds,Completion Time (s),27,350.0756,52.9888,352.32,224.1,444.2

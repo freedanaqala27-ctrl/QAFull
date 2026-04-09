@@ -1,7 +1,0 @@
-ai_exercise_id,bertscore_f1_instruction_only,difficulty,exercise_type,heavy_metric_error,meteor_instruction_only,pair_id,reference_exercise_id,rougeL_f1_instruction_only,tfidf_cosine_full_text,tfidf_cosine_instruction_only,topic,topic_coherence_score_ai,topic_coherence_score_reference
-AI-DTL-01-01,nan,intermediate,training-analysis,,nan,PAIR-DTL-01-01,DTL-01,0.126,0.3694,0.1142,Optimization,0.5,0.2
-AI-DTL-02-01,nan,intermediate,training-analysis,,nan,PAIR-DTL-02-01,DTL-02,0.1239,0.2993,0.0848,Optimization,0.4,0.2
-AI-OPT-02-01,nan,beginner-intermediate,training-analysis,,nan,PAIR-OPT-02-01,OPT-02,0.1615,0.3709,0.156,Optimization,0.2,0.1
-AI-OPT-03-01,nan,intermediate,model revision,,nan,PAIR-OPT-03-01,OPT-03,0.1571,0.341,0.1626,Optimization,0.4,0.1
-AI-OPT-04-01,nan,intermediate,model revision,,nan,PAIR-OPT-04-01,OPT-04,0.2013,0.4092,0.2514,Optimization,0.6,0.3
-AI-OPT-05-01,nan,intermediate,model revision,,nan,PAIR-OPT-05-01,OPT-05,0.1775,0.4367,0.2269,Optimization,0.2,0.1

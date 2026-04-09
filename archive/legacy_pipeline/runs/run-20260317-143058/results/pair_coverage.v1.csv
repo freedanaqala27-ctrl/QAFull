@@ -1,7 +1,0 @@
-reference_exercise_id,topic,difficulty,reference_exercise_type,accepted_candidate_count,selected_ai_exercise_id,pair_built,top_soft_rank_score
-DTL-01,Optimization,intermediate,training-analysis,1,AI-DTL-01-01,True,0.7343
-DTL-02,Optimization,intermediate,training-analysis,2,AI-DTL-02-01,True,0.7067
-OPT-02,Optimization,beginner-intermediate,training-analysis,1,AI-OPT-02-01,True,0.7411
-OPT-03,Optimization,intermediate,model revision,2,AI-OPT-03-01,True,0.6748
-OPT-04,Optimization,intermediate,model revision,1,AI-OPT-04-01,True,0.6463
-OPT-05,Optimization,intermediate,model revision,2,AI-OPT-05-01,True,0.8525

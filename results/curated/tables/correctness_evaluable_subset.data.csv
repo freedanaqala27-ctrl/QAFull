@@ -1,8 +1,0 @@
-topic,exercise_type,pair_count
-CNN,code completion,1
-CNN,model building,2
-Optimization,model revision,2
-Optimization,training-analysis,1
-RNN,code completion,2
-RNN,model building,3
-Transformer,code completion,2

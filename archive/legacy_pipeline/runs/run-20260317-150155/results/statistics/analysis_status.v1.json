@@ -1,9 +1,0 @@
-{
-  "status": "ready",
-  "min_group_size": 2,
-  "has_ai_group": true,
-  "has_expert_group": true,
-  "ai_n": 3,
-  "expert_n": 3,
-  "reason": ""
-}

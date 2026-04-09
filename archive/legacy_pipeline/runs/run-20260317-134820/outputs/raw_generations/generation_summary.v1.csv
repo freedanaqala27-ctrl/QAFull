@@ -1,2 +1,0 @@
-run_id,provider,model,total_prompts,total_generations,api_success_count,api_error_count,json_extract_success_count,json_extract_fail_count,schema_valid_count,schema_invalid_count,avg_latency_ms
-run-20260317-134820,bailian,qwen-plus,5,10,10,0,10,0,10,0,31234.9

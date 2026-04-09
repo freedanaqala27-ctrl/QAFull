@@ -1,7 +1,0 @@
-reference_exercise_id,topic,difficulty,reference_exercise_type,accepted_candidate_count,selected_ai_exercise_id,pair_built,top_soft_rank_score
-CNN-01,CNN,intermediate,code completion,1,AI-CNN-01-01,True,0.8202
-CNN-02,CNN,beginner,concept-to-code,1,AI-CNN-02-01,True,0.6709
-CNN-03,CNN,beginner-intermediate,model building,1,AI-CNN-03-01,True,0.6706
-CNN-04,CNN,intermediate,training-analysis,1,AI-CNN-04-01,True,0.7435
-KER-01,CNN,beginner,model building,2,AI-KER-01-01,True,0.8735
-MIT-02,CNN,beginner-intermediate,model building,1,AI-MIT-02-01,True,0.8782

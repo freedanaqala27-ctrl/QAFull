@@ -1,8 +1,0 @@
-﻿"metric","value","notes"
-"prepared_participant_slots","60","distribution sheet rows"
-"prepared_packages","6","unique packages in distribution sheet"
-"submitted_participants","30","unique participant_id with submitted_at"
-"valid_participants","27","attention_check_passed=True and participant_fast_flag_under_180s!=True"
-"excluded_participants","3","S030, S059, S060"
-"mean_response_duration_seconds","350.08","min=224.1; max=444.2"
-"raw_participants_in_master","30","unique participant_id in student_analysis_master_30.csv"

@@ -1,9 +1,0 @@
-topic,source_type,mean_value,metric_label
-CNN,AI,0.9166500000000001,Instruction Completeness
-CNN,Expert,0.6666833333333333,Instruction Completeness
-Optimization,AI,0.9722166666666666,Instruction Completeness
-Optimization,Expert,0.55555,Instruction Completeness
-RNN,AI,0.9722166666666666,Instruction Completeness
-RNN,Expert,0.6666833333333333,Instruction Completeness
-Transformer,AI,0.9333199999999999,Instruction Completeness
-Transformer,Expert,0.5999800000000001,Instruction Completeness

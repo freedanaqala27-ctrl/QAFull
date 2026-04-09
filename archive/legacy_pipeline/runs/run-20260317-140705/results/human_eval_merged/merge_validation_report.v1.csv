@@ -1,7 +1,0 @@
-table,row_id,exercise_id,blind_exercise_id,check_name,status,details
-expert,ER0001,EXP_CNN_001,B001,blind_id_exists_in_mapping,fail,blind_exercise_id not found in mapping
-expert,ER0002,AI_RNN_003,B002,blind_id_exists_in_mapping,fail,blind_exercise_id not found in mapping
-expert,ER0003,EXP_CNN_001,B001,blind_id_exists_in_mapping,fail,blind_exercise_id not found in mapping
-student,SR0001,EXP_CNN_001,B001,blind_id_exists_in_mapping,fail,blind_exercise_id not found in mapping
-student,SR0002,AI_RNN_003,B002,blind_id_exists_in_mapping,fail,blind_exercise_id not found in mapping
-student,SR0003,EXP_CNN_001,B001,blind_id_exists_in_mapping,fail,blind_exercise_id not found in mapping

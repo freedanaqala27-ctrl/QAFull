@@ -1,9 +1,0 @@
-{
-  "status": "insufficient_data",
-  "min_group_size": 2,
-  "has_ai_group": true,
-  "has_expert_group": true,
-  "ai_n": 1,
-  "expert_n": 1,
-  "reason": "group_below_min_sample_size"
-}

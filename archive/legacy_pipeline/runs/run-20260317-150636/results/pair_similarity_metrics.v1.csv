@@ -1,3 +1,0 @@
-ai_exercise_id,bertscore_f1_instruction_only,difficulty,exercise_type,heavy_metric_error,meteor_instruction_only,pair_id,reference_exercise_id,rougeL_f1_instruction_only,tfidf_cosine_full_text,tfidf_cosine_instruction_only,topic,topic_coherence_score_ai,topic_coherence_score_reference
-AI-CNN-02-01,nan,beginner,code completion,,nan,PAIR-CNN-02-01,CNN-02,0.1591,0.4353,0.1861,CNN,0.4,0.4
-AI-KER-01-01,nan,beginner,model building,,nan,PAIR-KER-01-01,KER-01,0.3077,0.4889,0.2629,CNN,0.2,0.0

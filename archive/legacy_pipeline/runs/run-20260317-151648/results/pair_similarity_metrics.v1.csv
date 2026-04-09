@@ -1,2 +1,0 @@
-ai_exercise_id,bertscore_f1_instruction_only,difficulty,exercise_type,heavy_metric_error,meteor_instruction_only,pair_id,reference_exercise_id,rougeL_f1_instruction_only,tfidf_cosine_full_text,tfidf_cosine_instruction_only,topic,topic_coherence_score_ai,topic_coherence_score_reference
-AI-DTL-03-01,nan,intermediate,training-analysis,,nan,PAIR-DTL-03-01,DTL-03,0.086,0.4279,0.1309,Transformer,0.2,0.2

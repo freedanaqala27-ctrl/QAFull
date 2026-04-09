@@ -1,5 +1,0 @@
-topic,mean_value,metric_label
-CNN,0.19545,Instruction TF-IDF Cosine
-Optimization,0.18741666666666668,Instruction TF-IDF Cosine
-RNN,0.2801333333333333,Instruction TF-IDF Cosine
-Transformer,0.17543999999999998,Instruction TF-IDF Cosine

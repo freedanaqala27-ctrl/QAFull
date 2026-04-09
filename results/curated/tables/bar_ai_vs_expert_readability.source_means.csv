@@ -1,5 +1,0 @@
-source_type,metric,mean_value,metric_label
-AI,instruction_metrics.flesch_reading_ease,41.99041739130435,Reading Ease
-Expert,instruction_metrics.flesch_reading_ease,45.51,Reading Ease
-AI,instruction_metrics.flesch_kincaid_grade,11.685069565217391,FK Grade
-Expert,instruction_metrics.flesch_kincaid_grade,10.990482608695652,FK Grade

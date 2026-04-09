@@ -1,7 +1,0 @@
-dataset,group,sample_size
-exercise_metrics,AI,1
-exercise_metrics,Expert,1
-exercise_metrics_by_topic,Transformer|AI,1
-exercise_metrics_by_topic,Transformer|Expert,1
-pair_metrics,overall,1
-pair_metrics_by_topic,Transformer,1

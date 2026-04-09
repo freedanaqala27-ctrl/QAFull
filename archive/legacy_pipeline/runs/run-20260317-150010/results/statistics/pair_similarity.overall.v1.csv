@@ -1,6 +1,0 @@
-metric,sample_size,mean,std,median,min,max
-rougeL_f1_instruction_only,1,0.2805,,0.2805,0.2805,0.2805
-tfidf_cosine_full_text,1,0.4109,,0.4109,0.4109,0.4109
-tfidf_cosine_instruction_only,1,0.2798,,0.2798,0.2798,0.2798
-topic_coherence_score_ai,1,0.3,,0.3,0.3,0.3
-topic_coherence_score_reference,1,0.0,,0.0,0.0,0.0

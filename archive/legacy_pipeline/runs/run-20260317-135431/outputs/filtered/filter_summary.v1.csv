@@ -1,5 +1,0 @@
-metric,count,rate
-total,12,1.0
-accepted,8,0.6667
-rejected,4,0.3333
-acceptance_rate,8,0.6667
