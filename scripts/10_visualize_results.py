@@ -505,10 +505,10 @@ def save_correctness_full_coverage_overview(
     pass_count = int(correctness_manifest.get("correctness_status_counts", {}).get("pass", 0) or 0)
     solution_hits = int(correctness_manifest.get("overlay_coverage", {}).get("solution_overlay_hits", 0) or 0)
 
-    eligible_pairs = int(analysis_status.get("correctness_fairness_summary", {}).get("eligible_pair_count", 0) or 0)
-    pair_count_after_filter = int(
-        analysis_status.get("correctness_fairness_summary", {}).get("pair_count_after_filter", 0) or 0
-    )
+    fairness_summary = analysis_status.get("correctness_fairness_summary", {}) or {}
+    eligible_pairs = int(fairness_summary.get("eligible_pair_count", 0) or 0)
+    pair_count_after_filter = int(fairness_summary.get("pair_count_after_filter", 0) or 0)
+    correctness_rows_analysis = int(analysis_status.get("correctness_rows_analysis", 0) or 0)
     evaluable_rows = int(analysis_status.get("correctness_rows_evaluable", 0) or 0)
     evaluable_pairs = evaluable_rows // 2 if evaluable_rows else 0
 
@@ -524,12 +524,17 @@ def save_correctness_full_coverage_overview(
     )
     exercise_summary["rate"] = exercise_summary["count"] / exercise_summary["total"]
 
-    pair_total = eligible_pairs or pair_count_after_filter
+    # When fairness audit is unavailable, eligible_pair_count may stay 0 even though
+    # we still have a valid pair-level analysis subset. Fall back to the actual
+    # analyzed pair count derived from correctness rows.
+    analyzed_pairs = pair_count_after_filter or (correctness_rows_analysis // 2 if correctness_rows_analysis else 0)
+    eligible_pairs_display = eligible_pairs or analyzed_pairs
+    pair_total = eligible_pairs_display or analyzed_pairs
     if pair_total <= 0:
         pair_total = 1
     pair_summary = pd.DataFrame(
         [
-            {"stage": "Eligible Pairs", "count": pair_count_after_filter, "total": pair_total},
+            {"stage": "Eligible Pairs", "count": eligible_pairs_display, "total": pair_total},
             {"stage": "Evaluable Pairs", "count": evaluable_pairs, "total": pair_total},
         ]
     )

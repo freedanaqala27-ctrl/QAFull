@@ -84,7 +84,7 @@ CATEGORY_CONFIG = {
 }
 
 
-def _run_action(action_key: str, note: str, spinner_text: str) -> None:
+def _run_action(action_key: str, note: str, spinner_text: str) -> dict[str, object]:
     with st.spinner(spinner_text):
         result = execute_action(
             action_key,
@@ -93,7 +93,20 @@ def _run_action(action_key: str, note: str, spinner_text: str) -> None:
         )
     set_console_flash(result["message"], "success" if result["status"] == "success" else "danger")
     st.cache_data.clear()
+    return result
+
+
+def _rerun() -> None:
+    st.cache_data.clear()
     st.rerun()
+
+
+def _run_repair_and_evaluate() -> None:
+    repair_result = _run_action("repair_eval_assets", "从结果页补齐评测资产", "正在补齐失败资产...")
+    if repair_result.get("status") != "success":
+        _rerun()
+    _run_action("run_auto_evaluation", "从结果页补齐后重新执行自动评测", "正在重新执行自动评测...")
+    _rerun()
 
 
 def _load_dataframe(path: Path) -> pd.DataFrame:
@@ -179,6 +192,7 @@ def _render_asset_repair_panel() -> None:
 
     if st.button("补齐失败资产", key="results-repair-assets", use_container_width=True):
         _run_action("repair_eval_assets", "从结果页补齐失败的评测资产", "正在补齐失败资产...")
+        _rerun()
 
     if summary["failed_rows"]:
         with st.expander(f"查看失败题目清单（{summary['failed_count']}）", expanded=False):
@@ -205,6 +219,7 @@ def _render_pending_state(bundle: dict) -> None:
     )
     if clicked.get("primary"):
         _run_action("run_auto_evaluation", "从结果页发起自动评测", "正在执行自动评测与结果生成...")
+        _rerun()
 
     render_empty_state(
         "自动评价结果尚未生成",
@@ -233,9 +248,10 @@ def _render_ready_state(bundle: dict) -> None:
     with col1:
         if st.button("重新执行自动评测", key="results-rerun-auto-evaluation", use_container_width=True):
             _run_action("run_auto_evaluation", "从结果页重新执行自动评测", "正在重新执行自动评测...")
+            _rerun()
     with col2:
         if st.button("补齐后再评测", key="results-repair-and-rerun", use_container_width=True):
-            _run_action("repair_eval_assets", "从结果页补齐评测资产", "正在补齐失败资产...")
+            _run_repair_and_evaluate()
 
     tabs = st.tabs(list(CATEGORY_CONFIG.keys()))
     for tab, (_, config) in zip(tabs, CATEGORY_CONFIG.items()):
