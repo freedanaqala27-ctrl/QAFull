@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
 import subprocess
@@ -258,7 +258,14 @@ def _build_script_steps(action_key: str, params: dict[str, Any], run_id: str) ->
         ]
 
     if action_key == "finalize_review_batch":
-        return [{"script": "scripts/05_finalize_pairs.py", "args": []}]
+        return [
+            {"script": "scripts/05_finalize_pairs.py", "args": []},
+            {"script": "scripts/23_populate_code_completion_overlays.py", "args": []},
+            {"script": "scripts/24_populate_model_revision_overlays.py", "args": []},
+            {"script": "scripts/25_populate_concept_to_code_overlays.py", "args": []},
+            {"script": "scripts/26_populate_model_building_overlays.py", "args": []},
+            {"script": "scripts/27_populate_training_analysis_overlays.py", "args": []},
+        ]
 
     if action_key == "run_auto_evaluation":
         return [
@@ -331,6 +338,46 @@ def _refresh_workflow_queues(workflow_state: dict[str, Any]) -> None:
     queues["data_import_ready"] = 1 if SUBSET_MANIFEST_PATH.exists() else 0
     queues["report_ready"] = 1 if CHAPTER5_MANIFEST_PATH.exists() else 0
     queues["snapshot_ready"] = 1 if REPORT_SUMMARY_PATH.exists() else 0
+
+
+def _mark_approved_review_assets_ready() -> None:
+    review_doc = load_review_state_doc()
+    items = review_doc.get("items", []) if isinstance(review_doc, dict) else []
+    history = review_doc.get("history", {}) if isinstance(review_doc, dict) else {}
+    if not isinstance(items, list):
+        return
+
+    updated = False
+    stamp = _now_iso()
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        if str(item.get("review_status") or "") != "approved":
+            continue
+        if item.get("solution_overlay_ready") and item.get("tests_overlay_ready") and item.get("eval_status") == "ready":
+            continue
+
+        item["solution_overlay_ready"] = True
+        item["tests_overlay_ready"] = True
+        item["eval_status"] = "ready"
+        item["last_action"] = "定稿后自动补齐评测资产"
+        candidate_id = str(item.get("candidate_id") or "")
+        rows = history.get(candidate_id, []) if isinstance(history, dict) else []
+        if not rows or str(rows[-1].get("action") or "") != "定稿后自动补齐评测资产":
+            rows = list(rows) if isinstance(rows, list) else []
+            rows.append({"time": stamp, "operator": "系统", "action": "定稿后自动补齐评测资产"})
+            history[candidate_id] = rows
+        updated = True
+
+    if updated:
+        save_json_doc(
+            REVIEW_STATE_PATH,
+            {
+                "updated_at": stamp,
+                "items": items,
+                "history": history,
+            },
+        )
 
 
 def _update_workflow_state_after_run(
@@ -665,6 +712,8 @@ def _execute_script_chain(
                 extra_outputs.append(str(REVIEW_STATE_PATH))
             elif action_key == "finalize_review_batch":
                 extra_outputs.extend(sync_finalized_results_to_curated())
+                _mark_approved_review_assets_ready()
+                extra_outputs.append(str(REVIEW_STATE_PATH))
             elif action_key == "generate_analysis_report":
                 refresh_report_summary()
                 business_manifest = str(REPORT_SUMMARY_PATH)

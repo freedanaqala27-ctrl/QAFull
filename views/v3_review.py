@@ -3,7 +3,6 @@ from __future__ import annotations
 import streamlit as st
 
 from evaluation_system.components import render_empty_state, render_key_value_table, render_page_header, render_summary_band
-from evaluation_system.runner import execute_action
 from evaluation_system.state_store import (
     append_history,
     append_run_event,
@@ -18,19 +17,6 @@ FILTER_OPTIONS = {
     "待审核": lambda item: item.get("review_status") == "pending_review",
     "全部": lambda item: True,
     "已通过": lambda item: item.get("review_status") == "approved",
-}
-ASSET_OPTIONS = ["补全代码", "模型修正", "概念转代码", "模型构建", "训练分析"]
-EXERCISE_TO_ASSET = {
-    "Code Completion": "补全代码",
-    "code completion": "补全代码",
-    "Model Revision": "模型修正",
-    "model revision": "模型修正",
-    "Model Building": "模型构建",
-    "model building": "模型构建",
-    "Training Analysis": "训练分析",
-    "training-analysis": "训练分析",
-    "Concept to Code": "概念转代码",
-    "concept to code": "概念转代码",
 }
 
 
@@ -84,63 +70,29 @@ def _commit_state_change(item: dict, action_text: str, run_action_key: str, note
     st.rerun()
 
 
-def _run_asset_request(
-    item: dict,
-    asset_type: str,
-    asset_note: str,
-    *,
-    rerun_on_finish: bool = True,
-) -> dict[str, str]:
-    with st.spinner(f"正在自动补评测材料：{asset_type}..."):
-        result = execute_action(
-            "request_assets",
-            operator=st.session_state["console_role"],
-            note=f"{item.get('candidate_id', '')} / {asset_type} / {asset_note}",
-            params={
-                "asset_type": asset_type,
-                "candidate_id": item.get("candidate_id", ""),
-                "review_id": item.get("review_id", ""),
-                "asset_note": asset_note,
-            },
-        )
-    if result["status"] == "success":
-        item["solution_overlay_ready"] = True
-        item["tests_overlay_ready"] = True
-        item["eval_status"] = "ready"
-        append_history(
-            item.get("candidate_id", ""),
-            f"自动补评测材料：{asset_type}",
-            st.session_state["console_role"],
-        )
-    if rerun_on_finish:
-        set_console_flash(result["message"], "success" if result["status"] == "success" else "danger")
-        st.cache_data.clear()
-        st.rerun()
-    return result
-
-
 def _render_asset_panel(item: dict) -> None:
     solution_ready = bool(item.get("solution_overlay_ready"))
     tests_ready = bool(item.get("tests_overlay_ready"))
-    needs_assets = item.get("review_status") == "approved" and (not solution_ready or not tests_ready)
+    eval_ready = solution_ready and tests_ready and item.get("review_status") == "approved"
 
     render_summary_band(
         [
             {"label": "参考答案", "value": _asset_ready_label(solution_ready), "note": "solution overlay"},
             {"label": "测试材料", "value": _asset_ready_label(tests_ready), "note": "tests overlay"},
-            {"label": "评测状态", "value": "可评测" if item.get("eval_status") == "ready" else "待补材料", "note": "自动评测前置条件"},
+            {"label": "评测状态", "value": "可评测" if eval_ready else "待定稿补齐", "note": "自动评测前置条件"},
         ]
     )
 
-    if needs_assets:
-        suggested_asset = EXERCISE_TO_ASSET.get(str(item.get("exercise_type") or ""), ASSET_OPTIONS[0])
-        st.caption(f"这道题在审核通过后会自动补评测材料，默认类型：{suggested_asset}。")
+    if item.get("review_status") == "approved" and not eval_ready:
+        st.caption("该题已审核通过，评测资产会在“定稿入库”后自动补齐。")
+    elif eval_ready:
+        st.caption("该题的评测资产已经准备完成，可进入自动评测。")
     else:
-        st.caption("当前题目不需要补材料，或尚未审核通过。")
+        st.caption("请先完成审核；评测资产将在定稿入库后统一生成。")
 
 
 def render(bundle: dict) -> None:
-    render_page_header("审核", "审核候选题，并在通过时自动补评测材料。")
+    render_page_header("审核", "审核候选题；通过后在定稿入库阶段自动补齐评测资产。")
 
     review_summary = current_review_summary()
     review_task = bundle.get("tasks", {}).get("review", {})
@@ -190,33 +142,22 @@ def render(bundle: dict) -> None:
 
     if approve_clicked:
         current_item["review_status"] = "approved"
-        auto_asset_result = None
-        if (not current_item.get("solution_overlay_ready")) or (not current_item.get("tests_overlay_ready")):
-            asset_type = EXERCISE_TO_ASSET.get(str(current_item.get("exercise_type") or ""), ASSET_OPTIONS[0])
-            auto_asset_result = _run_asset_request(
-                current_item,
-                asset_type,
-                "审核通过后自动补评测材料",
-                rerun_on_finish=False,
-            )
-        current_item["eval_status"] = "ready" if current_item.get("solution_overlay_ready") and current_item.get("tests_overlay_ready") else "not_ready"
-        if auto_asset_result:
-            set_console_flash(
-                "审核通过，已自动触发评测材料补全。"
-                if auto_asset_result.get("status") == "success"
-                else f"审核通过，但自动补材料失败：{auto_asset_result.get('message', '')}",
-                "success" if auto_asset_result.get("status") == "success" else "warning",
-            )
-        else:
-            set_console_flash("审核通过。", "success")
+        current_item["solution_overlay_ready"] = False
+        current_item["tests_overlay_ready"] = False
+        current_item["eval_status"] = "not_ready"
+        set_console_flash("审核通过，评测资产将在定稿入库后自动补齐。", "success")
         _commit_state_change(current_item, "审核通过", "approve_candidate", note=current_item.get("candidate_id", ""))
     if reject_clicked:
         current_item["review_status"] = "rejected"
+        current_item["solution_overlay_ready"] = False
+        current_item["tests_overlay_ready"] = False
         current_item["eval_status"] = "not_ready"
         set_console_flash("审核驳回。", "warning")
         _commit_state_change(current_item, "审核驳回", "reject_candidate")
     if regenerate_clicked:
         current_item["review_status"] = "rejected"
+        current_item["solution_overlay_ready"] = False
+        current_item["tests_overlay_ready"] = False
         current_item["eval_status"] = "not_ready"
         set_console_flash("已打回重生成。", "warning")
         _commit_state_change(current_item, "打回重生成", "regenerate_candidate")

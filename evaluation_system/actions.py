@@ -36,6 +36,11 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "can_execute": True,
         "scripts": [
             "scripts/05_finalize_pairs.py",
+            "scripts/23_populate_code_completion_overlays.py",
+            "scripts/24_populate_model_revision_overlays.py",
+            "scripts/25_populate_concept_to_code_overlays.py",
+            "scripts/26_populate_model_building_overlays.py",
+            "scripts/27_populate_training_analysis_overlays.py",
         ],
         "inputs": [
             "outputs/filtered/accepted/candidates.accepted.v1.jsonl",
@@ -47,6 +52,8 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
             "results/curated/exercises_all.curated.v1.jsonl",
             "results/curated/ai_exercises.curated.v1.json",
             "results/curated/blind_mapping.curated.v1.csv",
+            "results/curated/reference_solutions.curated.v1.jsonl",
+            "results/curated/executable_tests.curated.v1.jsonl",
         ],
         "manifest": "results/curated/final_pairs.curated.v1.jsonl",
     },
