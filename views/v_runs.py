@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
@@ -328,8 +328,9 @@ def _render_audit_events(bundle: dict) -> None:
         cols[3].write(_friendly_event_note(row))
 
 
-def render(bundle: dict) -> None:
-    render_page_header("运行记录", "查看各项处理进度、结果文件和关键操作记录。")
+def render(bundle: dict, *, show_header: bool = True) -> None:
+    if show_header:
+        render_page_header("运行记录", "查看各项处理进度、结果文件和关键操作记录。")
     work_order_tab, run_tab, audit_tab = st.tabs(["处理事项", "处理记录", "操作记录"])
     with work_order_tab:
         _render_work_orders(bundle)

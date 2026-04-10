@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import copy
 
@@ -8,8 +8,8 @@ from evaluation_system.components import render_empty_state, render_page_header
 from evaluation_system.runner import save_console_settings
 from evaluation_system.state_store import ROLE_PERMISSIONS, set_console_flash
 
-ALL_PAGES = ["流程总览", "题目生成", "当前任务", "审核中心", "问卷管理", "分析报告", "运行记录", "系统设置"]
-ROLE_NAMES = ["管理员", "研究员"]
+ALL_PAGES = ["\u5de5\u4f5c\u53f0", "\u751f\u6210", "\u5ba1\u6838", "\u7ed3\u679c", "\u7cfb\u7edf\u8bbe\u7f6e"]
+ROLE_NAMES = ["\u7ba1\u7406\u5458", "\u7814\u7a76\u5458"]
 
 
 def _persist(settings: dict, note: str) -> None:
@@ -20,76 +20,76 @@ def _persist(settings: dict, note: str) -> None:
 
 
 def render(bundle: dict) -> None:
-    render_page_header("系统设置", "管理当前批次、页面可见范围、问卷来源和结果保存位置。")
-    if st.session_state.get("console_role") != "管理员":
-        render_empty_state("当前角色不可访问系统设置", "系统设置仅管理员可见，研究员只保留业务操作入口。")
+    render_page_header("\u7cfb\u7edf\u8bbe\u7f6e", "\u7ba1\u7406\u5f53\u524d\u6279\u6b21\u3001\u9875\u9762\u53ef\u89c1\u8303\u56f4\u3001\u95ee\u5377\u6765\u6e90\u548c\u7ed3\u679c\u4fdd\u5b58\u4f4d\u7f6e\u3002")
+    if st.session_state.get("console_role") != "\u7ba1\u7406\u5458":
+        render_empty_state("\u5f53\u524d\u89d2\u8272\u4e0d\u53ef\u8bbf\u95ee\u7cfb\u7edf\u8bbe\u7f6e", "\u7cfb\u7edf\u8bbe\u7f6e\u4ec5\u7ba1\u7406\u5458\u53ef\u89c1\uff0c\u7814\u7a76\u5458\u53ea\u4fdd\u7559\u4e1a\u52a1\u64cd\u4f5c\u5165\u53e3\u3002")
         return
 
     settings = st.session_state["settings_form_state"]
     settings.setdefault("role_permissions", copy.deepcopy(bundle["settings"].get("role_permissions", {})))
-    tabs = st.tabs(["批次信息", "页面可见范围", "问卷来源", "保存位置"])
+    tabs = st.tabs(["\u6279\u6b21\u4fe1\u606f", "\u9875\u9762\u53ef\u89c1\u8303\u56f4", "\u95ee\u5377\u6765\u6e90", "\u4fdd\u5b58\u4f4d\u7f6e"])
 
     with tabs[0]:
-        st.text_input("当前批次名称", key="settings-batch-name", value=settings.get("batch_name", ""))
+        st.text_input("\u5f53\u524d\u6279\u6b21\u540d\u79f0", key="settings-batch-name", value=settings.get("batch_name", ""))
         st.number_input(
-            "样本确认门槛",
+            "\u6837\u672c\u786e\u8ba4\u95e8\u69db",
             min_value=1,
             step=1,
             key="settings-freeze-threshold",
             value=int(settings.get("freeze_threshold", 30)),
-            help="达到这个数量后，才可以确认本轮分析样本。",
+            help="\u8fbe\u5230\u8fd9\u4e2a\u6570\u91cf\u540e\uff0c\u624d\u53ef\u4ee5\u786e\u8ba4\u672c\u8f6e\u5206\u6790\u6837\u672c\u3002",
         )
-        st.text_input("当前工作方向", key="settings-mainline", value=settings.get("current_mainline", "学生问卷主线"))
-        if st.button("保存设置", key="save-batch-settings", type="primary"):
+        st.text_input("\u5f53\u524d\u5de5\u4f5c\u65b9\u5411", key="settings-mainline", value=settings.get("current_mainline", "\u5b66\u751f\u95ee\u5377\u4e3b\u7ebf"))
+        if st.button("\u4fdd\u5b58\u8bbe\u7f6e", key="save-batch-settings", type="primary"):
             settings["batch_name"] = st.session_state["settings-batch-name"]
             settings["freeze_threshold"] = st.session_state["settings-freeze-threshold"]
             settings["current_mainline"] = st.session_state["settings-mainline"]
-            _persist(settings, "更新批次配置")
+            _persist(settings, "\u66f4\u65b0\u6279\u6b21\u914d\u7f6e")
 
     with tabs[1]:
         role_permissions = settings.setdefault("role_permissions", {})
         for role_name in ROLE_NAMES:
             defaults = role_permissions.get(role_name) or bundle["settings"].get("role_permissions", {}).get(role_name) or ROLE_PERMISSIONS.get(role_name, [])
             st.multiselect(
-                f"{role_name}可见页面",
+                f"{role_name}\u53ef\u89c1\u9875\u9762",
                 ALL_PAGES,
                 default=defaults,
                 key=f"perm-{role_name}",
             )
-        if st.button("保存设置", key="save-role-settings", type="primary"):
+        if st.button("\u4fdd\u5b58\u8bbe\u7f6e", key="save-role-settings", type="primary"):
             for role_name in ROLE_NAMES:
                 role_permissions[role_name] = st.session_state.get(f"perm-{role_name}", [])
-            _persist(settings, "更新角色权限")
+            _persist(settings, "\u66f4\u65b0\u89d2\u8272\u6743\u9650")
 
     with tabs[2]:
         data_source = settings.setdefault("data_source", copy.deepcopy(bundle["settings"].get("data_source", {})))
-        st.text_input("在线问卷地址", key="settings-supabase-url", value=data_source.get("supabase_url", ""))
-        st.text_input("访问密钥", key="settings-supabase-key", value=data_source.get("supabase_key", ""), type="password")
+        st.text_input("\u5728\u7ebf\u95ee\u5377\u5730\u5740", key="settings-supabase-url", value=data_source.get("supabase_url", ""))
+        st.text_input("\u8bbf\u95ee\u5bc6\u94a5", key="settings-supabase-key", value=data_source.get("supabase_key", ""), type="password")
         st.selectbox(
-            "问卷结果来源",
-            ["直接连接", "本地 CSV"],
-            index=1 if data_source.get("pull_mode", "本地 CSV") == "本地 CSV" else 0,
+            "\u95ee\u5377\u7ed3\u679c\u6765\u6e90",
+            ["\u76f4\u63a5\u8fde\u63a5", "\u672c\u5730 CSV"],
+            index=1 if data_source.get("pull_mode", "\u672c\u5730 CSV") == "\u672c\u5730 CSV" else 0,
             key="settings-pull-mode-display",
         )
         action_cols = st.columns(2)
-        if action_cols[0].button("检查是否可用", use_container_width=True):
+        if action_cols[0].button("\u68c0\u67e5\u662f\u5426\u53ef\u7528", use_container_width=True):
             if st.session_state["settings-supabase-url"] and st.session_state["settings-supabase-key"]:
-                st.success("已检测到在线问卷地址和访问密钥，可用于直接读取问卷结果。")
+                st.success("\u5df2\u68c0\u6d4b\u5230\u5728\u7ebf\u95ee\u5377\u5730\u5740\u548c\u8bbf\u95ee\u5bc6\u94a5\uff0c\u53ef\u7528\u4e8e\u76f4\u63a5\u8bfb\u53d6\u95ee\u5377\u7ed3\u679c\u3002")
             else:
-                st.warning("请先填写在线问卷地址和访问密钥。")
-        if action_cols[1].button("保存设置", key="save-datasource-settings", type="primary", use_container_width=True):
+                st.warning("\u8bf7\u5148\u586b\u5199\u5728\u7ebf\u95ee\u5377\u5730\u5740\u548c\u8bbf\u95ee\u5bc6\u94a5\u3002")
+        if action_cols[1].button("\u4fdd\u5b58\u8bbe\u7f6e", key="save-datasource-settings", type="primary", use_container_width=True):
             data_source["supabase_url"] = st.session_state["settings-supabase-url"]
             data_source["supabase_key"] = st.session_state["settings-supabase-key"]
-            data_source["pull_mode"] = "本地 CSV" if st.session_state["settings-pull-mode-display"] == "本地 CSV" else "直接拉库"
-            _persist(settings, "更新数据源配置")
+            data_source["pull_mode"] = "\u672c\u5730 CSV" if st.session_state["settings-pull-mode-display"] == "\u672c\u5730 CSV" else "\u76f4\u63a5\u62c9\u5e93"
+            _persist(settings, "\u66f4\u65b0\u6570\u636e\u6e90\u914d\u7f6e")
 
     with tabs[3]:
         paths = settings.setdefault("paths", copy.deepcopy(bundle["settings"].get("paths", {})))
-        st.text_input("发放材料保存位置", key="settings-packet-dir", value=paths.get("packet_export_dir", "results/curated/human_eval_packets"))
-        st.text_input("报告结果保存位置", key="settings-report-dir", value=paths.get("report_export_dir", "results/student_subsets/chapter5_outputs"))
-        st.text_input("归档保存位置", key="settings-snapshot-dir", value=paths.get("snapshot_export_dir", "outputs/system"))
-        if st.button("保存设置", key="save-path-settings", type="primary"):
+        st.text_input("\u53d1\u653e\u6750\u6599\u4fdd\u5b58\u4f4d\u7f6e", key="settings-packet-dir", value=paths.get("packet_export_dir", "results/curated/human_eval_packets"))
+        st.text_input("\u62a5\u544a\u7ed3\u679c\u4fdd\u5b58\u4f4d\u7f6e", key="settings-report-dir", value=paths.get("report_export_dir", "results/student_subsets/chapter5_outputs"))
+        st.text_input("\u5f52\u6863\u4fdd\u5b58\u4f4d\u7f6e", key="settings-snapshot-dir", value=paths.get("snapshot_export_dir", "outputs/system"))
+        if st.button("\u4fdd\u5b58\u8bbe\u7f6e", key="save-path-settings", type="primary"):
             paths["packet_export_dir"] = st.session_state["settings-packet-dir"]
             paths["report_export_dir"] = st.session_state["settings-report-dir"]
             paths["snapshot_export_dir"] = st.session_state["settings-snapshot-dir"]
-            _persist(settings, "更新导出路径")
+            _persist(settings, "\u66f4\u65b0\u5bfc\u51fa\u8def\u5f84")

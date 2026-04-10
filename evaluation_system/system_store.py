@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 from copy import deepcopy
@@ -53,8 +53,8 @@ SIGNIFICANCE_MANIFEST_PATH = CHAPTER5_TABLES_DIR / "significance_outputs_manifes
 CORRELATION_MANIFEST_PATH = CHAPTER5_TABLES_DIR / "correlation_auto_vs_student.manifest.json"
 
 ROLE_PERMISSIONS = {
-    "管理员": ["流程总览", "题目生成", "当前任务", "审核中心", "问卷管理", "分析报告", "运行记录", "系统设置"],
-    "研究员": ["流程总览", "题目生成", "当前任务", "审核中心", "问卷管理", "分析报告", "运行记录"],
+    "管理员": ["工作台", "生成", "审核", "结果", "系统设置"],
+    "研究员": ["工作台", "生成", "审核", "结果"],
 }
 
 
@@ -64,18 +64,28 @@ def _normalize_role_name(role_name: str) -> str:
 
 
 def _normalize_role_pages(pages: list[str]) -> list[str]:
+    alias_map = {
+        "流程总览": "工作台",
+        "当前任务": "工作台",
+        "题目生成": "生成",
+        "审核中心": "审核",
+        "问卷管理": "结果",
+        "分析报告": "结果",
+        "运行记录": "结果",
+        "快照发布": "结果",
+    }
     seen: set[str] = set()
     normalized: list[str] = []
     for page in pages:
         if not isinstance(page, str):
             continue
-        candidate = page.strip()
+        candidate = alias_map.get(page.strip(), page.strip())
         if not candidate or candidate in seen:
             continue
         seen.add(candidate)
         normalized.append(candidate)
-    if "流程总览" not in seen:
-        normalized.insert(0, "流程总览")
+    if "工作台" not in seen:
+        normalized.insert(0, "工作台")
     return normalized
 
 def _normalize_role_permissions(role_permissions: dict[str, Any] | None) -> dict[str, list[str]]:
@@ -656,7 +666,7 @@ def bootstrap_system_state() -> dict[str, Any]:
             "work_orders": {},
         },
         "ui": {
-            "last_page": "流程总览",
+            "last_page": "工作台",
         },
     }
     return _reconcile_tasks(state)

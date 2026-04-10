@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import copy
 import io
@@ -94,8 +94,8 @@ EXERCISE_TYPE_LABELS = {
     "概念转代码": "代码补全",
 }
 ROLE_PERMISSIONS = {
-    "管理员": ["流程总览", "题目生成", "当前任务", "审核中心", "问卷管理", "分析报告", "运行记录", "系统设置"],
-    "研究员": ["流程总览", "题目生成", "当前任务", "审核中心", "问卷管理", "分析报告", "运行记录"],
+    "管理员": ["工作台", "生成", "审核", "结果", "系统设置"],
+    "研究员": ["工作台", "生成", "审核", "结果"],
 }
 
 
@@ -105,18 +105,28 @@ def _normalize_role_name(role_name: str) -> str:
 
 
 def _normalize_role_pages(pages: list[str]) -> list[str]:
+    alias_map = {
+        "流程总览": "工作台",
+        "当前任务": "工作台",
+        "题目生成": "生成",
+        "审核中心": "审核",
+        "问卷管理": "结果",
+        "分析报告": "结果",
+        "运行记录": "结果",
+        "快照发布": "结果",
+    }
     seen: set[str] = set()
     normalized: list[str] = []
     for page in pages:
         if not isinstance(page, str):
             continue
-        candidate = page.strip()
+        candidate = alias_map.get(page.strip(), page.strip())
         if not candidate or candidate in seen:
             continue
         seen.add(candidate)
         normalized.append(candidate)
-    if "流程总览" not in seen:
-        normalized.insert(0, "流程总览")
+    if "工作台" not in seen:
+        normalized.insert(0, "工作台")
     return normalized
 
 STAGE_DEFINITIONS = [
@@ -567,7 +577,7 @@ def init_session_state(bundle: dict[str, Any]) -> None:
     st.session_state["console_role"] = current_role
 
     if "console_page" not in st.session_state:
-        st.session_state["console_page"] = "流程总览"
+        st.session_state["console_page"] = "工作台"
 
     review_state = load_review_state_doc()
     review_items = copy.deepcopy(review_state.get("items") or bundle["review_items"])

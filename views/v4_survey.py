@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
@@ -75,8 +75,9 @@ def _run_freeze(bundle: dict) -> None:
     st.rerun()
 
 
-def render(bundle: dict) -> None:
-    render_page_header("问卷管理", "安排问卷发放、查看回收进度，并在条件满足后确认本轮分析样本。")
+def render(bundle: dict, *, show_header: bool = True) -> None:
+    if show_header:
+        render_page_header("问卷管理", "安排问卷发放、查看回收进度，并在条件满足后确认本轮分析样本。")
     survey_metrics = bundle["survey_metrics"]
     tasks = bundle.get("tasks", {})
     packet_manifest = _deliverable(bundle, "packet_manifest")

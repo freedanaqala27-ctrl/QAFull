@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import streamlit as st
 
@@ -96,8 +96,9 @@ def _run_report_generation() -> None:
     st.rerun()
 
 
-def render(bundle: dict) -> None:
-    render_page_header("分析报告", "查看当前批次的报告准备情况，生成并导出报告。")
+def render(bundle: dict, *, show_header: bool = True) -> None:
+    if show_header:
+        render_page_header("分析报告", "查看当前批次的报告准备情况，生成并导出报告。")
 
     tasks = bundle.get("tasks", {})
     report_task = tasks.get("report", {})

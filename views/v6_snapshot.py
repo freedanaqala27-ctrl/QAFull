@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import streamlit as st
 
@@ -8,8 +8,9 @@ from evaluation_system.state_store import available_snapshot_checks, can_publish
 
 
 
-def render(bundle: dict) -> None:
-    render_page_header("快照发布", "归档并发布当前批次快照。")
+def render(bundle: dict, *, show_header: bool = True) -> None:
+    if show_header:
+        render_page_header("快照发布", "归档并发布当前批次快照。")
     if st.session_state.get("console_role") != "管理员":
         render_empty_state("当前角色不可发布快照", "快照发布只保留给管理员，用于最终归档与交付。")
         return
