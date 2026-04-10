@@ -259,6 +259,9 @@ def call_bailian_asset_api(prompt_text: str, model_name: str, temperature: float
     text = extract_bailian_response_text(response)
     loaded = extract_json_object(text)
     if not loaded:
+        excerpt = normalize_space(text)[:400]
+        if excerpt:
+            raise RuntimeError(f"Asset generation response did not contain a valid JSON object. Raw excerpt: {excerpt}")
         raise RuntimeError("Asset generation response did not contain a valid JSON object.")
     return loaded
 
@@ -437,6 +440,7 @@ def process_payload(
     temperature: float,
     max_tokens: int,
 ) -> None:
+    manifest.setdefault("failed_exercises", [])
     if exercise_id in solution_index and exercise_id in tests_index:
         manifest["existing_hits"] += 1
         return
@@ -454,7 +458,20 @@ def process_payload(
         manifest["payload_derived_complete"] += 1
         return
 
-    llm_solution, llm_tests = build_llm_rows(exercise_id, payload, model_name, temperature, max_tokens)
+    try:
+        llm_solution, llm_tests = build_llm_rows(exercise_id, payload, model_name, temperature, max_tokens)
+    except Exception as exc:
+        manifest["failed_exercises"].append(
+            {
+                "exercise_id": exercise_id,
+                "title": str(payload.get("title", "") or ""),
+                "reason": str(exc),
+                "has_existing_solution": bool(existing_solution),
+                "has_existing_tests": bool(existing_tests),
+            }
+        )
+        return
+
     if not existing_solution:
         upsert_row(solution_index, llm_solution)
         manifest["llm_solution_rows"] += 1
@@ -502,6 +519,8 @@ def main() -> None:
         "llm_generated_exercises": 0,
         "llm_solution_rows": 0,
         "llm_test_rows": 0,
+        "failed_exercise_count": 0,
+        "failed_exercises": [],
         "pair_source": str(pairs_path),
         "model_name": args.model,
     }
@@ -517,6 +536,7 @@ def main() -> None:
             manifest["num_exercises_seen"] += 1
             process_payload(exercise_id, payload, solution_index, tests_index, manifest, args.model, args.temperature, args.max_tokens)
 
+    manifest["failed_exercise_count"] = len(manifest.get("failed_exercises", []))
     write_jsonl_rows(_sorted_rows(solution_index), solution_path)
     write_jsonl_rows(_sorted_rows(tests_index), tests_path)
     write_json_doc(manifest, manifest_path)

@@ -556,6 +556,20 @@ def _reconcile_tasks(state: dict[str, Any]) -> dict[str, Any]:
         "approved_total": review_metrics.get("approved_total", 0),
         "approved_missing_assets": approved_missing_assets,
     }
+    approved_total = int(review_metrics.get("approved_total") or 0)
+    approved_ready_assets = max(approved_total - approved_missing_assets, 0)
+    if tasks["review"]["status"] == "completed":
+        if approved_total <= 0:
+            tasks["evaluation"]["status"] = "blocked"
+            evaluation_reason = "No finalized exercises are available for automatic evaluation."
+        elif approved_ready_assets <= 0:
+            tasks["evaluation"]["status"] = "blocked"
+            evaluation_reason = f"{approved_missing_assets} finalized exercises are still missing evaluation assets."
+        elif tasks["evaluation"]["status"] != "completed":
+            tasks["evaluation"]["status"] = "ready"
+            evaluation_reason = ""
+    tasks["evaluation"]["metrics"]["approved_total"] = approved_total
+    tasks["evaluation"]["metrics"]["approved_ready_assets"] = approved_ready_assets
     tasks["evaluation"]["block_reason"] = evaluation_reason if tasks["evaluation"]["status"] == "blocked" else ""
 
     publish_fallback = "ready" if tasks["evaluation"]["status"] == "completed" else "blocked"
