@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
@@ -138,23 +138,25 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
             "results/curated/statistics/analysis_status.v1.json",
         ],
         "manifest": "results/curated/metrics_manifest.curated.v1.json",
-    },
-    "generate_student_packets": {
-        "label": "生成学生发放包",
+    },    "generate_student_packets": {
+        "label": "\u751f\u6210\u5b66\u751f\u53d1\u653e\u5305",
         "mode": "script_chain",
         "can_execute": True,
         "scripts": [
-            "scripts/15_prepare_student_packets_zh_cn.py",
+            "scripts/12_prepare_eval_packets.py",
+            "scripts/15_prepare_student_distribution_sheet.py",
             "scripts/16_generate_student_qrcodes.py",
             "scripts/17_prepare_student_qrcode_print_sheets.py",
         ],
         "inputs": [
             "results/curated/final_pairs.curated.v1.jsonl",
             "results/curated/blind_mapping.curated.v1.csv",
+            "results/curated/exercises_all.curated.v1.jsonl",
         ],
         "outputs": [
-            "results/curated/human_eval_packets/packets/student_eval_packet.zh-CN.curated.v1.csv",
+            "results/curated/human_eval_packets/packets/student_eval_packet.curated.v1.csv",
             "results/curated/human_eval_packets/packets/student_package_manifest.curated.v1.csv",
+            "results/curated/human_eval_packets/distribution/student_distribution_sheet.curated.v1.csv",
             "results/curated/human_eval_packets/distribution/student_qrcode_print_sheets.curated.html",
         ],
         "manifest": "results/curated/human_eval_packets/distribution/student_distribution_sheet.curated.v1.csv",

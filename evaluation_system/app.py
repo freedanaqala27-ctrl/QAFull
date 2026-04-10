@@ -12,24 +12,20 @@ from evaluation_system.state_store import (
     pop_console_flash,
 )
 from evaluation_system.theme import apply_theme
-from views import v0_overview, v2_generation, v3_review, v4_survey, v5_results, v_settings
+from views import v0_overview, v2_generation, v3_review, v5_results
 
 PAGE_WORKBENCH = "工作台"
 PAGE_GENERATION = "生成"
 PAGE_REVIEW = "审核"
-PAGE_SURVEY = "问卷"
 PAGE_RESULTS = "结果"
-PAGE_SETTINGS = "系统设置"
 
-DEMO_PAGES = [PAGE_WORKBENCH, PAGE_GENERATION, PAGE_REVIEW, PAGE_SURVEY, PAGE_RESULTS]
+DEMO_PAGES = [PAGE_WORKBENCH, PAGE_GENERATION, PAGE_REVIEW, PAGE_RESULTS]
 
 PAGE_RENDERERS: dict[str, Callable[[dict], None]] = {
     PAGE_WORKBENCH: v0_overview.render,
     PAGE_GENERATION: v2_generation.render,
     PAGE_REVIEW: v3_review.render,
-    PAGE_SURVEY: v4_survey.render,
     PAGE_RESULTS: v5_results.render,
-    PAGE_SETTINGS: v_settings.render,
 }
 
 LEGACY_PAGE_ALIASES = {
@@ -37,7 +33,7 @@ LEGACY_PAGE_ALIASES = {
     "当前任务": PAGE_WORKBENCH,
     "题目生成": PAGE_GENERATION,
     "审核中心": PAGE_REVIEW,
-    "问卷管理": PAGE_SURVEY,
+    "问卷管理": PAGE_RESULTS,
     "分析报告": PAGE_RESULTS,
     "运行记录": PAGE_RESULTS,
     "快照发布": PAGE_RESULTS,
@@ -56,7 +52,9 @@ def canonical_page_name(page_name: str) -> str:
     clean_name = str(page_name or "").strip()
     if not clean_name:
         return PAGE_WORKBENCH
-    return LEGACY_PAGE_ALIASES.get(clean_name, clean_name)
+    if clean_name in DEMO_PAGES:
+        return clean_name
+    return LEGACY_PAGE_ALIASES.get(clean_name, PAGE_WORKBENCH)
 
 
 def sync_page_state() -> str:
@@ -84,18 +82,18 @@ def main() -> None:
 
     with st.sidebar:
         st.markdown("## 深度学习编程题生成与评价系统")
-        st.caption("答辩演示模式")
+        st.caption("自动化主线演示")
         st.caption("当前批次")
         st.markdown(f"**{bundle['settings']['batch_name']}**")
 
         current_page = sync_page_state()
-        if current_page not in DEMO_PAGES and current_page != PAGE_SETTINGS:
+        if current_page not in DEMO_PAGES:
             st.session_state["console_page"] = PAGE_WORKBENCH
             current_page = PAGE_WORKBENCH
 
-        st.markdown("### 研究主线")
+        st.markdown("### 自动化主线")
         selected = st.radio(
-            "研究主线",
+            "自动化主线",
             DEMO_PAGES,
             index=DEMO_PAGES.index(current_page) if current_page in DEMO_PAGES else 0,
             label_visibility="collapsed",

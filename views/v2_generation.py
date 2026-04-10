@@ -4,7 +4,7 @@ from datetime import datetime
 
 import streamlit as st
 
-from evaluation_system.components import render_checklist, render_key_value_table, render_page_header
+from evaluation_system.components import render_key_value_table, render_page_header
 from evaluation_system.runner import execute_action
 from evaluation_system.state_store import difficulty_label, exercise_type_label, set_console_flash, task_status_label, topic_label
 
@@ -22,13 +22,16 @@ def _init_form(bundle: dict) -> None:
     defaults.setdefault("provider", "bailian")
     defaults.setdefault("model", "qwen-plus")
     defaults.setdefault("num_candidates", 1)
+    defaults.setdefault("batch_limit", 12)
     for key, value in defaults.items():
         session_key = f"generation-{key}"
         if session_key not in st.session_state:
             st.session_state[session_key] = value
+    if "generation-batch_limit" not in st.session_state:
+        st.session_state["generation-batch_limit"] = 12
 
 
-def _build_params() -> dict:
+def _base_params() -> dict:
     generation_batch = str(st.session_state.get("generation-generation_batch") or "").strip()
     if not generation_batch:
         generation_batch = datetime.now().strftime("batch-%Y%m%d-%H%M%S")
@@ -44,7 +47,6 @@ def _build_params() -> dict:
         "num_candidates": int(st.session_state.get("generation-num_candidates") or 1),
         "temperature": 0.7,
         "max_tokens": 2200,
-        "limit": 1,
         "strict_filter": False,
         "min_instruction_completeness": None,
         "min_structure_completeness": None,
@@ -52,13 +54,22 @@ def _build_params() -> dict:
     }
 
 
-def _run_generation() -> None:
-    params = _build_params()
-    with st.spinner("正在生成候选题并执行自动筛选..."):
+def _run_generation(*, batch_mode: bool) -> None:
+    params = _base_params()
+    if batch_mode:
+        params["limit"] = int(st.session_state.get("generation-batch_limit") or 12)
+        note = f"答辩模式批量生成 / {params['generation_batch']}"
+        spinner_text = "正在批量生成候选题并执行自动筛选..."
+    else:
+        params["limit"] = 1
+        note = f"答辩模式单题生成 / {params['generation_batch']}"
+        spinner_text = "正在生成一道候选题并执行自动筛选..."
+
+    with st.spinner(spinner_text):
         result = execute_action(
             "start_generation",
             operator=st.session_state["console_role"],
-            note=f"答辩模式生成 / {params['generation_batch']}",
+            note=note,
             params=params,
         )
     set_console_flash(result["message"], "success" if result["status"] == "success" else "danger")
@@ -80,7 +91,7 @@ def _run_finalize() -> None:
 
 def render(bundle: dict) -> None:
     _init_form(bundle)
-    render_page_header("生成", "用最少参数完成提示词渲染、候选题生成与自动筛选。")
+    render_page_header("生成", "配置模型与范围，生成候选题并进入后续审核流程。")
 
     tasks = bundle.get("tasks", {})
     generation_task = tasks.get("generation", {})
@@ -100,75 +111,50 @@ def render(bundle: dict) -> None:
         columns=3,
     )
 
-    left, right = st.columns([1.1, 0.9], gap="large")
-    with left:
-        st.markdown("### 最小生成配置")
-        cols = st.columns(2)
-        cols[0].text_input("模板版本", key="generation-prompt_version")
-        cols[1].selectbox("Provider", PROVIDER_OPTIONS, key="generation-provider")
-        cols[0].selectbox(
-            "主题",
-            TOPIC_OPTIONS,
-            format_func=lambda value: "全部主题" if not value else topic_label(value),
-            key="generation-topic",
-        )
-        cols[1].selectbox(
-            "难度",
-            DIFFICULTY_OPTIONS,
-            format_func=lambda value: "全部难度" if not value else difficulty_label(value),
-            key="generation-difficulty",
-        )
-        cols[0].selectbox(
-            "题型",
-            EXERCISE_TYPE_OPTIONS,
-            format_func=lambda value: "全部题型" if not value else exercise_type_label(value),
-            key="generation-exercise_type",
-        )
-        cols[1].text_input("模型名称", key="generation-model")
-        cols[0].number_input("每题候选数", min_value=1, step=1, key="generation-num_candidates")
-        cols[1].text_input("参考题编号（可选）", key="generation-reference_id")
-        with st.expander("可选限制", expanded=False):
-            st.text_input("生成批次", key="generation-generation_batch")
+    st.markdown("### 生成配置")
+    cols = st.columns(2)
+    cols[0].text_input("模板版本", key="generation-prompt_version")
+    cols[1].selectbox("Provider", PROVIDER_OPTIONS, key="generation-provider")
+    cols[0].selectbox(
+        "主题",
+        TOPIC_OPTIONS,
+        format_func=lambda value: "全部主题" if not value else topic_label(value),
+        key="generation-topic",
+    )
+    cols[1].selectbox(
+        "难度",
+        DIFFICULTY_OPTIONS,
+        format_func=lambda value: "全部难度" if not value else difficulty_label(value),
+        key="generation-difficulty",
+    )
+    cols[0].selectbox(
+        "题型",
+        EXERCISE_TYPE_OPTIONS,
+        format_func=lambda value: "全部题型" if not value else exercise_type_label(value),
+        key="generation-exercise_type",
+    )
+    cols[1].text_input("模型名称", key="generation-model")
+    cols[0].number_input("每题候选数", min_value=1, step=1, key="generation-num_candidates")
+    cols[1].number_input("批量生成题数", min_value=1, step=1, key="generation-batch_limit")
+    st.text_input("参考题编号（可选）", key="generation-reference_id")
+    with st.expander("可选限制", expanded=False):
+        st.text_input("生成批次", key="generation-generation_batch")
 
-        action_cols = st.columns(3)
-        if action_cols[0].button("开始生成", type="primary", use_container_width=True):
-            _run_generation()
-        if action_cols[1].button("进入审核", use_container_width=True):
-            st.session_state["console_page"] = "审核"
-            st.rerun()
-        finalize_disabled = review_task.get("status") not in {"ready", "failed"}
-        if action_cols[2].button("定稿入库", use_container_width=True, disabled=finalize_disabled):
-            _run_finalize()
-        if finalize_disabled and review_task.get("block_reason"):
-            st.caption(f"当前暂不能定稿：{review_task['block_reason']}")
+    st.markdown("### 生成动作")
+    action_cols = st.columns(4)
+    batch_disabled = bool(str(st.session_state.get("generation-reference_id") or "").strip())
+    if action_cols[0].button("生成一道", type="primary", use_container_width=True):
+        _run_generation(batch_mode=False)
+    if action_cols[1].button("批量生成", use_container_width=True, disabled=batch_disabled):
+        _run_generation(batch_mode=True)
+    if action_cols[2].button("进入审核", use_container_width=True):
+        st.session_state["console_page"] = "审核"
+        st.rerun()
+    finalize_disabled = review_task.get("status") not in {"ready", "failed"}
+    if action_cols[3].button("定稿入库", use_container_width=True, disabled=finalize_disabled):
+        _run_finalize()
 
-    with right:
-        st.markdown("### 当前进度")
-        render_checklist(
-            [
-                {
-                    "label": "候选题生成",
-                    "note": "系统将参考题转成提示词，并调用模型生成候选题。",
-                    "status_label": "已生成" if metrics.get("generation_manifest") else "未生成",
-                    "tone": "success" if metrics.get("generation_manifest") else "warning",
-                },
-                {
-                    "label": "自动筛选",
-                    "note": "对候选题做结构完整性、目标一致性和重复风险筛选。",
-                    "status_label": "已完成" if metrics.get("accepted_count", 0) > 0 else "待执行",
-                    "tone": "success" if metrics.get("accepted_count", 0) > 0 else "warning",
-                },
-                {
-                    "label": "人工审核准备",
-                    "note": f"当前有 {review_summary.get('pending', 0)} 道题等待人工审核。",
-                    "status_label": "可进入审核" if review_summary.get("total", 0) > 0 else "等待候选题",
-                    "tone": "success" if review_summary.get("total", 0) > 0 else "warning",
-                },
-                {
-                    "label": "正式样本入库",
-                    "note": "只有审核通过后才能进入正式配对题库。",
-                    "status_label": task_status_label(review_task.get("status", "not_started")),
-                    "tone": "success" if metrics.get("final_pairs_ready") else "warning",
-                },
-            ]
-        )
+    if batch_disabled:
+        st.caption("批量生成时请留空“参考题编号”。")
+    if finalize_disabled and review_task.get("block_reason"):
+        st.caption(f"当前暂不能定稿：{review_task['block_reason']}")

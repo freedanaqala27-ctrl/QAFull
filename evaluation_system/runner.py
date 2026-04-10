@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
 import subprocess
@@ -265,16 +265,14 @@ def _build_script_steps(action_key: str, params: dict[str, Any], run_id: str) ->
             {"script": "scripts/06c_validate_reference_solutions.py", "args": ["--use-curated"]},
             {"script": "scripts/06d_run_functional_correctness.py", "args": ["--use-curated"]},
             {"script": "scripts/06_compute_auto_metrics.py", "args": ["--use-curated"]},
-            {"script": "scripts/07_statistical_analysis.py", "args": ["--use-curated"]},
         ]
-
     if action_key == "generate_student_packets":
         return [
-            {"script": "scripts/15_prepare_student_packets_zh_cn.py", "args": []},
+            {"script": "scripts/12_prepare_eval_packets.py", "args": []},
+            {"script": "scripts/15_prepare_student_distribution_sheet.py", "args": []},
             {"script": "scripts/16_generate_student_qrcodes.py", "args": []},
             {"script": "scripts/17_prepare_student_qrcode_print_sheets.py", "args": []},
         ]
-
     if action_key == "freeze_analysis_input":
         data_source = load_json_doc(WORKFLOW_STATE_PATH).get("admin_settings", {}).get("data_source", {})
         fetch_from_db = params.get("fetch_from_db")

@@ -1,3 +1,25 @@
 blind_exercise_id,exercise_id,source_type,topic,difficulty,exercise_type
-B0001,AI-CNN-01-01,AI,CNN,intermediate,code completion
-B0002,CNN-01,Expert,CNN,intermediate,code completion
+B0001,AI-RNN-01-01,AI,RNN,intermediate,code completion
+B0002,AI-CNN-03-01,AI,CNN,beginner-intermediate,model building
+B0003,RNN-03,Expert,RNN,intermediate,model building
+B0004,AI-TRF-02-01,AI,Transformer,intermediate,code completion
+B0005,AI-OPT-03-01,AI,Optimization,intermediate,model revision
+B0006,OPT-02,Expert,Optimization,beginner-intermediate,training-analysis
+B0007,AI-RNN-02-01,AI,RNN,intermediate,model building
+B0008,AI-OPT-02-01,AI,Optimization,beginner-intermediate,training-analysis
+B0009,RNN-01,Expert,RNN,intermediate,code completion
+B0010,RNN-02,Expert,RNN,intermediate,model building
+B0011,AI-CNN-01-01,AI,CNN,intermediate,code completion
+B0012,OPT-03,Expert,Optimization,intermediate,model revision
+B0013,AI-TRF-01-01,AI,Transformer,intermediate-advanced,code completion
+B0014,CNN-04,Expert,CNN,intermediate,training-analysis
+B0015,AI-MIT-01-01,AI,RNN,intermediate,code completion
+B0016,CNN-02,Expert,CNN,beginner,concept-to-code
+B0017,TRF-02,Expert,Transformer,intermediate,code completion
+B0018,CNN-03,Expert,CNN,beginner-intermediate,model building
+B0019,AI-RNN-03-01,AI,RNN,intermediate,model building
+B0020,AI-CNN-04-01,AI,CNN,intermediate,training-analysis
+B0021,MIT-01,Expert,RNN,intermediate,code completion
+B0022,CNN-01,Expert,CNN,intermediate,code completion
+B0023,AI-CNN-02-01,AI,CNN,beginner,code completion
+B0024,TRF-01,Expert,Transformer,intermediate-advanced,code completion
