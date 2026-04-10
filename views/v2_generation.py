@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from datetime import datetime
 
@@ -37,6 +37,8 @@ def _task_tone(status: str) -> str:
 
 def _init_form(bundle: dict) -> None:
     defaults = dict(bundle.get("generation_config", {}))
+    if not str(defaults.get("generation_batch") or "").strip():
+        defaults["generation_batch"] = datetime.now().strftime("batch-%Y%m%d-%H%M%S")
     exercise_type = str(defaults.get("exercise_type") or "").strip()
     defaults["exercise_type"] = {
         "Code Completion": "code completion",
@@ -62,7 +64,6 @@ def _build_params() -> dict:
     generation_batch = str(st.session_state.get("generation-generation_batch") or "").strip()
     if not generation_batch:
         generation_batch = datetime.now().strftime("batch-%Y%m%d-%H%M%S")
-        st.session_state["generation-generation_batch"] = generation_batch
 
     def _optional_float(key: str) -> float | None:
         raw = str(st.session_state.get(key) or "").strip()
