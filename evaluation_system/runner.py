@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 import subprocess
@@ -63,16 +63,17 @@ VENV_SCRIPTS = VENV_ROOT / "Scripts"
 VENV_SITE_PACKAGES = VENV_ROOT / "Lib" / "site-packages"
 
 ASSET_SCRIPT_MAP = {
-    "补全代码": "scripts/23_populate_code_completion_overlays.py",
-    "模型修正": "scripts/24_populate_model_revision_overlays.py",
+    "琛ュ叏浠ｇ爜": "scripts/23_populate_code_completion_overlays.py",
+    "妯″瀷淇": "scripts/24_populate_model_revision_overlays.py",
     "概念转代码": "scripts/25_populate_concept_to_code_overlays.py",
-    "模型构建": "scripts/26_populate_model_building_overlays.py",
-    "训练分析": "scripts/27_populate_training_analysis_overlays.py",
+    "妯″瀷鏋勫缓": "scripts/26_populate_model_building_overlays.py",
+    "璁粌鍒嗘瀽": "scripts/27_populate_training_analysis_overlays.py",
 }
 
 SECTION_BY_ACTION = {
     "start_generation": "generation",
     "finalize_review_batch": "review",
+    "repair_eval_assets": "evaluation",
     "run_auto_evaluation": "evaluation",
     "generate_student_packets": "survey",
     "freeze_analysis_input": "survey_data",
@@ -84,6 +85,7 @@ SECTION_BY_ACTION = {
 STAGE_AFTER_SUCCESS = {
     "start_generation": "review",
     "finalize_review_batch": "evaluation",
+    "repair_eval_assets": "evaluation",
     "run_auto_evaluation": "survey_publish",
     "generate_student_packets": "survey_collect",
     "freeze_analysis_input": "report",
@@ -94,6 +96,7 @@ STAGE_AFTER_SUCCESS = {
 SUCCESS_STATUS_BY_ACTION = {
     "start_generation": "completed",
     "finalize_review_batch": "completed",
+    "repair_eval_assets": "in_progress",
     "run_auto_evaluation": "completed",
     "generate_student_packets": "completed",
     "freeze_analysis_input": "completed",
@@ -105,6 +108,7 @@ SUCCESS_STATUS_BY_ACTION = {
 EXECUTABLE_ACTIONS = {
     "start_generation",
     "finalize_review_batch",
+    "repair_eval_assets",
     "run_auto_evaluation",
     "generate_student_packets",
     "freeze_analysis_input",
@@ -116,6 +120,7 @@ EXECUTABLE_ACTIONS = {
 ACTION_TO_TASK_KEY = {
     "start_generation": "generation",
     "finalize_review_batch": "review",
+    "repair_eval_assets": "evaluation",
     "run_auto_evaluation": "evaluation",
     "generate_student_packets": "survey_publish",
     "freeze_analysis_input": "freeze",
@@ -269,6 +274,16 @@ def _build_script_steps(action_key: str, params: dict[str, Any], run_id: str) ->
             {"script": "scripts/27_populate_training_analysis_overlays.py", "args": []},
         ]
 
+    if action_key == "repair_eval_assets":
+        return [
+            {"script": "scripts/28_generate_dynamic_eval_assets.py", "args": []},
+            {"script": "scripts/23_populate_code_completion_overlays.py", "args": []},
+            {"script": "scripts/24_populate_model_revision_overlays.py", "args": []},
+            {"script": "scripts/25_populate_concept_to_code_overlays.py", "args": []},
+            {"script": "scripts/26_populate_model_building_overlays.py", "args": []},
+            {"script": "scripts/27_populate_training_analysis_overlays.py", "args": []},
+        ]
+
     if action_key == "run_auto_evaluation":
         return [
             {"script": "scripts/06c_validate_reference_solutions.py", "args": ["--use-curated"]},
@@ -288,7 +303,7 @@ def _build_script_steps(action_key: str, params: dict[str, Any], run_id: str) ->
         data_source = load_json_doc(WORKFLOW_STATE_PATH).get("admin_settings", {}).get("data_source", {})
         fetch_from_db = params.get("fetch_from_db")
         if fetch_from_db is None:
-            fetch_from_db = data_source.get("pull_mode") == "直接拉库"
+            fetch_from_db = data_source.get("pull_mode") == "鐩存帴鎷夊簱"
         params["fetch_from_db"] = bool(fetch_from_db)
         export_args = ["--fetch-from-db"] if params["fetch_from_db"] else []
         return [
@@ -542,7 +557,7 @@ def _build_report_summary() -> dict[str, Any]:
     highlights = [
         f"过滤后纳入 {participants} 名参与者、{exercises} 道题目进入正式分析。",
         (
-            f"显著性检验表已生成，当前共有 {significant_count} 项指标在多重校正后达到显著。"
+            f"显著性检验表已经生成，当前共有 {significant_count} 项指标在多重校正后达到显著。"
             if significance_manifest
             else "显著性检验结果尚未生成。"
         ),
@@ -741,9 +756,9 @@ def _execute_script_chain(
             if completed.returncode != 0:
                 status = "failed"
                 stderr_tail = (completed.stderr or completed.stdout or "").strip()
-                error = f"{script_path.name} 执行失败（exit {completed.returncode}）"
+                error = f"{script_path.name} 执行失败（exit {completed.returncode}）。"
                 if stderr_tail:
-                    error = f"{error}：{stderr_tail[-500:]}"
+                    error = f"{error} {stderr_tail[-500:]}"
                 break
     except Exception as exc:
         status = "failed"
@@ -764,6 +779,9 @@ def _execute_script_chain(
                 extra_outputs.append(str(REVIEW_STATE_PATH))
             elif action_key == "finalize_review_batch":
                 extra_outputs.extend(sync_finalized_results_to_curated())
+                _sync_review_assets_from_curated()
+                extra_outputs.append(str(REVIEW_STATE_PATH))
+            elif action_key == "repair_eval_assets":
                 _sync_review_assets_from_curated()
                 extra_outputs.append(str(REVIEW_STATE_PATH))
             elif action_key == "generate_analysis_report":
@@ -1135,11 +1153,11 @@ def save_console_settings(settings: dict[str, Any], *, operator: str, note: str)
     admin_settings["paths"] = settings.get("paths", admin_settings.get("paths", {}))
 
     survey_data = workflow_state.setdefault("survey_data", {})
-    pull_mode = admin_settings.get("data_source", {}).get("pull_mode", "本地 CSV")
-    survey_data["fetch_from_db"] = pull_mode == "直接拉库"
+    pull_mode = admin_settings.get("data_source", {}).get("pull_mode", "鏈湴 CSV")
+    survey_data["fetch_from_db"] = pull_mode == "鐩存帴鎷夊簱"
     survey_data["source_mode"] = "db" if survey_data["fetch_from_db"] else "csv"
 
-    workflow_state.setdefault("ui", {})["last_page"] = "系统设置"
+    workflow_state.setdefault("ui", {})["last_page"] = "绯荤粺璁剧疆"
     workflow_state["updated_at"] = _now_iso()
     save_json_doc(WORKFLOW_STATE_PATH, workflow_state)
 
@@ -1147,7 +1165,7 @@ def save_console_settings(settings: dict[str, Any], *, operator: str, note: str)
         "batch_name": settings.get("batch_name", ""),
         "freeze_threshold": int(settings.get("freeze_threshold") or 30),
         "current_mainline": settings.get("current_mainline", ""),
-        "pull_mode": settings.get("data_source", {}).get("pull_mode", "本地 CSV"),
+        "pull_mode": settings.get("data_source", {}).get("pull_mode", "鏈湴 CSV"),
         "role_permissions": settings.get("role_permissions", {}),
         "paths": settings.get("paths", {}),
     }
@@ -1177,6 +1195,8 @@ def save_console_settings(settings: dict[str, Any], *, operator: str, note: str)
         "error": "",
         "record": record,
     }
+
+
 
 
 

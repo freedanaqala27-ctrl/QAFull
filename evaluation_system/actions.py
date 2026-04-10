@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
@@ -8,7 +8,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 ACTION_REGISTRY: dict[str, dict[str, Any]] = {
     "start_generation": {
-        "label": "生成候选题",
+        "label": "鐢熸垚鍊欓€夐",
         "mode": "script_chain",
         "can_execute": True,
         "scripts": [
@@ -31,7 +31,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "manifest": "outputs/raw_generations/generation_manifest.v1.json",
     },
     "finalize_review_batch": {
-        "label": "定稿入库",
+        "label": "瀹氱鍏ュ簱",
         "mode": "script_chain",
         "can_execute": True,
         "scripts": [
@@ -59,8 +59,33 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         ],
         "manifest": "results/curated/final_pairs.curated.v1.jsonl",
     },
+    "repair_eval_assets": {
+        "label": "补齐评测资产",
+        "mode": "script_chain",
+        "can_execute": True,
+        "scripts": [
+            "scripts/28_generate_dynamic_eval_assets.py",
+            "scripts/23_populate_code_completion_overlays.py",
+            "scripts/24_populate_model_revision_overlays.py",
+            "scripts/25_populate_concept_to_code_overlays.py",
+            "scripts/26_populate_model_building_overlays.py",
+            "scripts/27_populate_training_analysis_overlays.py",
+        ],
+        "inputs": [
+            "results/curated/final_pairs.curated.v1.jsonl",
+            "results/curated/reference_solutions.curated.v1.jsonl",
+            "results/curated/executable_tests.curated.v1.jsonl",
+            "results/curated/dynamic_eval_assets.manifest.v1.json",
+        ],
+        "outputs": [
+            "results/curated/reference_solutions.curated.v1.jsonl",
+            "results/curated/executable_tests.curated.v1.jsonl",
+            "results/curated/dynamic_eval_assets.manifest.v1.json",
+        ],
+        "manifest": "results/curated/dynamic_eval_assets.manifest.v1.json",
+    },
     "open_review_center": {
-        "label": "进入审核中心",
+        "label": "杩涘叆瀹℃牳涓績",
         "mode": "navigation",
         "can_execute": False,
         "scripts": ["outputs/system/workflow_state.v1.json"],
@@ -69,7 +94,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "manifest": "outputs/system/workflow_state.v1.json",
     },
     "approve_candidate": {
-        "label": "通过",
+        "label": "閫氳繃",
         "mode": "state",
         "can_execute": False,
         "scripts": ["outputs/system/workflow_state.v1.json"],
@@ -78,7 +103,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "manifest": "outputs/system/workflow_state.v1.json",
     },
     "reject_candidate": {
-        "label": "驳回",
+        "label": "椹冲洖",
         "mode": "state",
         "can_execute": False,
         "scripts": ["outputs/system/workflow_state.v1.json"],
@@ -181,7 +206,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "manifest": "results/curated/human_eval_packets/distribution/student_distribution_sheet.curated.v1.csv",
     },
     "freeze_analysis_input": {
-        "label": "冻结分析输入",
+        "label": "鍐荤粨鍒嗘瀽杈撳叆",
         "mode": "script_chain",
         "can_execute": True,
         "scripts": [
@@ -201,7 +226,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "manifest": "results/student_subsets/student_subset_export_manifest.json",
     },
     "generate_analysis_report": {
-        "label": "生成分析报告",
+        "label": "鐢熸垚鍒嗘瀽鎶ュ憡",
         "mode": "script_chain",
         "can_execute": True,
         "scripts": [
@@ -223,7 +248,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "manifest": "outputs/system/report_summary.v1.json",
     },
     "publish_snapshot": {
-        "label": "发布完整快照",
+        "label": "鍙戝竷瀹屾暣蹇収",
         "mode": "builtin",
         "can_execute": True,
         "scripts": [],
@@ -239,7 +264,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "manifest": "outputs/system/workflow_state.v1.json",
     },
     "save_settings": {
-        "label": "保存系统设置",
+        "label": "淇濆瓨绯荤粺璁剧疆",
         "mode": "state",
         "can_execute": False,
         "scripts": ["outputs/system/workflow_state.v1.json"],
@@ -271,3 +296,4 @@ def get_action(action_key: str) -> dict[str, Any]:
         "script_paths": _abs_paths(base.get("scripts", [])),
         "manifest_path": manifest_path,
     }
+
