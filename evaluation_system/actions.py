@@ -36,6 +36,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "can_execute": True,
         "scripts": [
             "scripts/05_finalize_pairs.py",
+            "scripts/28_generate_dynamic_eval_assets.py",
             "scripts/23_populate_code_completion_overlays.py",
             "scripts/24_populate_model_revision_overlays.py",
             "scripts/25_populate_concept_to_code_overlays.py",
@@ -54,6 +55,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
             "results/curated/blind_mapping.curated.v1.csv",
             "results/curated/reference_solutions.curated.v1.jsonl",
             "results/curated/executable_tests.curated.v1.jsonl",
+            "results/curated/dynamic_eval_assets.manifest.v1.json",
         ],
         "manifest": "results/curated/final_pairs.curated.v1.jsonl",
     },
@@ -102,6 +104,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
         "outputs": [
             "results/curated/reference_solutions.curated.v1.jsonl",
             "results/curated/executable_tests.curated.v1.jsonl",
+            "results/curated/dynamic_eval_assets.manifest.v1.json",
         ],
         "manifest": "results/curated/final_pairs.curated.v1.jsonl",
     },
@@ -138,6 +141,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
             "results/curated/final_pairs.curated.v1.jsonl",
             "results/curated/reference_solutions.curated.v1.jsonl",
             "results/curated/executable_tests.curated.v1.jsonl",
+            "results/curated/dynamic_eval_assets.manifest.v1.json",
         ],
         "outputs": [
             "results/curated/reference_solution_validation.curated.v1.csv",
@@ -152,7 +156,8 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
             "results/curated/figures/pair_similarity_boxplot.png",
         ],
         "manifest": "results/curated/metrics_manifest.curated.v1.json",
-    },    "generate_student_packets": {
+    },
+    "generate_student_packets": {
         "label": "\u751f\u6210\u5b66\u751f\u53d1\u653e\u5305",
         "mode": "script_chain",
         "can_execute": True,

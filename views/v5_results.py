@@ -37,6 +37,7 @@ CATEGORY_CONFIG = {
             ("可评测子集分布", FIGURES_DIR / "correctness_evaluable_subset.png"),
             ("全覆盖概览", FIGURES_DIR / "correctness_full_coverage_overview.png"),
         ],
+        "empty_hint": "当前这批题目还没有形成可评测的 correctness 子集。通常意味着参考解或可执行测试尚未完整生成。",
     },
     "题面说明质量": {
         "tables": [
@@ -112,31 +113,37 @@ def _filter_metrics(df: pd.DataFrame, prefix: str | None) -> pd.DataFrame:
     if metric_col is None:
         return df
     filtered = df[df[metric_col].astype(str).str.startswith(prefix)].copy()
-    return filtered if not filtered.empty else df
+    return filtered if not filtered.empty else pd.DataFrame()
 
 
-def _render_table_block(title: str, path: Path, prefix: str | None) -> None:
+def _render_table_block(title: str, path: Path, prefix: str | None) -> bool:
     df = _filter_metrics(_load_dataframe(path), prefix)
     st.markdown(f"**{title}**")
     if df.empty:
         st.caption("该表尚未生成。")
-        return
+        return False
     st.dataframe(df, use_container_width=True, hide_index=True)
+    return True
 
 
-def _render_figure_block(title: str, path: Path) -> None:
+def _render_figure_block(title: str, path: Path) -> bool:
     st.markdown(f"**{title}**")
     if not path.exists():
         st.caption("该图尚未生成。")
-        return
+        return False
     st.image(str(path), use_container_width=True)
+    return True
 
 
-def _render_category_tab(config: dict[str, list[tuple[str, Path, str | None]]]) -> None:
+def _render_category_tab(config: dict[str, object]) -> None:
+    rendered_any = False
     for title, path, prefix in config.get("tables", []):
-        _render_table_block(title, path, prefix)
+        rendered_any = _render_table_block(title, path, prefix) or rendered_any
     for title, path in config.get("figures", []):
-        _render_figure_block(title, path)
+        rendered_any = _render_figure_block(title, path) or rendered_any
+    if not rendered_any:
+        empty_hint = str(config.get("empty_hint") or "当前分类结果尚未生成。")
+        st.info(empty_hint)
 
 
 def _render_pending_state(bundle: dict) -> None:

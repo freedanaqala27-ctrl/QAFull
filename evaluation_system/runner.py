@@ -39,6 +39,7 @@ from .state_store import (
     append_run_event,
     available_report_export_paths,
     load_json_doc,
+    load_jsonl_docs,
     load_review_state_doc,
     resolve_path,
     save_json_doc,
@@ -260,6 +261,7 @@ def _build_script_steps(action_key: str, params: dict[str, Any], run_id: str) ->
     if action_key == "finalize_review_batch":
         return [
             {"script": "scripts/05_finalize_pairs.py", "args": []},
+            {"script": "scripts/28_generate_dynamic_eval_assets.py", "args": []},
             {"script": "scripts/23_populate_code_completion_overlays.py", "args": []},
             {"script": "scripts/24_populate_model_revision_overlays.py", "args": []},
             {"script": "scripts/25_populate_concept_to_code_overlays.py", "args": []},
@@ -340,12 +342,36 @@ def _refresh_workflow_queues(workflow_state: dict[str, Any]) -> None:
     queues["snapshot_ready"] = 1 if REPORT_SUMMARY_PATH.exists() else 0
 
 
-def _mark_approved_review_assets_ready() -> None:
+def _sync_review_assets_from_curated() -> None:
     review_doc = load_review_state_doc()
     items = review_doc.get("items", []) if isinstance(review_doc, dict) else []
     history = review_doc.get("history", {}) if isinstance(review_doc, dict) else {}
     if not isinstance(items, list):
         return
+
+    final_pairs_path = PROJECT_ROOT / "results" / "curated" / "final_pairs.curated.v1.jsonl"
+    reference_solutions_path = PROJECT_ROOT / "results" / "curated" / "reference_solutions.curated.v1.jsonl"
+    executable_tests_path = PROJECT_ROOT / "results" / "curated" / "executable_tests.curated.v1.jsonl"
+
+    pair_rows = load_jsonl_docs(final_pairs_path)
+    solution_rows = load_jsonl_docs(reference_solutions_path)
+    tests_rows = load_jsonl_docs(executable_tests_path)
+
+    pair_by_generation_id = {
+        str(row.get("generation_id") or "").strip(): row
+        for row in pair_rows
+        if str(row.get("generation_id") or "").strip()
+    }
+    solution_ids = {
+        str(row.get("exercise_id") or "").strip()
+        for row in solution_rows
+        if str(row.get("exercise_id") or "").strip()
+    }
+    test_ids = {
+        str(row.get("exercise_id") or "").strip()
+        for row in tests_rows
+        if str(row.get("exercise_id") or "").strip()
+    }
 
     updated = False
     stamp = _now_iso()
@@ -354,20 +380,46 @@ def _mark_approved_review_assets_ready() -> None:
             continue
         if str(item.get("review_status") or "") != "approved":
             continue
-        if item.get("solution_overlay_ready") and item.get("tests_overlay_ready") and item.get("eval_status") == "ready":
-            continue
 
-        item["solution_overlay_ready"] = True
-        item["tests_overlay_ready"] = True
-        item["eval_status"] = "ready"
-        item["last_action"] = "定稿后自动补齐评测资产"
-        candidate_id = str(item.get("candidate_id") or "")
-        rows = history.get(candidate_id, []) if isinstance(history, dict) else []
-        if not rows or str(rows[-1].get("action") or "") != "定稿后自动补齐评测资产":
+        generation_id = str(item.get("generation_id") or "").strip()
+        pair_row = pair_by_generation_id.get(generation_id, {})
+        reference_exercise_id = str(pair_row.get("reference_exercise_id") or "").strip()
+        ai_exercise_id = str(pair_row.get("ai_exercise_id") or "").strip()
+
+        solution_ready = bool(
+            reference_exercise_id
+            and ai_exercise_id
+            and reference_exercise_id in solution_ids
+            and ai_exercise_id in solution_ids
+        )
+        tests_ready = bool(
+            reference_exercise_id
+            and ai_exercise_id
+            and reference_exercise_id in test_ids
+            and ai_exercise_id in test_ids
+        )
+        eval_ready = solution_ready and tests_ready
+
+        changed = (
+            bool(item.get("solution_overlay_ready")) != solution_ready
+            or bool(item.get("tests_overlay_ready")) != tests_ready
+            or str(item.get("eval_status") or "") != ("ready" if eval_ready else "not_ready")
+        )
+
+        item["solution_overlay_ready"] = solution_ready
+        item["tests_overlay_ready"] = tests_ready
+        item["eval_status"] = "ready" if eval_ready else "not_ready"
+
+        action_text = "finalize_assets_synced" if eval_ready else "finalize_assets_incomplete"
+        if changed:
+            item["last_action"] = action_text
+            candidate_id = str(item.get("candidate_id") or "")
+            rows = history.get(candidate_id, []) if isinstance(history, dict) else []
             rows = list(rows) if isinstance(rows, list) else []
-            rows.append({"time": stamp, "operator": "系统", "action": "定稿后自动补齐评测资产"})
-            history[candidate_id] = rows
-        updated = True
+            if not rows or str(rows[-1].get("action") or "") != action_text:
+                rows.append({"time": stamp, "operator": "system", "action": action_text})
+                history[candidate_id] = rows
+            updated = True
 
     if updated:
         save_json_doc(
@@ -712,7 +764,7 @@ def _execute_script_chain(
                 extra_outputs.append(str(REVIEW_STATE_PATH))
             elif action_key == "finalize_review_batch":
                 extra_outputs.extend(sync_finalized_results_to_curated())
-                _mark_approved_review_assets_ready()
+                _sync_review_assets_from_curated()
                 extra_outputs.append(str(REVIEW_STATE_PATH))
             elif action_key == "generate_analysis_report":
                 refresh_report_summary()
