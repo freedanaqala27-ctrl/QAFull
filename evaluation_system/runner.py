@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 import subprocess
@@ -265,6 +265,8 @@ def _build_script_steps(action_key: str, params: dict[str, Any], run_id: str) ->
             {"script": "scripts/06c_validate_reference_solutions.py", "args": ["--use-curated"]},
             {"script": "scripts/06d_run_functional_correctness.py", "args": ["--use-curated"]},
             {"script": "scripts/06_compute_auto_metrics.py", "args": ["--use-curated"]},
+            {"script": "scripts/07_statistical_analysis.py", "args": ["--use-curated"]},
+            {"script": "scripts/10_visualize_results.py", "args": ["--use-curated"]},
         ]
     if action_key == "generate_student_packets":
         return [

@@ -125,6 +125,7 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
             "scripts/06d_run_functional_correctness.py",
             "scripts/06_compute_auto_metrics.py",
             "scripts/07_statistical_analysis.py",
+            "scripts/10_visualize_results.py",
         ],
         "inputs": [
             "results/curated/final_pairs.curated.v1.jsonl",
@@ -136,6 +137,12 @@ ACTION_REGISTRY: dict[str, dict[str, Any]] = {
             "results/curated/exercise_correctness_metrics.curated.v1.csv",
             "results/curated/exercise_metrics.curated.v1.csv",
             "results/curated/statistics/analysis_status.v1.json",
+            "results/curated/statistics/ttest.ai_vs_expert.v1.csv",
+            "results/curated/statistics/correctness.ttest.ai_vs_expert.v1.csv",
+            "results/curated/statistics/pair_similarity.overall.v1.csv",
+            "results/curated/figures/bar_ai_vs_expert.png",
+            "results/curated/figures/correctness_pass_rate.png",
+            "results/curated/figures/pair_similarity_boxplot.png",
         ],
         "manifest": "results/curated/metrics_manifest.curated.v1.json",
     },    "generate_student_packets": {
